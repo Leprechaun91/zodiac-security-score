@@ -1,17 +1,17 @@
 (()=>{'use strict';
 const signs=[
-['widder','♈','Widder','Der impulsive Insider',27,'speed bypass','Du handelst, während andere noch ein Meeting planen.','Governance ist schön, solange sie nicht im Weg steht.','Mars steht im Endpoint. Dein USB-Stick bekommt bald seinen eigenen Incident-Report.'],
-['stier','♉','Stier','Der Legacy-Verteidiger',17,'retain archive','Du hältst Systeme am Leben, die längst ein Museum verdient hätten.','Löschen fühlt sich an wie Verrat an der Unternehmensgeschichte.','Venus durchquert dein Archiv. Der Ordner NICHT LÖSCHEN feiert seinen 15. Geburtstag.'],
-['zwillinge','♊','Zwillinge','Die menschliche Sharing-API',27,'sharing external','Du bringst Menschen zusammen.','Manchmal auch Menschen, die nichts sehen sollten.','Merkur steht auf Jeder mit dem Link. Ein Projektgast von 2021 bedankt sich fürs Quartalsbudget.'],
-['krebs','♋','Krebs','Der emotionale Data Hoarder',20,'archive copy retain','Du bewahrst wichtiges Wissen.','Und auch sieben Versionen der Kantinenkarte.','Der Mond steht im PST-Archiv. FINAL_really_FINAL überlebt dein Notebook.'],
-['loewe','♌','Löwe','Der Privilege Collector',27,'privilege approval access','Du übernimmst Verantwortung und triffst Entscheidungen.','Temporär ist für dich kein Zeitraum, sondern ein Lebensgefühl.','Die Sonne betritt Entra. Beim Access Review musst du erklären, warum PowerPoint Global Admin braucht.'],
-['jungfrau','♍','Jungfrau','Die Shadow-IT-Architektin',23,'automation shortcut precision','Du automatisierst in Stunden, wofür andere Quartale brauchen.','Aus dem Workaround ist plötzlich ein geschäftskritisches System geworden.','Saturn trifft Power Automate. Deine Excel hat sieben Flows und keine Vertretung.'],
-['waage','♎','Waage','Das Governance-Komitee',14,'delay process approval','Du verstehst Security und Business.','Deshalb kann niemand mit dir eine Entscheidung treffen.','Jupiter besucht das Steering Committee. Das Label wurde nach 14 Meetings als noch zu diskutieren eingestuft.'],
-['skorpion','♏','Skorpion','Der Calculated Insider',34,'observe stealth precision','Du erkennst Muster, die sonst niemand bemerkt.','Du weißt auch, welche Aktivitäten später im Audit sichtbar werden.','Pluto kreuzt das Audit-Log. Vier unauffällige Ereignisse werden auf einmal interessant.'],
-['schuetze','♐','Schütze','Der charmante Social Engineer',40,'social access sharing','Menschen vertrauen dir sofort.','Berechtigungsanträge sind für dich nette Gespräche.','Jupiter steht im SharePoint. Du bekommst Finance und HR durch fünf freundliche Fragen.'],
-['steinbock','♑','Steinbock','Der Langzeit-Stratege',17,'retain retainaccess archive','Du baust Systeme, die Jahre überdauern.','Neue Rollen kommen dazu. Alte Berechtigungen gehen nie.','Saturn durchquert die Abteilungen. Du hast immer noch Zugriff auf HR, Sales und die Steinzeit.'],
-['wassermann','♒','Wassermann','Der Shadow-AI-Pionier',34,'ai innovation shortcut','Du testest heute, was morgen jeder nutzt.','Das Tool läuft meist, bevor Security seinen Namen kennt.','Uranus steht im Browser-Tab. Die KI hat dein PDF verstanden. Wo es jetzt liegt, weiß niemand.'],
-['fische','♓','Fische','Der Accidental Chaos Agent',23,'sprawl copy shortcut','Du findest für jedes Problem eine Lösung.','Später findest du sie selbst nicht mehr. Dafür sechs Kopien.','Neptun steht im OneDrive. Deine Kundenliste liegt in Teams, Dropbox und einem alten Prompt.']
+['widder','♈','Widder','Der impulsive Insider',27,'speed bypass shortcut innovation privilege automation','Du handelst, während andere noch ein Meeting planen.','Governance ist schön, solange sie nicht im Weg steht.','Mars steht im Endpoint. Dein USB-Stick bekommt bald seinen eigenen Incident-Report.'],
+['stier','♉','Stier','Der Legacy-Verteidiger',17,'retain archive retainaccess process shortcut copy','Du hältst Systeme am Leben, die längst ein Museum verdient hätten.','Löschen fühlt sich an wie Verrat an der Unternehmensgeschichte.','Venus durchquert dein Archiv. Der Ordner NICHT LÖSCHEN feiert seinen 15. Geburtstag.'],
+['zwillinge','♊','Zwillinge','Die menschliche Sharing-API',27,'sharing external social access sprawl copy','Du bringst Menschen zusammen.','Manchmal auch Menschen, die nichts sehen sollten.','Merkur steht auf Jeder mit dem Link. Ein Projektgast von 2021 bedankt sich fürs Quartalsbudget.'],
+['krebs','♋','Krebs','Der emotionale Data Hoarder',20,'archive copy retain sprawl precision process','Du bewahrst wichtiges Wissen.','Und auch sieben Versionen der Kantinenkarte.','Der Mond steht im PST-Archiv. FINAL_really_FINAL überlebt dein Notebook.'],
+['loewe','♌','Löwe','Der Privilege Collector',27,'privilege approval access social speed bypass','Du übernimmst Verantwortung und triffst Entscheidungen.','Temporär ist für dich kein Zeitraum, sondern ein Lebensgefühl.','Die Sonne betritt Entra. Beim Access Review musst du erklären, warum PowerPoint Global Admin braucht.'],
+['jungfrau','♍','Jungfrau','Die Shadow-IT-Architektin',23,'automation shortcut precision ai observe copy','Du automatisierst in Stunden, wofür andere Quartale brauchen.','Aus dem Workaround ist plötzlich ein geschäftskritisches System geworden.','Saturn trifft Power Automate. Deine Excel hat sieben Flows und keine Vertretung.'],
+['waage','♎','Waage','Das Governance-Komitee',14,'delay process approval social retainaccess observe','Du verstehst Security und Business.','Deshalb kann niemand mit dir eine Entscheidung treffen.','Jupiter besucht das Steering Committee. Das Label wurde nach 14 Meetings als noch zu diskutieren eingestuft.'],
+['skorpion','♏','Skorpion','Der Calculated Insider',34,'observe stealth precision external access retainaccess','Du erkennst Muster, die sonst niemand bemerkt.','Du weißt auch, welche Aktivitäten später im Audit sichtbar werden.','Pluto kreuzt das Audit-Log. Vier unauffällige Ereignisse werden auf einmal interessant.'],
+['schuetze','♐','Schütze','Der charmante Social Engineer',40,'social access sharing external innovation speed','Menschen vertrauen dir sofort.','Berechtigungsanträge sind für dich nette Gespräche.','Jupiter steht im SharePoint. Du bekommst Finance und HR durch fünf freundliche Fragen.'],
+['steinbock','♑','Steinbock','Der Langzeit-Stratege',17,'retain retainaccess archive process automation approval','Du baust Systeme, die Jahre überdauern.','Neue Rollen kommen dazu. Alte Berechtigungen gehen nie.','Saturn durchquert die Abteilungen. Du hast immer noch Zugriff auf HR, Sales und die Steinzeit.'],
+['wassermann','♒','Wassermann','Der Shadow-AI-Pionier',34,'ai innovation shortcut automation sprawl observe','Du testest heute, was morgen jeder nutzt.','Das Tool läuft meist, bevor Security seinen Namen kennt.','Uranus steht im Browser-Tab. Die KI hat dein PDF verstanden. Wo es jetzt liegt, weiß niemand.'],
+['fische','♓','Fische','Der Accidental Chaos Agent',23,'sprawl copy shortcut sharing archive social','Du findest für jedes Problem eine Lösung.','Später findest du sie selbst nicht mehr. Dafür sechs Kopien.','Neptun steht im OneDrive. Deine Kundenliste liegt in Teams, Dropbox und einem alten Prompt.']
 ].map(x=>({id:x[0],glyph:x[1],name:x[2],title:x[3],base:x[4],aff:x[5].split(' '),power:x[6],weak:x[7],prophecy:x[8]}));
 const questions=[
   {
@@ -20,13 +20,13 @@ const questions=[
     "opts": [
       [
         "Testdaten rein. Sieht fast echt aus.",
-        4,
+        2,
         "copy precision shortcut",
         "Du nennst es Sandbox. Der CEO nennt es Magie. Der Auditor fragt, was genau die Folie beweist."
       ],
       [
         "Kollegen mit Zugriff vor die Kamera schieben.",
-        5,
+        -4,
         "social access sharing",
         "Du hast Least Privilege durch Least Alleinsein ersetzt. Immerhin ist der Kollege jetzt Teil des Demo-Teams."
       ],
@@ -38,7 +38,7 @@ const questions=[
       ],
       [
         "403 als Security-Feature verkaufen.",
-        4,
+        -2,
         "innovation speed observe",
         "Es ist nicht kaputt, es ist ein Security-Feature. Entwickler nennen das ein erfolgreiches Rebranding."
       ]
@@ -56,19 +56,19 @@ const questions=[
       ],
       [
         "Pilot beantragen. Q3 wäre noch frei.",
-        5,
+        2,
         "approval process innovation",
         "Du sagst „Pilot“. Drei Gremien sagen „interessant“. Dein Kalender sagt gar nichts mehr."
       ],
       [
         "Selbst nachbauen. Drei Sprints sind doch nichts.",
-        5,
+        -4,
         "automation shortcut ai",
         "Herzlichen Glückwunsch: Du wolltest kein Shadow AI und hast versehentlich ein internes Startup gegründet."
       ],
       [
         "AGB lesen. Irgendwer muss es ja tun.",
-        4,
+        2,
         "observe delay precision",
         "Du hast die Datenschutzhinweise gelesen. Sogar bis zum Ende. Die Sterne empfehlen dringend Urlaub."
       ]
@@ -80,13 +80,13 @@ const questions=[
     "opts": [
       [
         "Alte Gäste rauswerfen. Networking war gestern.",
-        5,
+        4,
         "retainaccess process external",
         "Du hast endlich ein Access Review gemacht. Die Sterne bitten um einen Gedenkkranz für Test Test."
       ],
       [
         "Neues Team bauen. Eins mehr fällt nicht auf.",
-        5,
+        -2,
         "sprawl copy automation",
         "Dein Risiko ist nicht die Freigabe. Dein Risiko ist die vierte Teams-Gruppe, die jemand nächste Woche gründet."
       ],
@@ -98,7 +98,7 @@ const questions=[
       ],
       [
         "Im Call zeigen. Screenshots macht ja niemand.",
-        4,
+        -4,
         "social delay shortcut",
         "Keine Kopie, dafür 14 Screensharing-Minuten verloren. Dein Security-Team applaudiert höflich."
       ]
@@ -110,7 +110,7 @@ const questions=[
     "opts": [
       [
         "Archiv isolieren. Problem elegant vertagen.",
-        5,
+        2,
         "archive process precision",
         "Du hast das Datenproblem nicht gelöst. Du hast ihm einen Wartebereich mit Hausordnung gegeben."
       ],
@@ -122,13 +122,13 @@ const questions=[
       ],
       [
         "KI vorsortieren lassen. „Sonstiges“ boomt.",
-        5,
+        -4,
         "ai automation sprawl",
         "Du hast aus unstrukturierten Daten strukturierte Unklarheit gemacht. Technisch ein Meilenstein."
       ],
       [
         "Bestandsliste anlegen. FINAL_v8 versteht sich.",
-        4,
+        -2,
         "retain copy precision",
         "Ein neues Dokument, um alte Dokumente loszuwerden. Die Sterne lieben diese Ironie."
       ]
@@ -146,26 +146,26 @@ const questions=[
       ],
       [
         "Transfers begrenzen. Die Migration überlebt das.",
-        5,
+        -2,
         "speed bypass privilege",
         "Du hast Datenabfluss begrenzt und gleichzeitig eine neue WhatsApp-Gruppe namens „Warum steht alles?“ ausgelöst."
       ],
       [
         "War Room starten. 17 Leute, 18 Meinungen.",
-        5,
+        2,
         "social approval delay",
         "Die gute Nachricht: Alle reden miteinander. Die schlechte: Inzwischen haben sich drei Unterarbeitskreise gebildet."
       ],
       [
         "Diskret prüfen. Meeting-Titel: „INSIDER-ALARM!“",
-        4,
+        -4,
         "stealth observe process",
         "Du handelst vorsichtig. Der Meeting-Titel „VERTRAULICHER INSIDER-FALL“ ist nur ein kleines Detail."
       ]
     ]
   }
 ]
-.map(q=>({...q,opts:q.opts.map(o=>({text:o[0],risk:o[1],tags:o[2].split(' '),reveal:o[3]}))}));
+.map(q=>({...q,opts:q.opts.map(o=>({text:o[0],impact:o[1],tags:o[2].split(' '),reveal:o[3]}))}));
 const app=document.getElementById('app'), state={stage:'start',sign:null,q:0,answers:[null,null,null,null,null]};
 let timer;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -196,13 +196,49 @@ function setupZodiacArtwork(){
  image.src=url;
 }
 
-function calc(){const s=chosen(),a=state.answers.map((n,i)=>questions[i].opts[n]);const decisions=a.reduce((v,o)=>v+o.risk,0),matches=a.filter(o=>o.tags.some(t=>s.aff.includes(t))).length,cosmic=Math.min(20,matches*4+(matches>=3?3:0));const score=Math.max(0,100-s.base-decisions-cosmic);const band=score>=60?'DAS COMPLIANCE-EINHORN':score>=45?'KONTROLLIERTES CHAOS':score>=30?'WALKING AUDIT FINDING':'KOSMISCHE DATENKATASTROPHE';const notable=a.find(o=>o.tags.some(t=>s.aff.includes(t)))||a.slice().sort((x,y)=>y.risk-x.risk)[0];return {s,decisions,cosmic,score,band,notable};}
+
+const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
+function calculateScore(sign,answers){
+  const selected=answers.map((index,i)=>questions[i].opts[index]);
+  const decisions=selected.reduce((total,option)=>total+option.impact,0);
+  let matched=0,positiveResonances=0,negativeResonances=0;
+  const resonances=selected.map(option=>{
+    const overlap=option.tags.filter(tag=>sign.aff.includes(tag)).length;
+    if(!overlap)return 0;
+    matched++;
+    const value=Math.sign(option.impact)*(overlap>=2?3:2);
+    if(value>0)positiveResonances++;
+    if(value<0)negativeResonances++;
+    return value;
+  });
+  const patternBonus=(positiveResonances>=3?4:0)-(negativeResonances>=3?4:0);
+  const cosmic=clamp(resonances.reduce((sum,value)=>sum+value,0)+patternBonus,-16,16);
+  const score=clamp(75-sign.base+decisions+cosmic,0,100);
+  const band=score>=60?'DAS COMPLIANCE-EINHORN':score>=45?'KONTROLLIERTES CHAOS':score>=30?'WALKING AUDIT FINDING':'KOSMISCHE DATENKATASTROPHE';
+  const notableIndex=resonances.reduce((best,value,i)=>Math.abs(value)>Math.abs(resonances[best])?i:best,0);
+  return {s:sign,decisions,cosmic,cosmicMatches:matched,patternBonus,score,band,notable:selected[notableIndex]};
+}
+function calc(){return calculateScore(chosen(),state.answers);}
+function signed(value){return value>0?'+'+value:String(value);}
+function scoreBreakdown(result){
+  let pattern='Keine zusätzliche Musterverstärkung.';
+  if(result.patternBonus>0)pattern='Dein Sternzeichen belohnt dein wiederkehrendes kontrolliertes Vorgehen.';
+  if(result.patternBonus<0)pattern='Wiederkehrende riskante Reflexe verstärken deinen Cosmic Twist.';
+  return '<div class="breakdown"><h3>DER COSMIC SECURITY ALGORITHM™ 2.0</h3>'+
+    '<div class="metric"><span>Startwert</span><strong>75</strong></div>'+
+    '<div class="metric"><span>Sternzeichen-Basisrisiko</span><strong>−'+result.s.base+'</strong></div>'+
+    '<div class="metric"><span>Deine Entscheidungen</span><strong>'+signed(result.decisions)+'</strong></div>'+
+    '<div class="metric"><span>Cosmic Twist</span><strong>'+signed(result.cosmic)+'</strong></div>'+
+    '<p class="muted small">'+result.cosmicMatches+' von 5 Entscheidungen treffen die Eigenheiten deines Sternzeichens. '+pattern+' Der Score ist satirisch, keine echte Risikobewertung.</p>'+
+    '</div>';
+}
+
 function render(){clearTimeout(timer);
 if(state.stage==='start'){app.innerHTML='<section class="hero"><div class="kicker">THE INSIDER RISK HOROSCOPE · DDC EDITION</div><div class="hero-illustration zodiac-wheel-wrap">'+window.ZodiacArt.wheel(signs)+'</div><h1>Deine Sterne.<br><em>Dein Sicherheitsrisiko.</em></h1><p class="lead">Fünf unangenehme Entscheidungen. Zwölf voreingenommene Sternzeichen. Null wissenschaftliche Beweise.</p>'+button('KOSMISCHEN SCORE BERECHNEN ↗','start')+'<div class="facts"><span>12 Sternzeichen</span><span>5 Fragen</span><span>0 wissenschaftliche Belege</span></div><p class="muted small">100 % Satire. Keine richtigen oder falschen Quizantworten. Kein echtes Security-Assessment. Alles läuft in deinem Browser.</p></section>';}
 if(state.stage==='sign'){app.innerHTML='<section class="panel"><div class="kicker">PHASE 01 / 03 · ASTROLOGISCHE IDENTITÄTSKRISE</div><h1>Welches Sternzeichen hat dich erschaffen?</h1><p class="muted">Es gibt keine perfekte Antwort. Nur fünf Entscheidungen, vier Zielkonflikte pro Frage und ein Sternzeichen mit Vorurteilen.</p><div class="zodiacs">'+signs.map(s=>'<button class="zodiac '+(state.sign===s.id?'selected':'')+'" data-sign="'+s.id+'"><span>'+s.glyph+'</span>'+s.name+'</button>').join('')+'</div><div class="actions">'+button('← Zurück','home',true)+button('DIE STERNE BEFRAGEN →','quiz',false,!state.sign)+'</div></section>';}
 if(state.stage==='quiz'){const q=questions[state.q];app.innerHTML='<section class="panel"><div class="topline"><span>PHASE 02 / 03 · DER REALITÄTSTEST</span><span>'+chosen().glyph+' '+chosen().name+'</span></div>'+progress(state.q+1,5)+'<div class="kicker">FRAGE '+(state.q+1)+' / 05</div><h1>'+esc(q.title)+'</h1><p class="joke">„'+esc(q.joke)+'“</p><div class="options">'+q.opts.map((o,i)=>'<label class="option '+(state.answers[state.q]===i?'selected':'')+'"><input type="radio" name="answer" value="'+i+'" '+(state.answers[state.q]===i?'checked':'')+'><b>'+String.fromCharCode(65+i)+'</b><span>'+esc(o.text)+'</span></label>').join('')+'</div><div class="actions">'+button('← Zurück','back',true)+button(state.q===4?'KOSMISCHE AUSWERTUNG →':'NÄCHSTE FRAGE →','next',false,state.answers[state.q]===null)+'</div><p class="muted small answer-count">'+state.answers.filter(x=>x!==null).length+' von 5 beantwortet</p></section>';}
 if(state.stage==='scan'){app.innerHTML='<section class="panel center"><div class="kicker">PHASE 03 / 03 · ABSURDE ANALYTIK</div><div class="scanning-zodiac">'+window.ZodiacArt.svg(chosen(),2)+'</div><h1>Die Sterne urteilen.</h1><p class="muted">Scanne Mars, Merkur und fragwürdige Freigabeeinstellungen …</p><div class="loader"></div></section>';timer=setTimeout(()=>{state.stage='result';history.replaceState(null,'',shareLink());render();},1700);}
-if(state.stage==='result'){const r=calc(),m=moodForScore(r.score);app.innerHTML='<section class="result result-tone-'+m+'"><div class="result-hero"><div class="kicker">✦ DEINE OFFIZIELL INOFFIZIELLE ZODIAC-FALLAKTE ✦</div><div class="result-topline"><div class="result-portrait-wrap">'+zodiacPoster(r.s,m)+'<div class="portrait-tag">'+['SOUVERÄN & ABGESICHERT','NACHDENKLICH & UNTER BEOBACHTUNG','VERDÄCHTIG VERSCHMITZT','KOSMISCHES SECURITY-CHAOS'][m]+'</div></div><div class="result-headline"><div class="largeglyph">'+r.s.glyph+'</div><div class="kicker">'+r.s.name.toUpperCase()+'</div><h1>'+r.s.title+'</h1><div class="score">'+r.score+'<span>/ 100</span></div><h2>'+r.band+'</h2></div></div><p class="lead">'+esc(r.s.weak)+'</p></div><div class="details"><article><h3>✦ DEINE SUPERPOWER</h3><p>'+esc(r.s.power)+'</p></article><article><h3>⚠ DEINE KOSMISCHE SCHWÄCHE</h3><p>'+esc(r.s.weak)+'</p></article><article><h3>✺ DEINE ANTWORT WURDE BEMERKT</h3><p>'+esc(r.notable.reveal)+'</p></article><article><h3>✶ DEINE SECURITY-PROPHEZEIUNG</h3><p>'+esc(r.s.prophecy)+'</p></article></div><div class="breakdown"><h3>DER COSMIC SECURITY ALGORITHM™</h3>'+[['Sternzeichen-Risiko',r.s.base,40],['Deine Entscheidungen',r.decisions,40],['Kosmische Wechselwirkung',r.cosmic,20]].map(x=>'<div class="metric"><span>'+x[0]+'</span><strong>'+x[1]+' / '+x[2]+'</strong></div>'+progress(x[1],x[2])).join('')+'<p class="muted small">Security Score = 100 − Risikopunkte. Die astrologische Verzerrung ist Absicht.</p></div><div class="actions result-actions">'+button('ERGEBNISKARTE ALS PNG ↓','png')+button('ERGEBNIS TEILEN ↗','share',true)+button('↻ Nochmal spielen','reset',true)+'</div><p class="muted small center">Satire zur DDC Night Session. Sternzeichen sagen nichts über reale Insider-Risiken aus. Keine Ergebnisse werden gespeichert.</p></section>';}
+if(state.stage==='result'){const r=calc(),m=moodForScore(r.score);app.innerHTML='<section class="result result-tone-'+m+'"><div class="result-hero"><div class="kicker">✦ DEINE OFFIZIELL INOFFIZIELLE ZODIAC-FALLAKTE ✦</div><div class="result-topline"><div class="result-portrait-wrap">'+zodiacPoster(r.s,m)+'<div class="portrait-tag">'+['SOUVERÄN & ABGESICHERT','NACHDENKLICH & UNTER BEOBACHTUNG','VERDÄCHTIG VERSCHMITZT','KOSMISCHES SECURITY-CHAOS'][m]+'</div></div><div class="result-headline"><div class="largeglyph">'+r.s.glyph+'</div><div class="kicker">'+r.s.name.toUpperCase()+'</div><h1>'+r.s.title+'</h1><div class="score">'+r.score+'<span>/ 100</span></div><h2>'+r.band+'</h2></div></div><p class="lead">'+esc(r.s.weak)+'</p></div><div class="details"><article><h3>✦ DEINE SUPERPOWER</h3><p>'+esc(r.s.power)+'</p></article><article><h3>⚠ DEINE KOSMISCHE SCHWÄCHE</h3><p>'+esc(r.s.weak)+'</p></article><article><h3>✺ DEINE ANTWORT WURDE BEMERKT</h3><p>'+esc(r.notable.reveal)+'</p></article><article><h3>✶ DEINE SECURITY-PROPHEZEIUNG</h3><p>'+esc(r.s.prophecy)+'</p></article></div>'+scoreBreakdown(r)+'<div class="actions result-actions">'+button('ERGEBNISKARTE ALS PNG ↓','png')+button('ERGEBNIS TEILEN ↗','share',true)+button('↻ Nochmal spielen','reset',true)+'</div><p class="muted small center">Satire zur DDC Night Session. Sternzeichen sagen nichts über reale Insider-Risiken aus. Keine Ergebnisse werden gespeichert.</p></section>';}
 setupZodiacArtwork();
 app.querySelectorAll('[data-do]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.do)));
 app.querySelectorAll('[data-sign]').forEach(b=>b.addEventListener('click',()=>{state.sign=b.dataset.sign;render();}));
