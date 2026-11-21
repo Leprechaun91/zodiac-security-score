@@ -173,30 +173,37 @@ const chosen=()=>signs.find(s=>s.id===state.sign);
 const button=(label,action,secondary=false,disabled=false)=>'<button class="btn '+(secondary?'secondary':'primary')+'" data-do="'+action+'" '+(disabled?'disabled':'')+'>'+label+'</button>';
 const progress=(n,total)=>'<div class="progress"><div style="width:'+Math.round(n/total*100)+'%"></div></div>';
 function moodForScore(score){return score>=60?0:score>=45?1:score>=30?2:3;}
-const artworkPositions=Object.fromEntries(signs.map((sign,i)=>[sign.id,{col:i%4,row:Math.floor(i/4),x:(i%4)*100/3,y:Math.floor(i/4)*50}]));
-const artworkURL='assets/zodiac-atlas.webp?v=0.7.0';
-const atlas=new Image();
-atlas.onload=()=>document.documentElement.classList.add('artwork-ready');
-atlas.onerror=()=>document.documentElement.classList.remove('artwork-ready');
-atlas.src=artworkURL;
+const artworkPositions=Object.fromEntries(signs.map((sign,i)=>[sign.id,{col:i%3,row:Math.floor(i/3),x:(i%3)*50,y:Math.floor(i/3)*100/3}]));
+const artworkMoods=['safe','cautious','mischievous','chaos'];
+const artworkURL=mood=>'assets/zodiac-'+artworkMoods[mood]+'.webp?v=0.8.0';
 function zodiacPoster(sign,mood){
- const p=artworkPositions[sign.id],visual=window.ZodiacArt.svg(sign,mood);
- return '<div class="zodiac-cinematic zodiac-cinematic-'+mood+'" role="img" aria-label="'+esc(sign.name)+' als cineastische Zodiac-Fantasy-Illustration">'+
- '<div class="zodiac-painted" style="background-position:'+p.x+'% '+p.y+'%"></div>'+
+ const p=artworkPositions[sign.id],visual=window.ZodiacArt.svg(sign,mood),url=artworkURL(mood);
+ return '<div class="zodiac-cinematic zodiac-cinematic-'+mood+'" data-atlas-url="'+url+'" role="img" aria-label="'+esc(sign.name)+' in '+['souveräner','vorsichtiger','verschmitzter','chaotischer'][mood]+' Zodiac-Inszenierung">'+
+ '<div class="zodiac-painted" style="background-image:url(\''+url+'\');background-position:'+p.x+'% '+p.y+'%"></div>'+
  '<div class="zodiac-illustrated-fallback">'+visual+'</div>'+
  '<div class="zodiac-cinematic-vignette" aria-hidden="true"></div>'+
  '<div class="zodiac-art-banner"><span class="zodiac-art-overline">✦ ZODIAC CASE FILE ✦</span><strong>'+esc(sign.name)+'</strong></div>'+
  '</div>';
 }
+function setupZodiacArtwork(){
+ const card=app.querySelector('.zodiac-cinematic');
+ if(!card)return;
+ const url=card.getAttribute('data-atlas-url');
+ if(!url)return;
+ const image=new Image();
+ image.onload=()=>{if(card.isConnected&&image.naturalWidth>0)card.classList.add('is-loaded');};
+ image.onerror=()=>{if(card.isConnected)card.classList.remove('is-loaded');};
+ image.src=url;
+}
 
-
-function calc(){const s=chosen(),a=state.answers.map((n,i)=>questions[i].opts[n]);const decisions=a.reduce((v,o)=>v+o.risk,0),matches=a.filter(o=>o.tags.some(t=>s.aff.includes(t))).length,cosmic=Math.min(20,matches*4+(matches>=3?3:0));const score=Math.max(0,100-s.base-decisions-cosmic);const band=score>=60?'DAS COMPLIANCE-EINHORN':score>=55?'KONTROLLIERTES CHAOS':score>=35?'WALKING AUDIT FINDING':'KOSMISCHE DATENKATASTROPHE';const notable=a.find(o=>o.tags.some(t=>s.aff.includes(t)))||a.slice().sort((x,y)=>y.risk-x.risk)[0];return {s,decisions,cosmic,score,band,notable};}
+function calc(){const s=chosen(),a=state.answers.map((n,i)=>questions[i].opts[n]);const decisions=a.reduce((v,o)=>v+o.risk,0),matches=a.filter(o=>o.tags.some(t=>s.aff.includes(t))).length,cosmic=Math.min(20,matches*4+(matches>=3?3:0));const score=Math.max(0,100-s.base-decisions-cosmic);const band=score>=60?'DAS COMPLIANCE-EINHORN':score>=45?'KONTROLLIERTES CHAOS':score>=30?'WALKING AUDIT FINDING':'KOSMISCHE DATENKATASTROPHE';const notable=a.find(o=>o.tags.some(t=>s.aff.includes(t)))||a.slice().sort((x,y)=>y.risk-x.risk)[0];return {s,decisions,cosmic,score,band,notable};}
 function render(){clearTimeout(timer);
 if(state.stage==='start'){app.innerHTML='<section class="hero"><div class="kicker">THE INSIDER RISK HOROSCOPE · DDC EDITION</div><div class="hero-illustration zodiac-wheel-wrap">'+window.ZodiacArt.wheel(signs)+'</div><h1>Deine Sterne.<br><em>Dein Sicherheitsrisiko.</em></h1><p class="lead">Fünf unangenehme Entscheidungen. Zwölf voreingenommene Sternzeichen. Null wissenschaftliche Beweise.</p>'+button('KOSMISCHEN SCORE BERECHNEN ↗','start')+'<div class="facts"><span>12 Sternzeichen</span><span>5 Fragen</span><span>0 wissenschaftliche Belege</span></div><p class="muted small">100 % Satire. Keine richtigen oder falschen Quizantworten. Kein echtes Security-Assessment. Alles läuft in deinem Browser.</p></section>';}
 if(state.stage==='sign'){app.innerHTML='<section class="panel"><div class="kicker">PHASE 01 / 03 · ASTROLOGISCHE IDENTITÄTSKRISE</div><h1>Welches Sternzeichen hat dich erschaffen?</h1><p class="muted">Es gibt keine perfekte Antwort. Nur fünf Entscheidungen, vier Zielkonflikte pro Frage und ein Sternzeichen mit Vorurteilen.</p><div class="zodiacs">'+signs.map(s=>'<button class="zodiac '+(state.sign===s.id?'selected':'')+'" data-sign="'+s.id+'"><span>'+s.glyph+'</span>'+s.name+'</button>').join('')+'</div><div class="actions">'+button('← Zurück','home',true)+button('DIE STERNE BEFRAGEN →','quiz',false,!state.sign)+'</div></section>';}
 if(state.stage==='quiz'){const q=questions[state.q];app.innerHTML='<section class="panel"><div class="topline"><span>PHASE 02 / 03 · DER REALITÄTSTEST</span><span>'+chosen().glyph+' '+chosen().name+'</span></div>'+progress(state.q+1,5)+'<div class="kicker">FRAGE '+(state.q+1)+' / 05</div><h1>'+esc(q.title)+'</h1><p class="joke">„'+esc(q.joke)+'“</p><div class="options">'+q.opts.map((o,i)=>'<label class="option '+(state.answers[state.q]===i?'selected':'')+'"><input type="radio" name="answer" value="'+i+'" '+(state.answers[state.q]===i?'checked':'')+'><b>'+String.fromCharCode(65+i)+'</b><span>'+esc(o.text)+'</span></label>').join('')+'</div><div class="actions">'+button('← Zurück','back',true)+button(state.q===4?'KOSMISCHE AUSWERTUNG →':'NÄCHSTE FRAGE →','next',false,state.answers[state.q]===null)+'</div><p class="muted small answer-count">'+state.answers.filter(x=>x!==null).length+' von 5 beantwortet</p></section>';}
 if(state.stage==='scan'){app.innerHTML='<section class="panel center"><div class="kicker">PHASE 03 / 03 · ABSURDE ANALYTIK</div><div class="scanning-zodiac">'+window.ZodiacArt.svg(chosen(),2)+'</div><h1>Die Sterne urteilen.</h1><p class="muted">Scanne Mars, Merkur und fragwürdige Freigabeeinstellungen …</p><div class="loader"></div></section>';timer=setTimeout(()=>{state.stage='result';history.replaceState(null,'',shareLink());render();},1700);}
 if(state.stage==='result'){const r=calc(),m=moodForScore(r.score);app.innerHTML='<section class="result result-tone-'+m+'"><div class="result-hero"><div class="kicker">✦ DEINE OFFIZIELL INOFFIZIELLE ZODIAC-FALLAKTE ✦</div><div class="result-topline"><div class="result-portrait-wrap">'+zodiacPoster(r.s,m)+'<div class="portrait-tag">'+['SOUVERÄN & ABGESICHERT','NACHDENKLICH & UNTER BEOBACHTUNG','VERDÄCHTIG VERSCHMITZT','KOSMISCHES SECURITY-CHAOS'][m]+'</div></div><div class="result-headline"><div class="largeglyph">'+r.s.glyph+'</div><div class="kicker">'+r.s.name.toUpperCase()+'</div><h1>'+r.s.title+'</h1><div class="score">'+r.score+'<span>/ 100</span></div><h2>'+r.band+'</h2></div></div><p class="lead">'+esc(r.s.weak)+'</p></div><div class="details"><article><h3>✦ DEINE SUPERPOWER</h3><p>'+esc(r.s.power)+'</p></article><article><h3>⚠ DEINE KOSMISCHE SCHWÄCHE</h3><p>'+esc(r.s.weak)+'</p></article><article><h3>✺ DEINE ANTWORT WURDE BEMERKT</h3><p>'+esc(r.notable.reveal)+'</p></article><article><h3>✶ DEINE SECURITY-PROPHEZEIUNG</h3><p>'+esc(r.s.prophecy)+'</p></article></div><div class="breakdown"><h3>DER COSMIC SECURITY ALGORITHM™</h3>'+[['Sternzeichen-Risiko',r.s.base,40],['Deine Entscheidungen',r.decisions,40],['Kosmische Wechselwirkung',r.cosmic,20]].map(x=>'<div class="metric"><span>'+x[0]+'</span><strong>'+x[1]+' / '+x[2]+'</strong></div>'+progress(x[1],x[2])).join('')+'<p class="muted small">Security Score = 100 − Risikopunkte. Die astrologische Verzerrung ist Absicht.</p></div><div class="actions result-actions">'+button('ERGEBNISKARTE ALS PNG ↓','png')+button('ERGEBNIS TEILEN ↗','share',true)+button('↻ Nochmal spielen','reset',true)+'</div><p class="muted small center">Satire zur DDC Night Session. Sternzeichen sagen nichts über reale Insider-Risiken aus. Keine Ergebnisse werden gespeichert.</p></section>';}
+setupZodiacArtwork();
 app.querySelectorAll('[data-do]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.do)));
 app.querySelectorAll('[data-sign]').forEach(b=>b.addEventListener('click',()=>{state.sign=b.dataset.sign;render();}));
 app.querySelectorAll('input[name="answer"]').forEach(i=>i.addEventListener('change',()=>{state.answers[state.q]=Number(i.value);app.querySelectorAll('.option').forEach(el=>el.classList.toggle('selected',el.querySelector('input').checked));const next=app.querySelector('[data-do="next"]');if(next)next.disabled=false;const counter=app.querySelector('.answer-count');if(counter)counter.textContent=state.answers.filter(x=>x!==null).length+' von 5 beantwortet';}));}
@@ -211,15 +218,15 @@ x.textAlign='center';x.fillStyle='#f2d59a';x.font='bold 31px Arial';x.fillText('
 try{await new Promise((resolve,reject)=>{
 const paint=(im,isAtlas)=>{try{
 x.save();x.beginPath();x.roundRect(260,192,560,510,22);x.clip();
-if(isAtlas){const p=artworkPositions[r.s.id],w=im.naturalWidth/4,h=im.naturalHeight/3;x.drawImage(im,p.col*w,p.row*h,w,h,260,192,560,510);}
+if(isAtlas){const p=artworkPositions[r.s.id],w=im.naturalWidth/3,h=im.naturalHeight/4;x.drawImage(im,p.col*w,p.row*h,w,h,260,192,560,510);}
 else{x.drawImage(im,0,0,im.naturalWidth,im.naturalHeight,260,192,560,510);}
 x.fillStyle=themes[m][0];x.globalAlpha=m===3?.23:m===2?.13:.08;x.fillRect(260,192,560,510);x.globalAlpha=1;
 const shade=x.createLinearGradient(0,510,0,700);shade.addColorStop(0,'#080d1b00');shade.addColorStop(1,'#060c19e8');x.fillStyle=shade;x.fillRect(260,480,560,222);
 x.restore();resolve();
 }catch(e){reject(e);}};
-const im=new Image();im.onload=()=>paint(im,true);im.onerror=()=>{const fallback=new Image();fallback.onload=()=>paint(fallback,false);fallback.onerror=reject;fallback.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(window.ZodiacArt.svg(r.s,m));};im.src=artworkURL;
+const im=new Image();im.onload=()=>paint(im,true);im.onerror=()=>{const fallback=new Image();fallback.onload=()=>paint(fallback,false);fallback.onerror=reject;fallback.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(window.ZodiacArt.svg(r.s,m));};im.src=artworkURL(m);
 });}catch(e){x.fillStyle='#24203a';x.fillRect(260,192,560,510);x.fillStyle=t[1];x.font='210px serif';x.fillText(r.s.glyph,540,455);}
-try{await new Promise(resolve=>{const brand=new Image();brand.onload=()=>{x.drawImage(brand,73,65,83,111);resolve();};brand.onerror=resolve;brand.src='assets/sherlock-logo.svg?v=0.6.0';});}catch(e){}x.strokeStyle=t[1];x.lineWidth=4;x.strokeRect(260,192,560,510);
+try{await new Promise(resolve=>{const brand=new Image();brand.onload=()=>{x.drawImage(brand,73,65,83,111);resolve();};brand.onerror=resolve;brand.src='assets/sherlock-logo.svg?v=0.8.0';});}catch(e){}x.strokeStyle=t[1];x.lineWidth=4;x.strokeRect(260,192,560,510);
 x.fillStyle='#f5ebee';x.font='bold 32px Arial';x.fillText(r.s.name.toUpperCase(),540,668);x.font='bold 49px Georgia';wrap(x,r.s.title,766,920,49);x.fillStyle=t[1];x.font='bold 145px Arial';x.fillText(r.score,540,974);x.font='23px Arial';x.fillText('VON 100 SICHERHEITSPUNKTEN',540,1021);x.fillStyle='#eacb91';x.font='bold 28px Arial';x.fillText(r.band,540,1083);x.fillStyle='#ece0e8';wrap(x,r.s.weak,1155,850,26);x.fillStyle='#a8a7bc';x.font='21px Arial';x.fillText('100 % SATIRE · 0 % WISSENSCHAFT',540,1256);const a=document.createElement('a');let exportUrl;try{exportUrl=c.toDataURL('image/png');}catch(err){const f=document.createElement('canvas');f.width=1080;f.height=1350;const k=f.getContext('2d');k.fillStyle='#11172c';k.fillRect(0,0,1080,1350);k.strokeStyle='#e5c78c';k.lineWidth=4;k.strokeRect(45,45,990,1260);k.textAlign='center';k.fillStyle='#e5c78c';k.font='bold 42px Arial';k.fillText('ZODIAC RISK ENGINE™',540,180);k.font='180px serif';k.fillText(r.s.glyph,540,540);k.fillStyle='#fff';k.font='bold 46px Arial';k.fillText(r.s.name.toUpperCase(),540,640);k.font='bold 160px Arial';k.fillText(r.score,540,875);k.fillStyle='#f0c691';k.font='32px Arial';k.fillText('SECURITY SCORE · 100 % SATIRE',540,940);k.fillStyle='#e6e0e8';k.font='bold 32px Arial';k.fillText(r.band,540,1030);exportUrl=f.toDataURL('image/png');}a.href=exportUrl;a.download='zodiac-security-score-'+r.s.id+'.png';a.click();notice('Deine Zodiac-Ergebniskarte ist fertig.');}
 document.getElementById('brandLink').addEventListener('click',e=>{e.preventDefault();state.stage='start';history.replaceState(null,'',location.pathname);render();});restore();render();
 })();
