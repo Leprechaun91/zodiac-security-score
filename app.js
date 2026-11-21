@@ -186,14 +186,14 @@ function zodiacPoster(sign,mood){
  '</div>';
 }
 function setupZodiacArtwork(){
- const card=app.querySelector('.zodiac-cinematic');
- if(!card)return;
- const url=card.getAttribute('data-atlas-url');
- if(!url)return;
- const image=new Image();
- image.onload=()=>{if(card.isConnected&&image.naturalWidth>0)card.classList.add('is-loaded');};
- image.onerror=()=>{if(card.isConnected)card.classList.remove('is-loaded');};
- image.src=url;
+ app.querySelectorAll('.zodiac-cinematic').forEach(card=>{
+  const url=card.getAttribute('data-atlas-url');
+  if(!url)return;
+  const image=new Image();
+  image.onload=()=>{if(card.isConnected&&image.naturalWidth>0)card.classList.add('is-loaded');};
+  image.onerror=()=>{if(card.isConnected)card.classList.remove('is-loaded');};
+  image.src=url;
+ });
 }
 
 
@@ -234,7 +234,52 @@ function scoreBreakdown(result){
 }
 
 function render(){clearTimeout(timer);
-if(state.stage==='start'){app.innerHTML='<section class="hero"><div class="kicker">THE INSIDER RISK HOROSCOPE · DDC EDITION</div><div class="hero-illustration zodiac-wheel-wrap">'+window.ZodiacArt.wheel(signs)+'</div><h1>Deine Sterne.<br><em>Dein Sicherheitsrisiko.</em></h1><p class="lead">Fünf unangenehme Entscheidungen. Zwölf voreingenommene Sternzeichen. Null wissenschaftliche Beweise.</p>'+button('KOSMISCHEN SCORE BERECHNEN ↗','start')+'<div class="facts"><span>12 Sternzeichen</span><span>5 Fragen</span><span>0 wissenschaftliche Belege</span></div><p class="muted small">100 % Satire. Keine richtigen oder falschen Quizantworten. Kein echtes Security-Assessment. Alles läuft in deinem Browser.</p></section>';}
+app.classList.toggle('app-home',state.stage==='start');
+if(state.stage==='start'){
+ app.innerHTML=`
+ <section class="hero-v2">
+  <div class="hero-v2-glow" aria-hidden="true"></div>
+  <div class="hero-v2-layout">
+   <div class="hero-v2-copy">
+    <div class="hero-v2-eyebrow"><span class="hero-v2-sparkle" aria-hidden="true">✦</span> DDC 2026 <span class="hero-v2-divider"></span> NIGHT SESSION SPECIAL</div>
+    <div class="hero-v2-series">THE INSIDER RISK HOROSCOPE <span>✳</span></div>
+    <h1>Die Sterne<br><span class="hero-v2-gold">sehen alles.</span><em>Auch deine<br>Workarounds.</em></h1>
+    <p class="hero-v2-lead">Fünf knifflige Developer-Entscheidungen. Ein Sternzeichen, das miturteilt. Und ein Cosmic Security Score, der unangenehm persönlich werden könnte.</p>
+    <div class="hero-v2-actions">
+     ${button('MEINEN COSMIC SCORE ENTHÜLLEN <span aria-hidden="true">↗</span>','start')}
+     <span class="hero-v2-time"><span aria-hidden="true">✧</span> 5 FRAGEN <span aria-hidden="true">·</span> KEIN LOGIN</span>
+    </div>
+    <p class="hero-v2-disclaimer">100 % Satire. 0 % Wissenschaft. Keine echten Risikoaussagen.</p>
+   </div>
+   <div class="hero-v2-visual" aria-hidden="true">
+    <div class="hero-v2-orbit hero-v2-orbit-one"></div>
+    <div class="hero-v2-orbit hero-v2-orbit-two"></div>
+    <div class="hero-v2-crosshair">✧</div>
+    <div class="hero-v2-card hero-v2-card-left">
+      ${zodiacPoster(signs.find(s=>s.id==='waage'),0)}
+      <div class="hero-v2-card-tag">♎ · GOVERNANCE</div>
+    </div>
+    <div class="hero-v2-card hero-v2-card-right">
+      ${zodiacPoster(signs.find(s=>s.id==='schuetze'),3)}
+      <div class="hero-v2-card-tag">♐ · SOCIAL ENGINEERING</div>
+    </div>
+    <div class="hero-v2-card hero-v2-card-front">
+      <div class="hero-v2-card-kicker"><span>✦</span> ZODIAC CASE FILE</div>
+      ${zodiacPoster(signs.find(s=>s.id==='wassermann'),2)}
+      <div class="hero-v2-card-tag">♒ · SHADOW AI</div>
+    </div>
+    <div class="hero-v2-visual-note hero-v2-note-top"><span>✳</span> 12 ZODIAC ARCHETYPES</div>
+    <div class="hero-v2-visual-note hero-v2-note-bottom"><span class="hero-v2-note-dot"></span> COSMIC RISK ENGINE V2</div>
+   </div>
+  </div>
+  <div class="hero-v2-journey" aria-label="So funktioniert das Quiz">
+   <div class="hero-v2-step"><span class="hero-v2-step-no">01</span><span><strong>Dein Sternzeichen.</strong><small>12 ziemlich eigensinnige Profile.</small></span></div>
+   <div class="hero-v2-step"><span class="hero-v2-step-no">02</span><span><strong>Deine Entscheidungen.</strong><small>5 Dilemmas aus dem Developer-Alltag.</small></span></div>
+   <div class="hero-v2-step"><span class="hero-v2-step-no">03</span><span><strong>Dein kosmisches Urteil.</strong><small>Der Cosmic Twist rechnet mit.</small></span></div>
+  </div>
+  <div class="hero-v2-footnote"><span aria-hidden="true">✦</span> DIE STERNE SIND NICHT ZERTIFIZIERT. DEIN RISIKO-APPETIT VIELLEICHT AUCH NICHT.</div>
+ </section>`;
+}
 if(state.stage==='sign'){app.innerHTML='<section class="panel"><div class="kicker">PHASE 01 / 03 · ASTROLOGISCHE IDENTITÄTSKRISE</div><h1>Welches Sternzeichen hat dich erschaffen?</h1><p class="muted">Es gibt keine perfekte Antwort. Nur fünf Entscheidungen, vier Zielkonflikte pro Frage und ein Sternzeichen mit Vorurteilen.</p><div class="zodiacs">'+signs.map(s=>'<button class="zodiac '+(state.sign===s.id?'selected':'')+'" data-sign="'+s.id+'"><span>'+s.glyph+'</span>'+s.name+'</button>').join('')+'</div><div class="actions">'+button('← Zurück','home',true)+button('DIE STERNE BEFRAGEN →','quiz',false,!state.sign)+'</div></section>';}
 if(state.stage==='quiz'){const q=questions[state.q];app.innerHTML='<section class="panel"><div class="topline"><span>PHASE 02 / 03 · DER REALITÄTSTEST</span><span>'+chosen().glyph+' '+chosen().name+'</span></div>'+progress(state.q+1,5)+'<div class="kicker">FRAGE '+(state.q+1)+' / 05</div><h1>'+esc(q.title)+'</h1><p class="joke">„'+esc(q.joke)+'“</p><div class="options">'+q.opts.map((o,i)=>'<label class="option '+(state.answers[state.q]===i?'selected':'')+'"><input type="radio" name="answer" value="'+i+'" '+(state.answers[state.q]===i?'checked':'')+'><b>'+String.fromCharCode(65+i)+'</b><span>'+esc(o.text)+'</span></label>').join('')+'</div><div class="actions">'+button('← Zurück','back',true)+button(state.q===4?'KOSMISCHE AUSWERTUNG →':'NÄCHSTE FRAGE →','next',false,state.answers[state.q]===null)+'</div><p class="muted small answer-count">'+state.answers.filter(x=>x!==null).length+' von 5 beantwortet</p></section>';}
 if(state.stage==='scan'){app.innerHTML='<section class="panel center"><div class="kicker">PHASE 03 / 03 · ABSURDE ANALYTIK</div><div class="scanning-zodiac">'+window.ZodiacArt.svg(chosen(),2)+'</div><h1>Die Sterne urteilen.</h1><p class="muted">Scanne Mars, Merkur und fragwürdige Freigabeeinstellungen …</p><div class="loader"></div></section>';timer=setTimeout(()=>{state.stage='result';history.replaceState(null,'',shareLink());render();},1700);}
