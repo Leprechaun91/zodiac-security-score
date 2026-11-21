@@ -176,3 +176,40 @@ h1,h2,h3,p,.brand{overflow-wrap:break-word}
   .result-hero .lead{font-size:17px;line-height:1.5;margin-top:16px}
 }
 @media(prefers-reduced-motion:reduce){.zodiac-painted{transition:none!important}}
+
+/* v0.8.0 - 12 zodiac signs x 4 genuine character variants */
+.zodiac-cinematic .zodiac-painted{
+ background-size:300% 400%;
+ background-repeat:no-repeat;
+ background-color:#15152b;
+ opacity:0;
+ transform:scale(1.006);
+ transition:opacity .35s ease,transform .35s ease;
+}
+.zodiac-cinematic.is-loaded .zodiac-painted{opacity:1}
+.zodiac-cinematic.is-loaded .zodiac-illustrated-fallback{display:none}
+.zodiac-cinematic:before{
+ content:"";position:absolute;inset:9px;z-index:3;
+ border:1px solid #f7d69b66;border-radius:15px;pointer-events:none;
+ box-shadow:inset 0 0 24px #E9BE8133;
+}
+.zodiac-cinematic:after{
+ content:"✦";position:absolute;right:15px;top:10px;z-index:3;
+ color:#ffe0a9;text-shadow:0 0 15px #edb768,0 0 30px var(--aura);
+ opacity:.9;font-size:20px;pointer-events:none;
+}
+.zodiac-cinematic.is-loaded:hover .zodiac-painted{transform:scale(1.035)}
+.zodiac-cinematic-0 .zodiac-painted{filter:saturate(1.08)}
+.zodiac-cinematic-1 .zodiac-painted{filter:saturate(1.08)}
+.zodiac-cinematic-2 .zodiac-painted{filter:saturate(1.15)}
+.zodiac-cinematic-3 .zodiac-painted{filter:saturate(1.22)}
+.result-portrait-wrap{width:100%}
+.portrait-tag{text-align:center}
+@media(max-width:650px){
+ .zodiac-cinematic{border-radius:18px;max-width:395px}
+ .zodiac-cinematic:before{inset:7px;border-radius:12px}
+ .zodiac-cinematic:after{font-size:17px}
+}
+@media(prefers-reduced-motion:reduce){
+ .zodiac-cinematic .zodiac-painted{transition:none}
+}
