@@ -97,3 +97,13 @@ Die ZIP enthält außerdem alle 48 Portraits als einzelne WebP-Dateien für ande
 - Alle heruntergeladenen Ergebnis-PNGs zeigen unten zentriert und goldfarben `KUSENBERG.NET`.
 - Der alternative Canvas-Export im Fehlerfall enthält dieselbe Homepage.
 - Keine Änderungen an Quiz, Score-Berechnung, URL, Ergebnissen oder Speicherung.
+
+## v1.1.0 – Night-Session-Finale und Teilen per Bild
+- **Berechnung unverändert:** Final abgestimmter Cosmic Security Algorithm 2.0: Score = clamp(75 − Zodiac-Basis + Antworten + Cosmic Twist, 0, 100). Die 12 astrologischen Grundwerte und fünf Fragen bleiben erhalten.
+- Zwölf individuelle astrologische Diagnosen mit je drei Tonvarianten. Die Antworten bestimmen die ausgewählte Pointe.
+- Mobile Ergebnisansicht: Sternzeichenbild, Score, Diagnose und Teilen/PNG zuerst.
+- Superpower, Schwäche, Originalprognose und ausführliche Score-Berechnung bleiben in aufklappbaren Bereichen verfügbar.
+- „Karte teilen“ versucht natives Bild-Teilen, sofern unterstützt; andernfalls PNG-Download. „Ergebnislink kopieren“ bleibt separat.
+- Die geteilte Karte verwendet den passenden Zodiac-Bildatlas und die persönliche Pointe, Sherlock bleibt Signatur.
+- Abschluss mit DDC Night Session ohne unbelegte Zeit- oder Raumangaben.
+- Keine Datensammlung und keine erfundenen Statistiken. Ergebnislink enthält Antwortcodes im URL-Fragment.
