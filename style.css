@@ -63,7 +63,7 @@ h1,h2,h3,p,.brand{overflow-wrap:break-word}
 @keyframes detective-float{50%{transform:translateY(-7px)}}
 .result-topline{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;align-items:center;margin-top:20px}
 .result-portrait-wrap{min-width:0}
-.risk-portrait{aspect-ratio:1 / 1;width:100%;background-image:url('assets/risk-moods.svg');background-repeat:no-repeat;background-size:200% 200%;background-color:#151b30;border:2px solid #d7b376;border-radius:20px;box-shadow:0 22px 55px #04091799,inset 0 0 24px #ffffff0a;overflow:hidden}
+.risk-portrait{aspect-ratio:1 / 1;width:100%;background-image:url('assets/risk-moods.svg?v=0.5.1');background-repeat:no-repeat;background-size:200% 200%;background-color:#151b30;border:2px solid #d7b376;border-radius:20px;box-shadow:0 22px 55px #04091799,inset 0 0 24px #ffffff0a;overflow:hidden}
 .risk-portrait.mood-0{background-position:left top;border-color:#63d5c8;box-shadow:0 0 48px #24aab533}
 .risk-portrait.mood-1{background-position:right top;border-color:#ac8fda;box-shadow:0 0 48px #9b6bce33}
 .risk-portrait.mood-2{background-position:left bottom;border-color:#fba676;box-shadow:0 0 48px #ed8b4638}
