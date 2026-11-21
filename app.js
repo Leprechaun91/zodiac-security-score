@@ -298,7 +298,9 @@ function personalVerdict(result){
  };
  const matches=result.resonanceDetails.filter(x=>x.value!==0)
   .sort((a,b)=>Math.abs(b.value)-Math.abs(a.value)||a.question-b.question);
- const primary=matches[0],mode=!primary?2:primary.value<0?0:1;
+ const primary=matches[0],positive=matches.filter(x=>x.value>0).length,negative=matches.filter(x=>x.value<0).length;
+ const balanced=positive>0&&negative>0&&Math.abs(result.cosmic)<=2;
+ const mode=(!primary||balanced)?2:primary.value<0?0:1;
  const line=(lines[result.s.id]||lines.fische)[mode];
  const emphasis=primary
   ?'Die Sterne haben besonders deine Antwort bei Frage '+primary.question+' registriert.'
