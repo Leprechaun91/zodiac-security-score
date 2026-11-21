@@ -135,8 +135,8 @@ const questions=[
     ]
   },
   {
-    "title": "600 Downloads, baldiger Austritt. Oder nur eine laufende Datenmigration?",
-    "joke": "Security sieht Rot. Die Projektleitung sieht Grün. Schönes Ampelsystem.",
+    "title": "Ein Mitarbeiter lädt in zwölf Minuten 600 Dateien herunter. Am Freitag verlässt er das Unternehmen. Gleichzeitig läuft eine große Datenmigration. Insider-Risiko oder ganz normaler Projektstress? Was tust du?",
+    "joke": "Security vermutet Datenklau. Die IT spricht von einer Migration. Der Mitarbeiter ist gerade Kaffee holen. Drei Wahrheiten, null Gewissheit.",
     "opts": [
       [
         "Logs vergleichen. „Kommt drauf an“ melden.",
