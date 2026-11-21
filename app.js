@@ -175,7 +175,7 @@ const progress=(n,total)=>'<div class="progress"><div style="width:'+Math.round(
 function moodForScore(score){return score>=60?0:score>=45?1:score>=30?2:3;}
 const artworkPositions=Object.fromEntries(signs.map((sign,i)=>[sign.id,{col:i%3,row:Math.floor(i/3),x:(i%3)*50,y:Math.floor(i/3)*100/3}]));
 const artworkMoods=['safe','cautious','mischievous','chaos'];
-const artworkURL=mood=>'assets/zodiac-'+artworkMoods[mood]+'.webp?v=0.8.0';
+const artworkURL=mood=>'assets/zodiac-'+artworkMoods[mood]+'.webp?v=0.9.1';
 function zodiacPoster(sign,mood){
  const p=artworkPositions[sign.id],visual=window.ZodiacArt.svg(sign,mood),url=artworkURL(mood);
  return '<div class="zodiac-cinematic zodiac-cinematic-'+mood+'" data-atlas-url="'+url+'" role="img" aria-label="'+esc(sign.name)+' in '+['souveräner','vorsichtiger','verschmitzter','chaotischer'][mood]+' Zodiac-Inszenierung">'+
