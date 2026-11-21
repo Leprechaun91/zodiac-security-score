@@ -110,3 +110,10 @@ Die ZIP enthält außerdem alle 48 Portraits als einzelne WebP-Dateien für ande
 
 ## v1.1.1 – Abgewogene kosmische Diagnose
 Wenn sich positive und negative Zodiac-Wechselwirkungen ungefähr ausgleichen, nennt die Diagnose nun diesen Mischfall. So sind alle drei Textstimmungen bei jedem der zwölf Sternzeichen erreichbar. Die Formel und die Score-Grenzwerte bleiben unverändert.
+
+## v1.2.0 – Cinematic Collector Card PNG
+- Vollständig neu gestaltete, dynamische PNG-Ergebniskarte im Cosmic-Look: Weltraumhintergrund, Sternenfelder, Zodiac-Kunstwerk im Panoramarahmen, leuchtender Score-Ring und farbige Risikokategorie.
+- Berechnungsabschnitt enthält jetzt das echte Sternzeichen-Basisrisiko, die Entscheidungen, den Cosmic Twist sowie den allgemeinen Grundverdacht.
+- Alle zwölf Sternzeichen und vier Bildstimmungen verwenden den bestehenden WebP-Atlas; falls das Bild nicht lädt, erscheint das SVG-Zodiac-Motiv.
+- Unten bleibt KUSENBERG.NET sichtbar; iPhone-Vorschau, Speichern und Teilen bleiben erhalten.
+- Die Quiz-Berechnung wird nicht verändert.
