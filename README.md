@@ -107,3 +107,6 @@ Die ZIP enthält außerdem alle 48 Portraits als einzelne WebP-Dateien für ande
 - Die geteilte Karte verwendet den passenden Zodiac-Bildatlas und die persönliche Pointe, Sherlock bleibt Signatur.
 - Abschluss mit DDC Night Session ohne unbelegte Zeit- oder Raumangaben.
 - Keine Datensammlung und keine erfundenen Statistiken. Ergebnislink enthält Antwortcodes im URL-Fragment.
+
+## v1.1.1 – Abgewogene kosmische Diagnose
+Wenn sich positive und negative Zodiac-Wechselwirkungen ungefähr ausgleichen, nennt die Diagnose nun diesen Mischfall. So sind alle drei Textstimmungen bei jedem der zwölf Sternzeichen erreichbar. Die Formel und die Score-Grenzwerte bleiben unverändert.
