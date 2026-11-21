@@ -449,23 +449,215 @@ function showCardExport(box,dataURL,canvas,filename){
 }
 
 function wrap(ctx,text,y,width,size){ctx.font=size+'px Georgia';let lines=[''];for(const word of text.split(' ')){let i=lines.length-1,c=lines[i]+' '+word;if(ctx.measureText(c).width>width&&lines[i])lines.push(word);else lines[i]=c.trim();}lines.slice(0,4).forEach((line,i)=>ctx.fillText(line,540,y+i*(size+13)));}
-async function png(shareImage=false){const exportDialog=startCardExport();const r=calc(),m=moodForScore(r.score),c=document.createElement('canvas');c.width=1080;c.height=1350;const x=c.getContext('2d');const themes=[['#071f27','#67e4d6'],['#231a37','#c4a1ff'],['#301826','#ffae68'],['#340c22','#ff547f']],t=themes[m],g=x.createLinearGradient(0,0,1080,1350);g.addColorStop(0,t[0]);g.addColorStop(1,'#090e21');x.fillStyle=g;x.fillRect(0,0,1080,1350);x.strokeStyle='#dfbe83';x.lineWidth=3;x.strokeRect(45,45,990,1260);
-x.textAlign='center';x.fillStyle='#f2d59a';x.font='bold 31px Arial';x.fillText('ZODIAC RISK ENGINE™',540,132);x.font='18px Arial';x.fillText('DDC NIGHT SESSION · JULIAN KUSENBERG',540,170);
-try{await new Promise((resolve,reject)=>{
-const paint=(im,isAtlas)=>{try{
-x.save();x.beginPath();x.roundRect(260,192,560,510,22);x.clip();
-if(isAtlas){const p=artworkPositions[r.s.id],w=im.naturalWidth/3,h=im.naturalHeight/4;x.drawImage(im,p.col*w,p.row*h,w,h,260,192,560,510);}
-else{x.drawImage(im,0,0,im.naturalWidth,im.naturalHeight,260,192,560,510);}
-x.fillStyle=themes[m][0];x.globalAlpha=m===3?.23:m===2?.13:.08;x.fillRect(260,192,560,510);x.globalAlpha=1;
-const shade=x.createLinearGradient(0,510,0,700);shade.addColorStop(0,'#080d1b00');shade.addColorStop(1,'#060c19e8');x.fillStyle=shade;x.fillRect(260,480,560,222);
-x.restore();resolve();
-}catch(e){reject(e);}};
-const im=new Image();im.onload=()=>paint(im,true);im.onerror=()=>{const fallback=new Image();fallback.onload=()=>paint(fallback,false);fallback.onerror=reject;fallback.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(window.ZodiacArt.svg(r.s,m));};im.src=artworkURL(m);
-});}catch(e){x.fillStyle='#24203a';x.fillRect(260,192,560,510);x.fillStyle=t[1];x.font='210px serif';x.fillText(r.s.glyph,540,455);}
-try{await new Promise(resolve=>{const brand=new Image();brand.onload=()=>{x.drawImage(brand,73,65,83,111);resolve();};brand.onerror=resolve;brand.src='assets/sherlock-logo.svg?v=0.8.0';});}catch(e){}x.strokeStyle=t[1];x.lineWidth=4;x.strokeRect(260,192,560,510);
-x.fillStyle='#f5ebee';x.font='bold 32px Arial';x.fillText(r.s.name.toUpperCase(),540,668);x.font='bold 49px Georgia';wrap(x,r.s.title,766,920,49);x.fillStyle=t[1];x.font='bold 145px Arial';x.fillText(r.score,540,974);x.font='23px Arial';x.fillText('VON 100 SICHERHEITSPUNKTEN',540,1021);x.fillStyle='#eacb91';x.font='bold 28px Arial';x.fillText(r.band,540,1083);x.fillStyle='#ece0e8';wrap(x,personalVerdict(r).body,1155,850,26);x.fillStyle='#a8a7bc';x.font='21px Arial';x.fillText('100 % SATIRE · 0 % WISSENSCHAFT',540,1256);x.fillStyle='#e3bf82';x.font='bold 21px Arial';x.fillText('KUSENBERG.NET',540,1290);let exportUrl,outputCanvas=c;try{exportUrl=c.toDataURL('image/png');}catch(err){const f=document.createElement('canvas');f.width=1080;f.height=1350;const k=f.getContext('2d');k.fillStyle='#11172c';k.fillRect(0,0,1080,1350);k.strokeStyle='#e5c78c';k.lineWidth=4;k.strokeRect(45,45,990,1260);k.textAlign='center';k.fillStyle='#e5c78c';k.font='bold 42px Arial';k.fillText('ZODIAC RISK ENGINE™',540,180);k.font='180px serif';k.fillText(r.s.glyph,540,540);k.fillStyle='#fff';k.font='bold 46px Arial';k.fillText(r.s.name.toUpperCase(),540,640);k.font='bold 160px Arial';k.fillText(r.score,540,875);k.fillStyle='#f0c691';k.font='32px Arial';k.fillText('SECURITY SCORE · 100 % SATIRE',540,940);k.fillStyle='#e6e0e8';k.font='bold 32px Arial';k.fillText(r.band,540,1030);k.fillStyle='#e3bf82';k.font='bold 25px Arial';k.fillText('KUSENBERG.NET',540,1250);exportUrl=f.toDataURL('image/png');outputCanvas=f;}
-const filename='zodiac-security-score-'+r.s.id+'-'+r.score+'.png';
-showCardExport(exportDialog,exportUrl,outputCanvas,filename);
+
+function cardPath(ctx,x,y,w,h,r){
+ const k=Math.min(r,w/2,h/2);
+ ctx.beginPath();ctx.moveTo(x+k,y);ctx.lineTo(x+w-k,y);ctx.arcTo(x+w,y,x+w,y+k,k);
+ ctx.lineTo(x+w,y+h-k);ctx.arcTo(x+w,y+h,x+w-k,y+h,k);
+ ctx.lineTo(x+k,y+h);ctx.arcTo(x,y+h,x,y+h-k,k);
+ ctx.lineTo(x,y+k);ctx.arcTo(x,y,x+k,y,k);ctx.closePath();
 }
+function cardFit(ctx,text,width,base,min=19,font='Georgia,serif',bold=false){
+ let size=base;
+ do{ctx.font=(bold?'bold ':'')+size+'px '+font;if(ctx.measureText(text).width<=width)break;size-=2;}while(size>min);
+ return size;
+}
+function cardSparkle(ctx,x,y,r,color='#f6d29b'){
+ ctx.save();ctx.strokeStyle=color;ctx.lineWidth=Math.max(1.4,r/6);ctx.shadowColor=color;ctx.shadowBlur=r*2.1;
+ ctx.beginPath();ctx.moveTo(x-r,y);ctx.lineTo(x+r,y);ctx.moveTo(x,y-r);ctx.lineTo(x,y+r);ctx.stroke();
+ ctx.beginPath();ctx.fillStyle='#fff9ee';ctx.arc(x,y,Math.max(1.1,r/6),0,Math.PI*2);ctx.fill();ctx.restore();
+}
+function cardCenteredLines(ctx,text,x,y,maxWidth,size,color,lineHeight=33,maxLines=2){
+ const words=String(text).split(' '),lines=[];let line='';
+ ctx.font=size+'px Georgia,serif';
+ for(const word of words){const maybe=line?line+' '+word:word;
+  if(ctx.measureText(maybe).width>maxWidth&&line){lines.push(line);line=word;}else line=maybe;}
+ if(line)lines.push(line);
+ ctx.fillStyle=color;ctx.textAlign='center';
+ lines.slice(0,maxLines).forEach((l,i)=>{cardFit(ctx,l,maxWidth,size,18,'Georgia,serif');ctx.fillText(l,x,y+i*lineHeight);});
+ return Math.min(lines.length,maxLines);
+}
+function cardImage(src){
+ return new Promise(resolve=>{
+  const img=new Image();
+  img.onload=()=>resolve(img);
+  img.onerror=()=>resolve(null);
+  img.src=src;
+ });
+}
+async function paintCosmicCard(result,mood){
+ const canvas=document.createElement('canvas');
+ canvas.width=1080;canvas.height=1880;
+ const ctx=canvas.getContext('2d');
+ if(!ctx)throw Error('Canvas unavailable');
+ const palettes=[
+  {accent:'#65e6d4',glow:'#167f81',dark:'#102e36',ribbon:'#163c42'},
+  {accent:'#c7adff',glow:'#8153c7',dark:'#251837',ribbon:'#32214b'},
+  {accent:'#ffb879',glow:'#b26479',dark:'#33172c',ribbon:'#51253b'},
+  {accent:'#ff729b',glow:'#aa3985',dark:'#370e2c',ribbon:'#5b133c'}
+ ];
+ const p=palettes[mood],gold='#f5d5a1',light='#fff4e2';
+ const bg=ctx.createLinearGradient(0,0,900,1880);
+ bg.addColorStop(0,'#080d1e');bg.addColorStop(.32,'#170e29');bg.addColorStop(.69,'#120d27');bg.addColorStop(1,'#080c1c');
+ ctx.fillStyle=bg;ctx.fillRect(0,0,1080,1880);
+ for(const [x,y,r,color] of [
+   [150,350,460,'#662c9380'],[970,390,500,p.glow+'77'],
+   [250,1080,360,'#892c7e60'],[930,1580,440,'#553b9b55']]){
+  const neb=ctx.createRadialGradient(x,y,0,x,y,r);
+  neb.addColorStop(0,color);neb.addColorStop(1,'#070b1d00');
+  ctx.fillStyle=neb;ctx.fillRect(x-r,y-r,2*r,2*r);
+ }
+ // Repeatable stars, independent of reloads.
+ for(let i=0;i<225;i++){
+  const x=35+(i*317+87)%1010,y=37+(i*557+143)%1800;
+  const radius=i%17===0?2.5:i%5===0?1.4:.7;
+  ctx.fillStyle=i%4===0?'#f3d6b5b8':'#dbcaf78c';
+  ctx.beginPath();ctx.arc(x,y,radius,0,Math.PI*2);ctx.fill();
+ }
+ [[104,225,9],[932,131,8],[952,788,12],[200,1135,8],[520,148,13],[91,1745,9]].forEach(t=>cardSparkle(ctx,t[0],t[1],t[2],gold));
+
+ // Top masthead: sign artwork and branding remain separate.
+ ctx.textAlign='left';ctx.fillStyle=gold;
+ ctx.font='32px Georgia,serif';ctx.fillText('✦  ZODIAC RISK ENGINE™',62,87);
+ ctx.textAlign='right';ctx.fillStyle='#f0e2d6';
+ ctx.font='bold 17px Arial,sans-serif';ctx.fillText('JULIAN KUSENBERG',1014,76);
+ ctx.fillStyle=gold;ctx.font='bold 18px Arial,sans-serif';ctx.fillText('KUSENBERG.NET',1014,103);
+ ctx.lineWidth=1.8;ctx.strokeStyle='#d7b7866b';
+ ctx.beginPath();ctx.moveTo(62,121);ctx.lineTo(1018,121);ctx.stroke();
+
+ // Large illustrated character panorama with asymmetric text overlay.
+ const fx=54,fy=159,fw=972,fh=550;
+ ctx.save();cardPath(ctx,fx,fy,fw,fh,33);ctx.clip();
+ const frameBg=ctx.createLinearGradient(fx,fy,fx+fw,fy+fh);
+ frameBg.addColorStop(0,p.dark);frameBg.addColorStop(.57,'#2d143d');frameBg.addColorStop(1,'#080d21');
+ ctx.fillStyle=frameBg;ctx.fillRect(fx,fy,fw,fh);
+ const atlas=await cardImage(artworkURL(mood));
+ let drawn=false;
+ if(atlas){
+  try{
+   const pos=artworkPositions[result.s.id],cw=atlas.naturalWidth/3,ch=atlas.naturalHeight/4;
+   // Keep the original portrait proportions rather than stretching the character.
+   const cropX=cw*.02,cropY=ch*.03,cropW=cw*.96,cropH=ch*.94;
+   ctx.drawImage(atlas,pos.col*cw+cropX,pos.row*ch+cropY,cropW,cropH,fx-10,fy,670,550);
+   drawn=true;
+  }catch(e){}
+ }
+ if(!drawn&&window.ZodiacArt){
+  const fallback=await cardImage('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(window.ZodiacArt.svg(result.s,mood)));
+  if(fallback){try{ctx.drawImage(fallback,fx,fy,610,550);drawn=true;}catch(e){}}
+ }
+ if(!drawn){ctx.textAlign='center';ctx.fillStyle=gold;ctx.font='260px Georgia,serif';ctx.fillText(result.s.glyph,342,507);}
+ const shade=ctx.createLinearGradient(435,0,975,0);
+ shade.addColorStop(0,'#0a0c1c00');shade.addColorStop(.53,'#100d23ed');shade.addColorStop(1,'#100c1ff9');
+ ctx.fillStyle=shade;ctx.fillRect(435,fy,590,fh);
+ const vignette=ctx.createLinearGradient(0,fy,0,fy+fh);
+ vignette.addColorStop(0,'#0909176b');vignette.addColorStop(.32,'#09091700');
+ vignette.addColorStop(.72,'#09091700');vignette.addColorStop(1,'#0a0c21b0');
+ ctx.fillStyle=vignette;ctx.fillRect(fx,fy,fw,fh);
+ // Decorative concentric zodiac halo behind the artwork.
+ ctx.lineWidth=1;ctx.strokeStyle='#ecc88a55';
+ ctx.beginPath();ctx.arc(314,426,207,0,Math.PI*2);ctx.stroke();
+ ctx.setLineDash([3,15]);ctx.strokeStyle='#e7c99f7a';
+ ctx.beginPath();ctx.arc(314,426,233,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+ ctx.textAlign='center';
+ ctx.fillStyle=gold;ctx.font='74px Georgia,serif';ctx.fillText(result.s.glyph,794,305);
+ ctx.fillStyle=light;
+ const name=result.s.name.toUpperCase();
+ cardFit(ctx,name,388,64,35,'Georgia,serif');ctx.fillText(name,794,407);
+ ctx.fillStyle=gold;ctx.font='16px Arial,sans-serif';ctx.fillText('✦  ZODIAC CASE FILE  ✦',794,453);
+ ctx.beginPath();ctx.strokeStyle='#dcbf83bb';ctx.lineWidth=2;ctx.moveTo(669,475);ctx.lineTo(919,475);ctx.stroke();
+ cardCenteredLines(ctx,result.s.title,794,528,355,31,'#f8e7d2',37,3);
+ ctx.restore();
+ // Ornate double frame, screen-reader version lives on the result page.
+ ctx.save();ctx.shadowColor=p.accent;ctx.shadowBlur=16;
+ ctx.strokeStyle='#e9c68e';ctx.lineWidth=4;cardPath(ctx,fx,fy,fw,fh,33);ctx.stroke();ctx.restore();
+ ctx.strokeStyle='#e9bd7a8c';ctx.lineWidth=1.5;cardPath(ctx,fx+11,fy+11,fw-22,fh-22,25);ctx.stroke();
+ [[fx+22,fy+22],[fx+fw-22,fy+22],[fx+22,fy+fh-22],[fx+fw-22,fy+fh-22]].forEach(([x,y])=>cardSparkle(ctx,x,y,5,gold));
+
+ // Large luminous score dial and category ribbon.
+ const cx=540,cy=927,radius=167;
+ ctx.save();
+ ctx.strokeStyle='#caa2d35e';ctx.lineWidth=21;
+ ctx.beginPath();ctx.arc(cx,cy,radius,-Math.PI/2,-Math.PI/2+Math.PI*2);ctx.stroke();
+ ctx.strokeStyle=p.accent;ctx.lineWidth=23;ctx.lineCap='round';
+ ctx.shadowColor=p.accent;ctx.shadowBlur=24;
+ ctx.beginPath();ctx.arc(cx,cy,radius,-Math.PI/2,-Math.PI/2+Math.PI*result.score/100);ctx.stroke();
+ ctx.restore();
+ ctx.strokeStyle='#e8badd6d';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(cx,cy,193,0,Math.PI*2);ctx.stroke();
+ ctx.strokeStyle='#e4b78358';ctx.beginPath();ctx.arc(cx,cy,148,0,Math.PI*2);ctx.stroke();
+ cardSparkle(ctx,540,717,15,gold);
+ ctx.textAlign='center';ctx.fillStyle='#e4d9e8';ctx.font='bold 23px Arial,sans-serif';ctx.fillText('DEIN SCORE',cx,873);
+ ctx.save();ctx.fillStyle=gold;ctx.shadowColor=p.accent;ctx.shadowBlur=22;
+ const scoreText=String(result.score);
+ ctx.font='bold 133px Georgia,serif';ctx.fillText(scoreText,cx-42,1004);
+ ctx.restore();
+ ctx.fillStyle='#f0e7f2';ctx.font='43px Georgia,serif';ctx.fillText('/100',cx+109,1000);
+ ctx.fillStyle='#b8a8c6';ctx.font='15px Arial,sans-serif';ctx.fillText('COSMIC SECURITY SCORE',cx,1060);
+ const bandY=1110;
+ ctx.save();ctx.shadowColor=p.accent;ctx.shadowBlur=26;
+ cardPath(ctx,66,bandY,948,85,20);ctx.fillStyle=p.ribbon;ctx.fill();ctx.lineWidth=3;ctx.strokeStyle=p.accent;ctx.stroke();ctx.restore();
+ ctx.textAlign='center';ctx.fillStyle='#fff0da';
+ cardFit(ctx,result.band,852,36,25,'Georgia,serif',true);ctx.fillText(result.band,540,1165);
+
+ // Cinematic "security algorithm" panel with real per-user values.
+ const bx=57,by=1252,bw=966,bh=477;
+ ctx.save();cardPath(ctx,bx,by,bw,bh,27);const cardBg=ctx.createLinearGradient(bx,by,bx,by+bh);
+ cardBg.addColorStop(0,'#231a35f3');cardBg.addColorStop(1,'#12132bf6');ctx.fillStyle=cardBg;ctx.fill();
+ ctx.strokeStyle='#d6a4d4a0';ctx.lineWidth=2.5;ctx.stroke();ctx.restore();
+ ctx.textAlign='left';ctx.fillStyle=gold;ctx.font='bold 27px Georgia,serif';
+ ctx.fillText('✦  DER COSMIC SECURITY ALGORITHM™ 2.0',90,1312);
+ ctx.strokeStyle='#e7c38e92';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(90,1335);ctx.lineTo(990,1335);ctx.stroke();
+ const rows=[
+   ['MAXIMALER SECURITY SCORE','100'],
+   ['KOSMISCHER GRUNDVERDACHT','−25'],
+   ['STERNZEICHEN · '+result.s.name.toUpperCase(),'−'+result.s.base],
+   ['DEINE ENTSCHEIDUNGEN',signed(result.decisions)],
+   ['COSMIC TWIST',signed(result.cosmic)]
+ ];
+ rows.forEach((row,i)=>{
+  const y=1355+i*59;
+  cardPath(ctx,89,y,901,52,12);ctx.fillStyle=i===4?'#3a254bdc':'#201c36e3';ctx.fill();
+  ctx.strokeStyle=i===4?'#bd8bd6b1':'#937a9b70';ctx.lineWidth=1;ctx.stroke();
+  ctx.textAlign='left';ctx.fillStyle=i===4?'#f1c6ff':'#e4d9e8';ctx.font='21px Arial,sans-serif';ctx.fillText(row[0],114,y+34);
+  ctx.textAlign='right';ctx.fillStyle=i===4?p.accent:light;ctx.font='bold 25px Arial,sans-serif';ctx.fillText(row[1],965,y+35);
+ });
+ const matches=result.cosmicMatches;
+ ctx.textAlign='center';ctx.fillStyle='#b9b1cc';ctx.font='18px Arial,sans-serif';
+ const msg=matches+' VON 5 ENTSCHEIDUNGEN SPIEGELN DEIN STERNZEICHEN';
+ cardFit(ctx,msg,860,18,13,'Arial,sans-serif');ctx.fillText(msg,540,1700);
+ // Bottom author mark is never removed, including if the art cannot load.
+ ctx.strokeStyle='#ad8dba7a';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(95,1774);ctx.lineTo(985,1774);ctx.stroke();
+ ctx.fillStyle='#b9b0c6';ctx.font='16px Arial,sans-serif';ctx.fillText('100 % SATIRE · 0 % WISSENSCHAFT',540,1805);
+ ctx.fillStyle=gold;ctx.font='bold 30px Arial,sans-serif';ctx.fillText('KUSENBERG.NET',540,1851);
+ return canvas;
+}
+async function png(shareImage=false){
+ const exportDialog=startCardExport();
+ const result=calc(),mood=moodForScore(result.score);
+ try{
+  let outputCanvas=await paintCosmicCard(result,mood);
+  if(!exportDialog.isConnected)return;
+  let exportUrl;
+  try{exportUrl=outputCanvas.toDataURL('image/png');}
+  catch(error){
+   // Keep an exportable, readable result even if the artwork tainted the canvas.
+   const fallback=document.createElement('canvas');fallback.width=1080;fallback.height=1880;
+   const ctx=fallback.getContext('2d');ctx.fillStyle='#111629';ctx.fillRect(0,0,1080,1880);
+   ctx.textAlign='center';ctx.fillStyle='#eed2a1';ctx.font='42px Georgia,serif';ctx.fillText('ZODIAC RISK ENGINE™',540,185);
+   ctx.font='220px serif';ctx.fillText(result.s.glyph,540,570);
+   ctx.font='bold 76px Georgia,serif';ctx.fillText(result.s.name.toUpperCase(),540,745);
+   ctx.font='bold 170px Georgia,serif';ctx.fillText(result.score+' / 100',540,1000);
+   ctx.font='bold 32px Georgia,serif';ctx.fillText(result.band,540,1130);
+   ctx.font='26px Arial,sans-serif';ctx.fillText('COSMIC SECURITY ALGORITHM™ 2.0',540,1330);
+   ctx.fillText('75 − '+result.s.base+' '+signed(result.decisions)+' '+signed(result.cosmic)+' = '+result.score,540,1400);
+   ctx.font='22px Arial,sans-serif';ctx.fillText('100 % SATIRE · 0 % WISSENSCHAFT',540,1740);
+   ctx.font='bold 30px Arial,sans-serif';ctx.fillText('KUSENBERG.NET',540,1820);
+   outputCanvas=fallback;exportUrl=fallback.toDataURL('image/png');
+  }
+  const filename='zodiac-security-score-'+result.s.id+'-'+result.score+'.png';
+  showCardExport(exportDialog,exportUrl,outputCanvas,filename);
+ }catch(error){cardExportFailure(error);}
+}
+
 document.getElementById('brandLink').addEventListener('click',e=>{e.preventDefault();state.stage='start';history.replaceState(null,'',location.pathname);render();});restore();render();
 })();
