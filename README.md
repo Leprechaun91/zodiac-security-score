@@ -85,3 +85,10 @@ Die ZIP enthält außerdem alle 48 Portraits als einzelne WebP-Dateien für ande
 - Drei überlagerte Zodiac-Artworks (Waage, Wassermann, Schütze) aus den bestehenden Atlanten statt des alten, generischen Zodiac-Rads.
 - Violett-goldene Cosmic-Optik, dezente Animationen und responsive Darstellung, auch für QR-Code-Besucher am Smartphone.
 - Sherlock bleibt klein im Kopfbereich. Score, Fragen, Datenschutzverhalten, Ergebnisbilder und Ergebnislinks bleiben unverändert.
+
+
+## v1.0.2 – Erklärung des Cosmic Security Scores
+- Ergebnisaufschlüsselung beginnt bei 100, zeigt −25 Punkte allgemeinen Grundverdacht, Sternzeichen-Basiswert, Summe der fünf Entscheidungen und den Cosmic Twist.
+- Zwei stärkste Wechselwirkungen werden mit Original-Quizantwort, Frage, passender Sternzeichen-Eigenschaft und Einzelpunktewert angezeigt.
+- Weitere Wechselwirkungen, Musterbonus und bei Bedarf die Begrenzung auf ±16 werden transparent ausgewiesen; Score 0–100 bleibt begrenzt.
+- Die Berechnungslogik ist unverändert; keine Datenspeicherung und keine Änderung der öffentlichen Quiz-URL.
