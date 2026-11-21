@@ -79,3 +79,9 @@ Die ZIP enthält außerdem alle 48 Portraits als einzelne WebP-Dateien für ande
 - Ergebnisansicht erläutert den Startwert, das Sternzeichen, die Entscheidungen und den Cosmic Twist. Portraitfarbe, PNG-Karte und Ergebnislink verwenden automatisch den neuen Score.
 - 12.288 Kombinationen (12 Sternzeichen × 4⁵ Antworten) automatisiert durchgerechnet. Alle zwölf Zeichen erreichen mindestens drei Ergebnisstufen und zeigen wirksame Musterverstärkung; alle vier Risikostufen sind insgesamt erreichbar.
 - Keine Speicherung, kein Tracking und keine Änderung der Quiz-URL. Die geplante Live-Statistik ist weiterhin separat umzusetzen.
+
+## v1.0.0 – Cinematic Night Session Startseite
+- Neuer zweispaltiger Hero mit klarer Botschaft, auffälligem Start-Button und kompakter Ablaufübersicht.
+- Drei überlagerte Zodiac-Artworks (Waage, Wassermann, Schütze) aus den bestehenden Atlanten statt des alten, generischen Zodiac-Rads.
+- Violett-goldene Cosmic-Optik, dezente Animationen und responsive Darstellung, auch für QR-Code-Besucher am Smartphone.
+- Sherlock bleibt klein im Kopfbereich. Score, Fragen, Datenschutzverhalten, Ergebnisbilder und Ergebnislinks bleiben unverändert.
