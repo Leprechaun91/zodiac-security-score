@@ -26,3 +26,8 @@ GitHub Pages ist statisch und kann Besucherantworten nicht zentral sammeln. Für
 
 ## Testen
 `index.html` in einem Browser öffnen. Keine Installation erforderlich. Für die Freigabe über `navigator.share` oder Clipboard ist eine HTTPS-Seite empfohlen; der Download als PNG läuft lokal.
+## v0.4.0 – Night-Session-Comedy
+- Alle fünf Quizsituationen und zwanzig Antworten neu geschrieben: weniger offensichtlich, mehr Entwickler-Humor.
+- Jede Option zeigt einen realistischen Zielkonflikt statt einer einfachen 'richtig oder falsch'-Logik.
+- Zodiac-Wechselwirkungen bestimmen weiterhin den satirischen Score; keine fachlich valide Risikobewertung.
+- Responsive Smartphone-Navigation aus v0.3.0 bleibt erhalten.
