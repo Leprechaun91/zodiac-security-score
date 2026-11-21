@@ -31,3 +31,10 @@ GitHub Pages ist statisch und kann Besucherantworten nicht zentral sammeln. Für
 - Jede Option zeigt einen realistischen Zielkonflikt statt einer einfachen 'richtig oder falsch'-Logik.
 - Zodiac-Wechselwirkungen bestimmen weiterhin den satirischen Score; keine fachlich valide Risikobewertung.
 - Responsive Smartphone-Navigation aus v0.3.0 bleibt erhalten.
+
+## v0.5.0 – Sherlock-Grafiken und schnelleres Quiz
+- Fünf Fragen und zwanzig Antworten bewusst für 60–90 Sekunden Spielzeit gekürzt.
+- Kleines Sherlock-Branding im Header und auf der Startseite, basierend auf Julians hochgeladenem Originalbild.
+- Vier scoreabhängige Sherlock-Illustrationen mit zunehmend verschmitzter Stimmung, vom sicherheitsbewussten Detektiv bis zum kosmischen Chaos.
+- Das Ergebnis und die PNG-Karte wählen die grafische Stimmung anhand des Scores; die Berechnung bleibt satirisch.
+- Auf GitHub Pages besonders kompakte, eingebettete Bilddateien für mobiles Laden.
