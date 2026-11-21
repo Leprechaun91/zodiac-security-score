@@ -100,3 +100,35 @@ h1,h2,h3,p,.brand{overflow-wrap:break-word}
 }
 @media(max-width:360px){.result-topline{gap:9px}.result-headline h1{font-size:19px}}
 @media(prefers-reduced-motion:reduce){.hero-sherlock{animation:none!important;transition:none!important}}
+
+/* v0.6.0 - true zodiac result artwork; Sherlock stays in header branding */
+.zodiac-wheel-wrap{width:min(335px,80vw);height:auto;aspect-ratio:1;margin:12px auto 25px;position:relative}
+.hero-wheel{display:block;width:100%;height:100%;filter:drop-shadow(0 0 23px #d7a45f45);animation:zodiac-drift 25s ease-in-out infinite}
+@keyframes zodiac-drift{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.zodiac-portrait{aspect-ratio:1;width:100%;display:grid;place-items:center;border:2px solid #D2B477;border-radius:18px;overflow:hidden;background:#13192c;box-shadow:0 18px 54px #050713b8}
+.zodiac-portrait>svg{width:100%;height:100%;display:block;transition:transform .35s ease}
+.zodiac-portrait:hover>svg{transform:scale(1.035)}
+.zodiac-portrait.mood-0{border-color:#66dfcf;box-shadow:0 0 46px #19a79b32}
+.zodiac-portrait.mood-1{border-color:#bc98f5;box-shadow:0 0 46px #956dc632}
+.zodiac-portrait.mood-2{border-color:#ffad70;box-shadow:0 0 46px #e57b4a32}
+.zodiac-portrait.mood-3{border-color:#ff5c87;box-shadow:0 0 54px #eb375432}
+.scanning-zodiac{width:min(260px,65vw);margin:20px auto;animation:zodiac-pulse 1.6s ease-in-out infinite}
+.scanning-zodiac>svg{display:block;width:100%;height:auto;border-radius:16px}
+@keyframes zodiac-pulse{50%{filter:brightness(1.35) drop-shadow(0 0 20px #ffb27677);transform:scale(.98)}}
+@media(max-width:650px){
+  .zodiac-wheel-wrap{width:min(220px,61vw);height:auto;margin:2px auto 17px}
+  .hero-wheel{max-width:100%}
+  .result-topline{grid-template-columns:minmax(0,1fr);gap:14px}
+  .result-portrait-wrap{max-width:300px;width:100%;margin:0 auto}
+  .zodiac-portrait{border-radius:16px}
+  .result-headline{text-align:center}
+  .result-headline h1{font-size:clamp(27px,7.5vw,39px)}
+  .result-headline .score{font-size:clamp(75px,18vw,108px)}
+  .result-headline h2{font-size:15px}
+  .portrait-tag{font-size:10px;letter-spacing:.07em}
+  .result-hero .lead{margin-top:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-wheel,.scanning-zodiac{animation:none!important}
+  .zodiac-portrait>svg{transition:none}
+}
