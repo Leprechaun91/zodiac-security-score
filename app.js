@@ -202,37 +202,84 @@ function calculateScore(sign,answers){
   const selected=answers.map((index,i)=>questions[i].opts[index]);
   const decisions=selected.reduce((total,option)=>total+option.impact,0);
   let matched=0,positiveResonances=0,negativeResonances=0;
-  const resonances=selected.map(option=>{
-    const overlap=option.tags.filter(tag=>sign.aff.includes(tag)).length;
-    if(!overlap)return 0;
+  const resonanceDetails=selected.map((option,index)=>{
+    const matchedTags=option.tags.filter(tag=>sign.aff.includes(tag));
+    if(!matchedTags.length)return {question:index+1,answer:option.text,matchedTags,value:0};
     matched++;
-    const value=Math.sign(option.impact)*(overlap>=2?3:2);
+    const value=Math.sign(option.impact)*(matchedTags.length>=2?3:2);
     if(value>0)positiveResonances++;
     if(value<0)negativeResonances++;
-    return value;
+    return {question:index+1,answer:option.text,matchedTags,value};
   });
   const patternBonus=(positiveResonances>=3?4:0)-(negativeResonances>=3?4:0);
-  const cosmic=clamp(resonances.reduce((sum,value)=>sum+value,0)+patternBonus,-16,16);
+  const rawCosmic=resonanceDetails.reduce((sum,detail)=>sum+detail.value,0)+patternBonus;
+  const cosmic=clamp(rawCosmic,-16,16);
   const score=clamp(75-sign.base+decisions+cosmic,0,100);
   const band=score>=60?'DAS COMPLIANCE-EINHORN':score>=45?'KONTROLLIERTES CHAOS':score>=30?'WALKING AUDIT FINDING':'KOSMISCHE DATENKATASTROPHE';
-  const notableIndex=resonances.reduce((best,value,i)=>Math.abs(value)>Math.abs(resonances[best])?i:best,0);
-  return {s:sign,decisions,cosmic,cosmicMatches:matched,patternBonus,score,band,notable:selected[notableIndex]};
+  const notableIndex=resonanceDetails.reduce((best,detail,i)=>Math.abs(detail.value)>Math.abs(resonanceDetails[best].value)?i:best,0);
+  return {s:sign,decisions,cosmic,cosmicMatches:matched,patternBonus,score,band,notable:selected[notableIndex],resonanceDetails,rawCosmic};
 }
 function calc(){return calculateScore(chosen(),state.answers);}
 function signed(value){return value>0?'+'+value:String(value);}
+const cosmicTraitLabels={
+  speed:'Tempo',bypass:'Abkürzungen',shortcut:'Workarounds',innovation:'Experimentierfreude',
+  privilege:'Privilegien',automation:'Automatisierung',retain:'Aufbewahrung',
+  archive:'Archive',retainaccess:'Alte Zugriffe',process:'Prozesse',
+  approval:'Genehmigungen',copy:'Kopien',sharing:'Teilen',external:'Externe',
+  social:'Charme & Kontakte',access:'Zugriffsrechte',sprawl:'Wildwuchs',
+  precision:'Detailverliebtheit',ai:'KI-Neugier',observe:'Beobachtung',
+  delay:'Aufschieben',stealth:'Diskretion'
+};
 function scoreBreakdown(result){
-  let pattern='Keine zusätzliche Musterverstärkung.';
-  if(result.patternBonus>0)pattern='Dein Sternzeichen belohnt dein wiederkehrendes kontrolliertes Vorgehen.';
-  if(result.patternBonus<0)pattern='Wiederkehrende riskante Reflexe verstärken deinen Cosmic Twist.';
-  return '<div class="breakdown"><h3>DER COSMIC SECURITY ALGORITHM™ 2.0</h3>'+
-    '<div class="metric"><span>Startwert</span><strong>75</strong></div>'+
-    '<div class="metric"><span>Sternzeichen-Basisrisiko</span><strong>−'+result.s.base+'</strong></div>'+
-    '<div class="metric"><span>Deine Entscheidungen</span><strong>'+signed(result.decisions)+'</strong></div>'+
-    '<div class="metric"><span>Cosmic Twist</span><strong>'+signed(result.cosmic)+'</strong></div>'+
-    '<p class="muted small">'+result.cosmicMatches+' von 5 Entscheidungen treffen die Eigenheiten deines Sternzeichens. '+pattern+' Der Score ist satirisch, keine echte Risikobewertung.</p>'+
-    '</div>';
+  const resonances=result.resonanceDetails.filter(item=>item.value!==0);
+  const top=[...resonances].sort((a,b)=>Math.abs(b.value)-Math.abs(a.value)||a.question-b.question).slice(0,2);
+  const remaining=resonances.filter(item=>!top.includes(item));
+  const otherPoints=remaining.reduce((sum,item)=>sum+item.value,0);
+  const intro=resonances.length
+    ?'Dein '+esc(result.s.name)+'-Profil hat '+resonances.length+' deiner fünf Entscheidungen wiedererkannt. Zufall? Der Kosmos führt Protokoll.'
+    :'Heute erkennt dein Sternzeichen keine seiner typischen Marotten. Das Universum bleibt trotzdem misstrauisch.';
+  const matchRows=top.map(item=>{
+    const traits=item.matchedTags.map(tag=>cosmicTraitLabels[tag]||tag).join(' · ');
+    const tone=item.value<0?'cosmic-delta-risk':'cosmic-delta-safe';
+    const reaction=item.value<0?'Typischer Risikoreflex':'Kosmisch kontrolliert';
+    return '<div class="cosmic-resonance"><div class="cosmic-resonance-copy">'+
+      '<span class="cosmic-question">FRAGE '+item.question+' · '+reaction+'</span>'+
+      '<strong>'+esc(item.answer)+'</strong>'+
+      '<small>Dein Sternzeichen erkennt: '+esc(traits)+'</small>'+
+      '</div><b class="cosmic-delta '+tone+'">'+signed(item.value)+'</b></div>';
+  }).join('');
+  let patternText='Kein Dreifach-Treffer. Die Sterne behalten dich im Auge.';
+  if(result.patternBonus>0)patternText='Dreimal charaktertypisch und kontrolliert: Die Sterne applaudieren.';
+  if(result.patternBonus<0)patternText='Dreimal derselbe riskante Reflex: Selbst die Sterne werden nervös.';
+  const patternRow='<div class="cosmic-mini-row"><span>'+patternText+'</span><strong>'+signed(result.patternBonus)+'</strong></div>';
+  const otherRow=remaining.length
+    ?'<div class="cosmic-mini-row"><span>'+remaining.length+' weitere '+(remaining.length===1?'Übereinstimmung':'Übereinstimmungen')+'</span><strong>'+signed(otherPoints)+'</strong></div>'
+    :'';
+  const limitAdjustment=result.cosmic-result.rawCosmic;
+  const capRow=limitAdjustment
+    ?'<div class="cosmic-mini-row"><span>Kosmische Obergrenze von ±16 Punkten</span><strong>'+signed(limitAdjustment)+'</strong></div>'
+    :'';
+  const finalScore=result.score;
+  const totalBeforeClamp=100-25-result.s.base+result.decisions+result.cosmic;
+  const scoreLimitText=totalBeforeClamp!==finalScore?' <span class="cosmic-limit-note">(auf 0 bis 100 begrenzt)</span>':'';
+  return '<section class="breakdown cosmic-breakdown" aria-label="Berechnung deines Cosmic Security Score">'+
+    '<div class="cosmic-heading"><div><span class="cosmic-eyebrow">✦ DIE ASTROLOGISCHE BUCHHALTUNG</span><h3>COSMIC SECURITY ALGORITHM™ 2.0</h3></div><span class="cosmic-final-score">'+finalScore+'<small>/100</small></span></div>'+
+    '<div class="cosmic-ledger">'+
+      '<div class="cosmic-ledger-row"><span>Maximaler Security Score</span><strong>100</strong></div>'+
+      '<div class="cosmic-ledger-row"><span>Allgemeiner kosmischer Grundverdacht</span><strong>−25</strong></div>'+
+      '<div class="cosmic-ledger-row"><span>Dein Sternzeichen · '+esc(result.s.name)+'</span><strong>−'+result.s.base+'</strong></div>'+
+      '<div class="cosmic-ledger-row"><span>Deine fünf Entscheidungen</span><strong>'+signed(result.decisions)+'</strong></div>'+
+      '<div class="cosmic-ledger-row cosmic-ledger-twist"><span>✧ Cosmic Twist</span><strong>'+signed(result.cosmic)+'</strong></div>'+
+      '<div class="cosmic-ledger-row cosmic-ledger-total"><span>DEIN SECURITY SCORE'+scoreLimitText+'</span><strong>'+finalScore+' / 100</strong></div>'+
+    '</div>'+
+    '<div class="cosmic-insight"><div class="cosmic-insight-title"><span>✧</span><h4>Dein kosmischer Fingerabdruck</h4><span class="cosmic-insight-tally">'+resonances.length+'/5</span></div>'+
+      '<p>'+intro+'</p>'+
+      (matchRows||'<p class="cosmic-no-hit">Nicht jedes Sternzeichen muss sich beim Datenschutz selbst anzeigen.</p>')+
+      '<div class="cosmic-calculation-details">'+otherRow+patternRow+capRow+'</div>'+
+      '<p class="cosmic-insight-asterisk">Der Cosmic Twist ist Satire, kein echtes Security Assessment. Dein CISO darf wieder durchatmen.</p>'+
+    '</div>'+
+  '</section>';
 }
-
 function render(){clearTimeout(timer);
 app.classList.toggle('app-home',state.stage==='start');
 if(state.stage==='start'){
