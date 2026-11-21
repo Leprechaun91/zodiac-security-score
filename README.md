@@ -92,3 +92,8 @@ Die ZIP enthält außerdem alle 48 Portraits als einzelne WebP-Dateien für ande
 - Zwei stärkste Wechselwirkungen werden mit Original-Quizantwort, Frage, passender Sternzeichen-Eigenschaft und Einzelpunktewert angezeigt.
 - Weitere Wechselwirkungen, Musterbonus und bei Bedarf die Begrenzung auf ±16 werden transparent ausgewiesen; Score 0–100 bleibt begrenzt.
 - Die Berechnungslogik ist unverändert; keine Datenspeicherung und keine Änderung der öffentlichen Quiz-URL.
+
+## v1.0.3 – Homepage auf exportierten PNG-Karten
+- Alle heruntergeladenen Ergebnis-PNGs zeigen unten zentriert und goldfarben `KUSENBERG.NET`.
+- Der alternative Canvas-Export im Fehlerfall enthält dieselbe Homepage.
+- Keine Änderungen an Quiz, Score-Berechnung, URL, Ergebnissen oder Speicherung.
