@@ -280,6 +280,32 @@ function scoreBreakdown(result){
     '</div>'+
   '</section>';
 }
+
+function personalVerdict(result){
+ const lines={
+  widder:["Dein Risiko rennt schon los, während die Governance noch ihre Schuhe sucht.","Du hast den Sicherheitsgurt gefunden, bevor du auf Deploy gedrückt hast.","Mars hat heute keinen passenden Schnellschuss entdeckt. Das macht ihn nervös."],
+  stier:["Du nennst es historische Dokumentation. Andere nennen es digitales Bernsteinzimmer.","Du hast das Archiv tatsächlich begrenzt. Ein alter SharePoint-Ordner weint leise.","Die Sterne fanden keinen deiner legendären Aufbewahrungsreflexe. Verdächtig."],
+  zwillinge:["Du verbindest Menschen. Manchmal gleich das gesamte externe Adressbuch.","Du hast beim Teilen sogar über Empfänger nachgedacht. Merkur ist irritiert.","Heute kein kosmischer Sharing-Reflex. Vielleicht ist das Gastkonto endlich abgemeldet."],
+  krebs:["Du hast für alles eine Sicherheitskopie. Auch für die Sicherheitskopie.","Du hast deinen Beschützerinstinkt mit klaren Grenzen kombiniert. Selten und schön.","Der Mond findet heute keinen zusätzlichen Backup-Ordner. Das kann nicht stimmen."],
+  loewe:["Deine Vision ist groß. Dein Berechtigungsumfang leider auch.","Du bist König geblieben, ohne gleich das gesamte Tenant zu regieren.","Der Löwe hat heute weder Privilegien gesammelt noch ein Reich gegründet. Noch."],
+  jungfrau:["Aus einem schnellen Workaround wird bei dir ein System mit sieben Abhängigkeiten.","Du hast die Automatisierung diesmal gezähmt, bevor sie ein Eigenleben bekam.","Deine versteckten Flows haben sich heute auffällig still verhalten."],
+  waage:["Ein Urteil steht an. Du gründest vorsichtshalber ein Steering Committee.","Du hast zwischen Tempo und Kontrolle entschieden, ohne 14 Termine zu buchen.","Die Waage zeigt heute keine Governance-Krise. Vielleicht fehlt das Protokoll."],
+  skorpion:["Du liest Audit-Logs wie andere Krimis. Und kennst das Ende vorher.","Du hast erst Belege gesammelt und dann gehandelt. Fast schon unfair professionell.","Der Skorpion zeigt heute keine verdächtige Spur. Genau das wäre seine Strategie."],
+  schuetze:["Ein freundliches Gespräch später hast du Zugriff auf den halben Tenant.","Du hast deinen Charme eingesetzt, ohne dir heimlich Berechtigungen zu organisieren.","Der Schütze hat heute niemanden überredet. Hat er etwa Urlaub?"],
+  steinbock:["Deine Rollen sind unbefristet. Dein Organigramm nicht.","Du hast tatsächlich an Ablaufdaten gedacht. Saturn verlangt eine zweite Prüfung.","Kein alter Zugriff entdeckt. Der Steinbock beantragt vorsichtshalber eine Nachprüfung."],
+  wassermann:["Du hast das Tool von morgen schon gestern produktiv genommen. Mit echten Daten.","Innovation ohne Datenabfluss? Die Sterne wollen den Quellcode sehen.","Der Wassermann hat heute nichts Unfreigegebenes ausprobiert. Release verschoben?"],
+  fische:["Du findest Lösungen überall. Und speicherst sie auch überall.","Du hast die Datenflut heute erstaunlich gut im Becken gehalten.","Neptun sieht heute keine neue Kopie. Sie liegt bestimmt nur in einem anderen Team."]
+ };
+ const matches=result.resonanceDetails.filter(x=>x.value!==0)
+  .sort((a,b)=>Math.abs(b.value)-Math.abs(a.value)||a.question-b.question);
+ const primary=matches[0],mode=!primary?2:primary.value<0?0:1;
+ const line=(lines[result.s.id]||lines.fische)[mode];
+ const emphasis=primary
+  ?'Die Sterne haben besonders deine Antwort bei Frage '+primary.question+' registriert.'
+  :'Dein Sternzeichen hat bei den fünf Antworten keinen eindeutigen Treffer gefunden.';
+ return {title:mode===0?'Deine kosmische Anklage':mode===1?'Dein überraschender Freispruch':'Kosmisches Schweigen',body:line,footnote:emphasis};
+}
+
 function render(){clearTimeout(timer);
 app.classList.toggle('app-home',state.stage==='start');
 if(state.stage==='start'){
@@ -330,18 +356,41 @@ if(state.stage==='start'){
 if(state.stage==='sign'){app.innerHTML='<section class="panel"><div class="kicker">PHASE 01 / 03 · ASTROLOGISCHE IDENTITÄTSKRISE</div><h1>Welches Sternzeichen hat dich erschaffen?</h1><p class="muted">Es gibt keine perfekte Antwort. Nur fünf Entscheidungen, vier Zielkonflikte pro Frage und ein Sternzeichen mit Vorurteilen.</p><div class="zodiacs">'+signs.map(s=>'<button class="zodiac '+(state.sign===s.id?'selected':'')+'" data-sign="'+s.id+'"><span>'+s.glyph+'</span>'+s.name+'</button>').join('')+'</div><div class="actions">'+button('← Zurück','home',true)+button('DIE STERNE BEFRAGEN →','quiz',false,!state.sign)+'</div></section>';}
 if(state.stage==='quiz'){const q=questions[state.q];app.innerHTML='<section class="panel"><div class="topline"><span>PHASE 02 / 03 · DER REALITÄTSTEST</span><span>'+chosen().glyph+' '+chosen().name+'</span></div>'+progress(state.q+1,5)+'<div class="kicker">FRAGE '+(state.q+1)+' / 05</div><h1>'+esc(q.title)+'</h1><p class="joke">„'+esc(q.joke)+'“</p><div class="options">'+q.opts.map((o,i)=>'<label class="option '+(state.answers[state.q]===i?'selected':'')+'"><input type="radio" name="answer" value="'+i+'" '+(state.answers[state.q]===i?'checked':'')+'><b>'+String.fromCharCode(65+i)+'</b><span>'+esc(o.text)+'</span></label>').join('')+'</div><div class="actions">'+button('← Zurück','back',true)+button(state.q===4?'KOSMISCHE AUSWERTUNG →':'NÄCHSTE FRAGE →','next',false,state.answers[state.q]===null)+'</div><p class="muted small answer-count">'+state.answers.filter(x=>x!==null).length+' von 5 beantwortet</p></section>';}
 if(state.stage==='scan'){app.innerHTML='<section class="panel center"><div class="kicker">PHASE 03 / 03 · ABSURDE ANALYTIK</div><div class="scanning-zodiac">'+window.ZodiacArt.svg(chosen(),2)+'</div><h1>Die Sterne urteilen.</h1><p class="muted">Scanne Mars, Merkur und fragwürdige Freigabeeinstellungen …</p><div class="loader"></div></section>';timer=setTimeout(()=>{state.stage='result';history.replaceState(null,'',shareLink());render();},1700);}
-if(state.stage==='result'){const r=calc(),m=moodForScore(r.score);app.innerHTML='<section class="result result-tone-'+m+'"><div class="result-hero"><div class="kicker">✦ DEINE OFFIZIELL INOFFIZIELLE ZODIAC-FALLAKTE ✦</div><div class="result-topline"><div class="result-portrait-wrap">'+zodiacPoster(r.s,m)+'<div class="portrait-tag">'+['SOUVERÄN & ABGESICHERT','NACHDENKLICH & UNTER BEOBACHTUNG','VERDÄCHTIG VERSCHMITZT','KOSMISCHES SECURITY-CHAOS'][m]+'</div></div><div class="result-headline"><div class="largeglyph">'+r.s.glyph+'</div><div class="kicker">'+r.s.name.toUpperCase()+'</div><h1>'+r.s.title+'</h1><div class="score">'+r.score+'<span>/ 100</span></div><h2>'+r.band+'</h2></div></div><p class="lead">'+esc(r.s.weak)+'</p></div><div class="details"><article><h3>✦ DEINE SUPERPOWER</h3><p>'+esc(r.s.power)+'</p></article><article><h3>⚠ DEINE KOSMISCHE SCHWÄCHE</h3><p>'+esc(r.s.weak)+'</p></article><article><h3>✺ DEINE ANTWORT WURDE BEMERKT</h3><p>'+esc(r.notable.reveal)+'</p></article><article><h3>✶ DEINE SECURITY-PROPHEZEIUNG</h3><p>'+esc(r.s.prophecy)+'</p></article></div>'+scoreBreakdown(r)+'<div class="actions result-actions">'+button('ERGEBNISKARTE ALS PNG ↓','png')+button('ERGEBNIS TEILEN ↗','share',true)+button('↻ Nochmal spielen','reset',true)+'</div><p class="muted small center">Satire zur DDC Night Session. Sternzeichen sagen nichts über reale Insider-Risiken aus. Keine Ergebnisse werden gespeichert.</p></section>';}
+if(state.stage==='result'){
+ const r=calc(),m=moodForScore(r.score),v=personalVerdict(r);
+ app.innerHTML='<section class="result result-tone-'+m+'">'+
+ '<div class="result-hero"><div class="kicker">✦ DEINE OFFIZIELL INOFFIZIELLE ZODIAC-FALLAKTE ✦</div>'+
+ '<div class="result-topline"><div class="result-portrait-wrap">'+zodiacPoster(r.s,m)+
+ '<div class="portrait-tag">'+['SOUVERÄN & ABGESICHERT','NACHDENKLICH & UNTER BEOBACHTUNG','VERDÄCHTIG VERSCHMITZT','KOSMISCHES SECURITY-CHAOS'][m]+'</div></div>'+
+ '<div class="result-headline"><div class="largeglyph">'+r.s.glyph+'</div><div class="kicker">'+r.s.name.toUpperCase()+'</div><h1>'+r.s.title+'</h1>'+
+ '<div class="score">'+r.score+'<span>/ 100</span></div><h2>'+r.band+'</h2></div></div></div>'+
+ '<div class="result-verdict"><div class="result-verdict-eyebrow">✦ PERSÖNLICHE STERNENAKTE</div><h3>'+esc(v.title)+'</h3><p>'+esc(v.body)+'</p><small>'+esc(v.footnote)+'</small></div>'+
+ '<div class="result-share-primary">'+button('MEINE ZODIAC-KARTE TEILEN ↗','share')+button('PNG SPEICHERN ↓','png',true)+'</div>'+
+ '<p class="result-share-hint">Dein Sternzeichen, dein Score und deine persönliche Diagnose. Kein Login nötig.</p>'+
+ '<details class="result-expand"><summary><span>✧ Superpower, Schwäche und Prophezeiung</span><span class="expand-chevron" aria-hidden="true">⌄</span></summary>'+
+ '<div class="details"><article><h3>✦ DEINE SUPERPOWER</h3><p>'+esc(r.s.power)+'</p></article>'+
+ '<article><h3>⚠ DEINE KOSMISCHE SCHWÄCHE</h3><p>'+esc(r.s.weak)+'</p></article>'+
+ '<article><h3>✺ DEINE ANTWORT WURDE BEMERKT</h3><p>'+esc(r.notable.reveal)+'</p></article>'+
+ '<article><h3>✶ DEINE SECURITY-PROPHEZEIUNG</h3><p>'+esc(r.s.prophecy)+'</p></article></div></details>'+
+ '<details class="result-expand"><summary><span>✧ Wie die Sterne gerechnet haben</span><span class="expand-chevron" aria-hidden="true">⌄</span></summary>'+scoreBreakdown(r)+'</details>'+
+ '<aside class="night-invite"><span>DDC 2026 · NIGHT SESSION</span><h3>Die Sterne haben gesprochen.<br>Die Beweise folgen auf der Bühne.</h3>'+
+ '<p>In der Night Session wird aus dem absurden Horoskop eine echte Insider-Risk-Geschichte. Die zwölf Sternzeichen sind erst der Anfang.</p></aside>'+
+ '<div class="result-utility-actions">'+button('ERGEBNISLINK KOPIEREN','copy-link',true)+button('↻ Nochmal spielen','reset',true)+'</div>'+
+ '<p class="muted small center">100 % Satire. Keine echte Risikobewertung. Ein geteilter Ergebnislink enthält deine Antworten als Codes.</p></section>';
+}
+
 setupZodiacArtwork();
 app.querySelectorAll('[data-do]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.do)));
 app.querySelectorAll('[data-sign]').forEach(b=>b.addEventListener('click',()=>{state.sign=b.dataset.sign;render();}));
 app.querySelectorAll('input[name="answer"]').forEach(i=>i.addEventListener('change',()=>{state.answers[state.q]=Number(i.value);app.querySelectorAll('.option').forEach(el=>el.classList.toggle('selected',el.querySelector('input').checked));const next=app.querySelector('[data-do="next"]');if(next)next.disabled=false;const counter=app.querySelector('.answer-count');if(counter)counter.textContent=state.answers.filter(x=>x!==null).length+' von 5 beantwortet';}));}
-function action(a){if(a==='start')state.stage='sign';if(a==='home')state.stage='start';if(a==='quiz'&&state.sign){state.stage='quiz';state.q=0;}if(a==='back'){if(state.q===0)state.stage='sign';else state.q--;}if(a==='next'){if(state.answers[state.q]===null)return;if(state.q<4)state.q++;else state.stage='scan';}if(a==='reset'){state.stage='start';state.sign=null;state.q=0;state.answers=[null,null,null,null,null];history.replaceState(null,'',location.pathname);}if(a==='png'){png();return;}if(a==='share'){share();return;}render();scrollTo({top:0,behavior:'smooth'});}
+function action(a){if(a==='start')state.stage='sign';if(a==='home')state.stage='start';if(a==='quiz'&&state.sign){state.stage='quiz';state.q=0;}if(a==='back'){if(state.q===0)state.stage='sign';else state.q--;}if(a==='next'){if(state.answers[state.q]===null)return;if(state.q<4)state.q++;else state.stage='scan';}if(a==='reset'){state.stage='start';state.sign=null;state.q=0;state.answers=[null,null,null,null,null];history.replaceState(null,'',location.pathname);}if(a==='png'){png();return;}if(a==='share'){share();return;}if(a==='copy-link'){copyLink();return;}render();scrollTo({top:0,behavior:'smooth'});}
 function shareLink(){return location.origin+location.pathname+'#result='+state.sign+'.'+state.answers.join('');}
 function restore(){const m=location.hash.match(/^#result=([a-z]+)\.([0-3]{5})$/);if(m&&signs.some(s=>s.id===m[1])){state.sign=m[1];state.answers=m[2].split('').map(Number);state.stage='result';}}
 function notice(t){let n=document.createElement('div');n.className='toast';n.textContent=t;document.body.append(n);setTimeout(()=>n.remove(),3500);}
-async function share(){let url=shareLink();try{if(navigator.share)await navigator.share({title:'Mein Zodiac Security Score',url});else if(navigator.clipboard){await navigator.clipboard.writeText(url);notice('Ergebnislink kopiert.');}else notice('Link in der Adresszeile kopieren.');}catch(e){if(e.name!=='AbortError')notice('Link in der Adresszeile kopieren.');}}
+async function copyLink(){const url=shareLink();try{if(navigator.clipboard){await navigator.clipboard.writeText(url);notice('Persönlicher Ergebnislink kopiert.');}else notice('Bitte den Ergebnislink aus der Adresszeile kopieren.');}catch(e){notice('Bitte den Ergebnislink aus der Adresszeile kopieren.');}}
+async function share(){return png(true);}
 function wrap(ctx,text,y,width,size){ctx.font=size+'px Georgia';let lines=[''];for(const word of text.split(' ')){let i=lines.length-1,c=lines[i]+' '+word;if(ctx.measureText(c).width>width&&lines[i])lines.push(word);else lines[i]=c.trim();}lines.slice(0,4).forEach((line,i)=>ctx.fillText(line,540,y+i*(size+13)));}
-async function png(){const r=calc(),m=moodForScore(r.score),c=document.createElement('canvas');c.width=1080;c.height=1350;const x=c.getContext('2d');const themes=[['#071f27','#67e4d6'],['#231a37','#c4a1ff'],['#301826','#ffae68'],['#340c22','#ff547f']],t=themes[m],g=x.createLinearGradient(0,0,1080,1350);g.addColorStop(0,t[0]);g.addColorStop(1,'#090e21');x.fillStyle=g;x.fillRect(0,0,1080,1350);x.strokeStyle='#dfbe83';x.lineWidth=3;x.strokeRect(45,45,990,1260);
+async function png(shareImage=false){const r=calc(),m=moodForScore(r.score),c=document.createElement('canvas');c.width=1080;c.height=1350;const x=c.getContext('2d');const themes=[['#071f27','#67e4d6'],['#231a37','#c4a1ff'],['#301826','#ffae68'],['#340c22','#ff547f']],t=themes[m],g=x.createLinearGradient(0,0,1080,1350);g.addColorStop(0,t[0]);g.addColorStop(1,'#090e21');x.fillStyle=g;x.fillRect(0,0,1080,1350);x.strokeStyle='#dfbe83';x.lineWidth=3;x.strokeRect(45,45,990,1260);
 x.textAlign='center';x.fillStyle='#f2d59a';x.font='bold 31px Arial';x.fillText('ZODIAC RISK ENGINE™',540,132);x.font='18px Arial';x.fillText('DDC NIGHT SESSION · JULIAN KUSENBERG',540,170);
 try{await new Promise((resolve,reject)=>{
 const paint=(im,isAtlas)=>{try{
@@ -355,6 +404,22 @@ x.restore();resolve();
 const im=new Image();im.onload=()=>paint(im,true);im.onerror=()=>{const fallback=new Image();fallback.onload=()=>paint(fallback,false);fallback.onerror=reject;fallback.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(window.ZodiacArt.svg(r.s,m));};im.src=artworkURL(m);
 });}catch(e){x.fillStyle='#24203a';x.fillRect(260,192,560,510);x.fillStyle=t[1];x.font='210px serif';x.fillText(r.s.glyph,540,455);}
 try{await new Promise(resolve=>{const brand=new Image();brand.onload=()=>{x.drawImage(brand,73,65,83,111);resolve();};brand.onerror=resolve;brand.src='assets/sherlock-logo.svg?v=0.8.0';});}catch(e){}x.strokeStyle=t[1];x.lineWidth=4;x.strokeRect(260,192,560,510);
-x.fillStyle='#f5ebee';x.font='bold 32px Arial';x.fillText(r.s.name.toUpperCase(),540,668);x.font='bold 49px Georgia';wrap(x,r.s.title,766,920,49);x.fillStyle=t[1];x.font='bold 145px Arial';x.fillText(r.score,540,974);x.font='23px Arial';x.fillText('VON 100 SICHERHEITSPUNKTEN',540,1021);x.fillStyle='#eacb91';x.font='bold 28px Arial';x.fillText(r.band,540,1083);x.fillStyle='#ece0e8';wrap(x,r.s.weak,1155,850,26);x.fillStyle='#a8a7bc';x.font='21px Arial';x.fillText('100 % SATIRE · 0 % WISSENSCHAFT',540,1256);x.fillStyle='#e3bf82';x.font='bold 21px Arial';x.fillText('KUSENBERG.NET',540,1290);const a=document.createElement('a');let exportUrl;try{exportUrl=c.toDataURL('image/png');}catch(err){const f=document.createElement('canvas');f.width=1080;f.height=1350;const k=f.getContext('2d');k.fillStyle='#11172c';k.fillRect(0,0,1080,1350);k.strokeStyle='#e5c78c';k.lineWidth=4;k.strokeRect(45,45,990,1260);k.textAlign='center';k.fillStyle='#e5c78c';k.font='bold 42px Arial';k.fillText('ZODIAC RISK ENGINE™',540,180);k.font='180px serif';k.fillText(r.s.glyph,540,540);k.fillStyle='#fff';k.font='bold 46px Arial';k.fillText(r.s.name.toUpperCase(),540,640);k.font='bold 160px Arial';k.fillText(r.score,540,875);k.fillStyle='#f0c691';k.font='32px Arial';k.fillText('SECURITY SCORE · 100 % SATIRE',540,940);k.fillStyle='#e6e0e8';k.font='bold 32px Arial';k.fillText(r.band,540,1030);k.fillStyle='#e3bf82';k.font='bold 25px Arial';k.fillText('KUSENBERG.NET',540,1250);exportUrl=f.toDataURL('image/png');}a.href=exportUrl;a.download='zodiac-security-score-'+r.s.id+'.png';a.click();notice('Deine Zodiac-Ergebniskarte ist fertig.');}
+x.fillStyle='#f5ebee';x.font='bold 32px Arial';x.fillText(r.s.name.toUpperCase(),540,668);x.font='bold 49px Georgia';wrap(x,r.s.title,766,920,49);x.fillStyle=t[1];x.font='bold 145px Arial';x.fillText(r.score,540,974);x.font='23px Arial';x.fillText('VON 100 SICHERHEITSPUNKTEN',540,1021);x.fillStyle='#eacb91';x.font='bold 28px Arial';x.fillText(r.band,540,1083);x.fillStyle='#ece0e8';wrap(x,personalVerdict(r).body,1155,850,26);x.fillStyle='#a8a7bc';x.font='21px Arial';x.fillText('100 % SATIRE · 0 % WISSENSCHAFT',540,1256);x.fillStyle='#e3bf82';x.font='bold 21px Arial';x.fillText('KUSENBERG.NET',540,1290);const a=document.createElement('a');let exportUrl;try{exportUrl=c.toDataURL('image/png');}catch(err){const f=document.createElement('canvas');f.width=1080;f.height=1350;const k=f.getContext('2d');k.fillStyle='#11172c';k.fillRect(0,0,1080,1350);k.strokeStyle='#e5c78c';k.lineWidth=4;k.strokeRect(45,45,990,1260);k.textAlign='center';k.fillStyle='#e5c78c';k.font='bold 42px Arial';k.fillText('ZODIAC RISK ENGINE™',540,180);k.font='180px serif';k.fillText(r.s.glyph,540,540);k.fillStyle='#fff';k.font='bold 46px Arial';k.fillText(r.s.name.toUpperCase(),540,640);k.font='bold 160px Arial';k.fillText(r.score,540,875);k.fillStyle='#f0c691';k.font='32px Arial';k.fillText('SECURITY SCORE · 100 % SATIRE',540,940);k.fillStyle='#e6e0e8';k.font='bold 32px Arial';k.fillText(r.band,540,1030);k.fillStyle='#e3bf82';k.font='bold 25px Arial';k.fillText('KUSENBERG.NET',540,1250);exportUrl=f.toDataURL('image/png');}a.href=exportUrl;
+const filename='zodiac-security-score-'+r.s.id+'-'+r.score+'.png';
+a.download=filename;
+if(shareImage&&navigator.share&&navigator.canShare&&typeof File!=='undefined'){
+ try{
+  const blob=await new Promise(resolve=>{const canvasRef=exportUrl===undefined?c:null;
+   if(canvasRef&&canvasRef.toBlob)canvasRef.toBlob(resolve,'image/png');else resolve(null);});
+  const usableBlob=blob||await(await fetch(exportUrl)).blob();
+  const imageFile=new File([usableBlob],filename,{type:'image/png'});
+  if(navigator.canShare({files:[imageFile]})){
+   try{await navigator.share({files:[imageFile],title:'Mein Zodiac Security Score',text:'Mein kosmisches Security-Horoskop von der DDC'});return;}
+   catch(err){if(err.name==='AbortError')return;}
+  }
+ }catch(err){}
+}
+a.click();
+notice(shareImage?'Bild gespeichert. Du kannst es jetzt teilen.':'Deine Zodiac-Ergebniskarte ist fertig.');}
 document.getElementById('brandLink').addEventListener('click',e=>{e.preventDefault();state.stage='start';history.replaceState(null,'',location.pathname);render();});restore();render();
 })();
