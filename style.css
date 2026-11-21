@@ -50,3 +50,7 @@ h1,h2,h3,p,.brand{overflow-wrap:break-word}
   .option{font-size:14px}
   .facts{font-size:11px}
 }
+
+/* Subtle build label at the end of the page. No overlay on mobile navigation. */
+.site-version{margin-left:auto;align-self:flex-end;font-size:10px;line-height:1.2;letter-spacing:.07em;font-variant-numeric:tabular-nums;color:#858194;opacity:.7;white-space:nowrap;user-select:text}
+@media(max-width:650px){.footer .site-version{width:100%;text-align:right;margin-top:0}}
