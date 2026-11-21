@@ -385,14 +385,71 @@ setupZodiacArtwork();
 app.querySelectorAll('[data-do]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.do)));
 app.querySelectorAll('[data-sign]').forEach(b=>b.addEventListener('click',()=>{state.sign=b.dataset.sign;render();}));
 app.querySelectorAll('input[name="answer"]').forEach(i=>i.addEventListener('change',()=>{state.answers[state.q]=Number(i.value);app.querySelectorAll('.option').forEach(el=>el.classList.toggle('selected',el.querySelector('input').checked));const next=app.querySelector('[data-do="next"]');if(next)next.disabled=false;const counter=app.querySelector('.answer-count');if(counter)counter.textContent=state.answers.filter(x=>x!==null).length+' von 5 beantwortet';}));}
-function action(a){if(a==='start')state.stage='sign';if(a==='home')state.stage='start';if(a==='quiz'&&state.sign){state.stage='quiz';state.q=0;}if(a==='back'){if(state.q===0)state.stage='sign';else state.q--;}if(a==='next'){if(state.answers[state.q]===null)return;if(state.q<4)state.q++;else state.stage='scan';}if(a==='reset'){state.stage='start';state.sign=null;state.q=0;state.answers=[null,null,null,null,null];history.replaceState(null,'',location.pathname);}if(a==='png'){png();return;}if(a==='share'){share();return;}if(a==='copy-link'){copyLink();return;}render();scrollTo({top:0,behavior:'smooth'});}
+function action(a){if(a==='start')state.stage='sign';if(a==='home')state.stage='start';if(a==='quiz'&&state.sign){state.stage='quiz';state.q=0;}if(a==='back'){if(state.q===0)state.stage='sign';else state.q--;}if(a==='next'){if(state.answers[state.q]===null)return;if(state.q<4)state.q++;else state.stage='scan';}if(a==='reset'){state.stage='start';state.sign=null;state.q=0;state.answers=[null,null,null,null,null];history.replaceState(null,'',location.pathname);}if(a==='png'){png().catch(cardExportFailure);return;}if(a==='share'){share().catch(cardExportFailure);return;}if(a==='copy-link'){copyLink();return;}render();scrollTo({top:0,behavior:'smooth'});}
 function shareLink(){return location.origin+location.pathname+'#result='+state.sign+'.'+state.answers.join('');}
 function restore(){const m=location.hash.match(/^#result=([a-z]+)\.([0-3]{5})$/);if(m&&signs.some(s=>s.id===m[1])){state.sign=m[1];state.answers=m[2].split('').map(Number);state.stage='result';}}
 function notice(t){let n=document.createElement('div');n.className='toast';n.textContent=t;document.body.append(n);setTimeout(()=>n.remove(),3500);}
 async function copyLink(){const url=shareLink();try{if(navigator.clipboard){await navigator.clipboard.writeText(url);notice('Persönlicher Ergebnislink kopiert.');}else notice('Bitte den Ergebnislink aus der Adresszeile kopieren.');}catch(e){notice('Bitte den Ergebnislink aus der Adresszeile kopieren.');}}
+
 async function share(){return png(true);}
+function closeCardExport(){
+ const box=document.getElementById('zodiac-card-export');
+ if(!box)return;
+ if(box._blobURL&&URL.revokeObjectURL)URL.revokeObjectURL(box._blobURL);
+ box.remove();
+}
+function cardExportFailure(e){
+ const box=document.getElementById('zodiac-card-export');
+ if(box){const loading=box.querySelector('.card-export-loading');if(loading)loading.textContent='Karte konnte nicht erstellt werden. Bitte erneut versuchen.';}
+ notice('Der PNG-Export ist fehlgeschlagen. Bitte erneut versuchen.');
+}
+function startCardExport(){
+ closeCardExport();
+ const box=document.createElement('div');
+ box.id='zodiac-card-export';box.className='card-export-overlay';
+ box.setAttribute('role','dialog');box.setAttribute('aria-modal','true');
+ box.setAttribute('aria-label','Zodiac-Karte speichern oder teilen');
+ box.innerHTML='<div class="card-export-panel"><header class="card-export-top"><strong>✦ DEINE ZODIAC-KARTE</strong><button class="card-export-close" type="button" aria-label="Schließen">×</button></header>'+
+ '<div class="card-export-content"><p role="status" class="card-export-loading">Karte wird erstellt …</p><img class="card-export-image" alt="Deine Zodiac-Ergebniskarte mit KUSENBERG.NET" hidden></div>'+
+ '<div class="card-export-actions" hidden><button class="btn primary card-export-share" type="button" hidden>BILD TEILEN ↗</button><button class="btn secondary card-export-save" type="button">PNG SPEICHERN ↓</button></div>'+
+ '<p class="card-export-help" hidden>iPhone: Bild länger gedrückt halten und „In Fotos sichern“ wählen.</p></div>';
+ box.querySelector('.card-export-close').addEventListener('click',closeCardExport);
+ box.addEventListener('click',e=>{if(e.target===box)closeCardExport();});
+ document.body.appendChild(box);
+ return box;
+}
+function showCardExport(box,dataURL,canvas,filename){
+ if(!box.isConnected)return;
+ const image=box.querySelector('.card-export-image');
+ image.src=dataURL;image.hidden=false;
+ box.querySelector('.card-export-loading').hidden=true;
+ box.querySelector('.card-export-actions').hidden=false;
+ box.querySelector('.card-export-help').hidden=false;
+ box.querySelector('.card-export-save').addEventListener('click',()=>{
+  const link=document.createElement('a');
+  link.href=box._blobURL||dataURL;link.download=filename;
+  document.body.appendChild(link);link.click();link.remove();
+  notice('Falls kein Download startet: Bild lange drücken und sichern.');
+ });
+ if(typeof File==='undefined'||typeof navigator.share!=='function'||typeof canvas.toBlob!=='function')return;
+ try{canvas.toBlob(blob=>{
+  if(!blob||!box.isConnected)return;
+  const file=new File([blob],filename,{type:'image/png'});
+  if(navigator.canShare&&!navigator.canShare({files:[file]}))return;
+  if(URL.createObjectURL){box._blobURL=URL.createObjectURL(blob);image.src=box._blobURL;}
+  const shareButton=box.querySelector('.card-export-share');
+  shareButton.hidden=false;
+  shareButton.addEventListener('click',()=>{
+   try{
+    const p=navigator.share({files:[file],title:'Mein Zodiac Security Score'});
+    if(p&&p.catch)p.catch(e=>{if(e?.name!=='AbortError')notice('Teilen nicht möglich. Bitte PNG speichern.');});
+   }catch(e){notice('Teilen nicht möglich. Bitte PNG speichern.');}
+  });
+ },'image/png');}catch(e){}
+}
+
 function wrap(ctx,text,y,width,size){ctx.font=size+'px Georgia';let lines=[''];for(const word of text.split(' ')){let i=lines.length-1,c=lines[i]+' '+word;if(ctx.measureText(c).width>width&&lines[i])lines.push(word);else lines[i]=c.trim();}lines.slice(0,4).forEach((line,i)=>ctx.fillText(line,540,y+i*(size+13)));}
-async function png(shareImage=false){const r=calc(),m=moodForScore(r.score),c=document.createElement('canvas');c.width=1080;c.height=1350;const x=c.getContext('2d');const themes=[['#071f27','#67e4d6'],['#231a37','#c4a1ff'],['#301826','#ffae68'],['#340c22','#ff547f']],t=themes[m],g=x.createLinearGradient(0,0,1080,1350);g.addColorStop(0,t[0]);g.addColorStop(1,'#090e21');x.fillStyle=g;x.fillRect(0,0,1080,1350);x.strokeStyle='#dfbe83';x.lineWidth=3;x.strokeRect(45,45,990,1260);
+async function png(shareImage=false){const exportDialog=startCardExport();const r=calc(),m=moodForScore(r.score),c=document.createElement('canvas');c.width=1080;c.height=1350;const x=c.getContext('2d');const themes=[['#071f27','#67e4d6'],['#231a37','#c4a1ff'],['#301826','#ffae68'],['#340c22','#ff547f']],t=themes[m],g=x.createLinearGradient(0,0,1080,1350);g.addColorStop(0,t[0]);g.addColorStop(1,'#090e21');x.fillStyle=g;x.fillRect(0,0,1080,1350);x.strokeStyle='#dfbe83';x.lineWidth=3;x.strokeRect(45,45,990,1260);
 x.textAlign='center';x.fillStyle='#f2d59a';x.font='bold 31px Arial';x.fillText('ZODIAC RISK ENGINE™',540,132);x.font='18px Arial';x.fillText('DDC NIGHT SESSION · JULIAN KUSENBERG',540,170);
 try{await new Promise((resolve,reject)=>{
 const paint=(im,isAtlas)=>{try{
@@ -406,21 +463,9 @@ x.restore();resolve();
 const im=new Image();im.onload=()=>paint(im,true);im.onerror=()=>{const fallback=new Image();fallback.onload=()=>paint(fallback,false);fallback.onerror=reject;fallback.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(window.ZodiacArt.svg(r.s,m));};im.src=artworkURL(m);
 });}catch(e){x.fillStyle='#24203a';x.fillRect(260,192,560,510);x.fillStyle=t[1];x.font='210px serif';x.fillText(r.s.glyph,540,455);}
 try{await new Promise(resolve=>{const brand=new Image();brand.onload=()=>{x.drawImage(brand,73,65,83,111);resolve();};brand.onerror=resolve;brand.src='assets/sherlock-logo.svg?v=0.8.0';});}catch(e){}x.strokeStyle=t[1];x.lineWidth=4;x.strokeRect(260,192,560,510);
-x.fillStyle='#f5ebee';x.font='bold 32px Arial';x.fillText(r.s.name.toUpperCase(),540,668);x.font='bold 49px Georgia';wrap(x,r.s.title,766,920,49);x.fillStyle=t[1];x.font='bold 145px Arial';x.fillText(r.score,540,974);x.font='23px Arial';x.fillText('VON 100 SICHERHEITSPUNKTEN',540,1021);x.fillStyle='#eacb91';x.font='bold 28px Arial';x.fillText(r.band,540,1083);x.fillStyle='#ece0e8';wrap(x,personalVerdict(r).body,1155,850,26);x.fillStyle='#a8a7bc';x.font='21px Arial';x.fillText('100 % SATIRE · 0 % WISSENSCHAFT',540,1256);x.fillStyle='#e3bf82';x.font='bold 21px Arial';x.fillText('KUSENBERG.NET',540,1290);const a=document.createElement('a');let exportUrl,outputCanvas=c;try{exportUrl=c.toDataURL('image/png');}catch(err){const f=document.createElement('canvas');f.width=1080;f.height=1350;const k=f.getContext('2d');k.fillStyle='#11172c';k.fillRect(0,0,1080,1350);k.strokeStyle='#e5c78c';k.lineWidth=4;k.strokeRect(45,45,990,1260);k.textAlign='center';k.fillStyle='#e5c78c';k.font='bold 42px Arial';k.fillText('ZODIAC RISK ENGINE™',540,180);k.font='180px serif';k.fillText(r.s.glyph,540,540);k.fillStyle='#fff';k.font='bold 46px Arial';k.fillText(r.s.name.toUpperCase(),540,640);k.font='bold 160px Arial';k.fillText(r.score,540,875);k.fillStyle='#f0c691';k.font='32px Arial';k.fillText('SECURITY SCORE · 100 % SATIRE',540,940);k.fillStyle='#e6e0e8';k.font='bold 32px Arial';k.fillText(r.band,540,1030);k.fillStyle='#e3bf82';k.font='bold 25px Arial';k.fillText('KUSENBERG.NET',540,1250);exportUrl=f.toDataURL('image/png');outputCanvas=f;}a.href=exportUrl;
+x.fillStyle='#f5ebee';x.font='bold 32px Arial';x.fillText(r.s.name.toUpperCase(),540,668);x.font='bold 49px Georgia';wrap(x,r.s.title,766,920,49);x.fillStyle=t[1];x.font='bold 145px Arial';x.fillText(r.score,540,974);x.font='23px Arial';x.fillText('VON 100 SICHERHEITSPUNKTEN',540,1021);x.fillStyle='#eacb91';x.font='bold 28px Arial';x.fillText(r.band,540,1083);x.fillStyle='#ece0e8';wrap(x,personalVerdict(r).body,1155,850,26);x.fillStyle='#a8a7bc';x.font='21px Arial';x.fillText('100 % SATIRE · 0 % WISSENSCHAFT',540,1256);x.fillStyle='#e3bf82';x.font='bold 21px Arial';x.fillText('KUSENBERG.NET',540,1290);let exportUrl,outputCanvas=c;try{exportUrl=c.toDataURL('image/png');}catch(err){const f=document.createElement('canvas');f.width=1080;f.height=1350;const k=f.getContext('2d');k.fillStyle='#11172c';k.fillRect(0,0,1080,1350);k.strokeStyle='#e5c78c';k.lineWidth=4;k.strokeRect(45,45,990,1260);k.textAlign='center';k.fillStyle='#e5c78c';k.font='bold 42px Arial';k.fillText('ZODIAC RISK ENGINE™',540,180);k.font='180px serif';k.fillText(r.s.glyph,540,540);k.fillStyle='#fff';k.font='bold 46px Arial';k.fillText(r.s.name.toUpperCase(),540,640);k.font='bold 160px Arial';k.fillText(r.score,540,875);k.fillStyle='#f0c691';k.font='32px Arial';k.fillText('SECURITY SCORE · 100 % SATIRE',540,940);k.fillStyle='#e6e0e8';k.font='bold 32px Arial';k.fillText(r.band,540,1030);k.fillStyle='#e3bf82';k.font='bold 25px Arial';k.fillText('KUSENBERG.NET',540,1250);exportUrl=f.toDataURL('image/png');outputCanvas=f;}
 const filename='zodiac-security-score-'+r.s.id+'-'+r.score+'.png';
-a.download=filename;
-if(shareImage&&navigator.share&&navigator.canShare&&typeof File!=='undefined'){
- try{
-  const blob=await new Promise(resolve=>{if(outputCanvas.toBlob)outputCanvas.toBlob(resolve,'image/png');else resolve(null);});
-  const usableBlob=blob||await(await fetch(exportUrl)).blob();
-  const imageFile=new File([usableBlob],filename,{type:'image/png'});
-  if(navigator.canShare({files:[imageFile]})){
-   try{await navigator.share({files:[imageFile],title:'Mein Zodiac Security Score',text:'Mein kosmisches Security-Horoskop von der DDC'});return;}
-   catch(err){if(err.name==='AbortError')return;}
-  }
- }catch(err){}
+showCardExport(exportDialog,exportUrl,outputCanvas,filename);
 }
-a.click();
-notice(shareImage?'Bild gespeichert. Du kannst es jetzt teilen.':'Deine Zodiac-Ergebniskarte ist fertig.');}
 document.getElementById('brandLink').addEventListener('click',e=>{e.preventDefault();state.stage='start';history.replaceState(null,'',location.pathname);render();});restore();render();
 })();
