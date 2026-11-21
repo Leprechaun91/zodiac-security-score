@@ -182,7 +182,7 @@ function zodiacPoster(sign,mood){
  '<div class="zodiac-painted" style="background-image:url(\''+url+'\');background-position:'+p.x+'% '+p.y+'%"></div>'+
  '<div class="zodiac-illustrated-fallback">'+visual+'</div>'+
  '<div class="zodiac-cinematic-vignette" aria-hidden="true"></div>'+
- '<div class="zodiac-art-banner"><span class="zodiac-art-overline">✦ ZODIAC CASE FILE ✦</span><strong>'+esc(sign.name)+'</strong></div>'+
+ '<div class="zodiac-art-banner"><span class="zodiac-art-overline">'+(sign.id==='schuetze'?'✦ SOCIAL ENGINEERING ✦':'✦ ZODIAC CASE FILE ✦')+'</span><strong>'+esc(sign.name)+'</strong></div>'+
  '</div>';
 }
 function setupZodiacArtwork(){
