@@ -45,3 +45,11 @@ GitHub Pages ist statisch und kann Besucherantworten nicht zentral sammeln. Für
 - 4 risikobasierte Farbstimmungen von souverän bis verschmitzt/chaotisch.
 - Großflächige mobile Zodiac-Karte und neues Zodiac-Rad im Startbildschirm.
 - Keine externen Bildrequests; die Illustration entsteht im Browser aus SVG.
+
+## v0.7.0 – Cinematic Zodiac Collector Cards
+- Ergebnisseite: zwölf gemalte Fantasy-Sternzeichen statt stilisierter Liniengrafiken.
+- Vier scoreabhängige Farb- und Lichtstimmungen; hochwertige Karte für Smartphones und Share-PNG.
+- Kleine Sherlock-Signatur bleibt erhalten.
+- Das Bildatlas `assets/zodiac-atlas.webp` (4 Spalten, 3 Reihen) ist eine einzige WebP-Datei mit zwölf Bildern. Es wird benötigt, damit die neue cineastische Darstellung angezeigt wird.
+- Beim Fehlen des Atlas greift die Seite automatisch auf die bisherigen SVG-Sternzeichen zurück.
+- Einmaliges Hochladen der WebP-Datei über GitHub im Ordner `assets` nötig; der GitHub-Textconnector kann keine lokale Bilddatei direkt übertragen.
