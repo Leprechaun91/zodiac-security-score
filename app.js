@@ -14,31 +14,157 @@ const signs=[
 ['fische','♓','Fische','Der Accidental Chaos Agent',23,'sprawl copy shortcut','Du findest für jedes Problem eine Lösung.','Später findest du sie selbst nicht mehr. Dafür sechs Kopien.','Neptun steht im OneDrive. Deine Kundenliste liegt in Teams, Dropbox und einem alten Prompt.']
 ].map(x=>({id:x[0],glyph:x[1],name:x[2],title:x[3],base:x[4],aff:x[5].split(' '),power:x[6],weak:x[7],prophecy:x[8]}));
 const questions=[
-{title:'Freitag, 16:47 Uhr. Ein Kunde braucht dringend ein vertrauliches Dokument. Was machst du?',joke:'Der Projektleiter ist im Wochenende. Und der CISO hat bestimmt Verständnis. Bestimmt.',opts:[
-['Ich erstelle einen zeitlich begrenzten Link für benannte Empfänger.',2,'sharing process','Ein begrenzter Link. Die Sterne sind enttäuscht über deine Vernunft.'],
-['Ich reduziere den Inhalt auf die benötigten Informationen.',0,'precision','Datenminimierung. Irgendwo wischt sich ein Security-Mitarbeiter eine Träne weg.'],
-['Ich nutze den vorhandenen Projektraum, in dem der Kunde schon Gast ist.',6,'external sharing shortcut','Der Gast ist schon da. Seit 18 Monaten. Das Projekt endete vor einem Jahr.'],
-['Ich warte auf die Freigabe, obwohl das die Lieferung verzögert.',3,'delay approval process','Sicherheit gewonnen. Die Kundenbeziehung wartet auf Genehmigung.']]},
-{title:'Du entdeckst 14 Jahre alte Projektdaten. Niemand weiß, wem sie gehören. Was tust du?',joke:'Die Hälfte heißt FINAL. Die andere FINAL_NEU. Ein Ordner heißt NICHT LÖSCHEN!!!',opts:[
-['Ich archiviere sie schreibgeschützt, bis Fristen und Owner geklärt sind.',3,'retain archive','Sicher verwahrt. Der Speicherbedarf zieht auf Lebenszeit ein.'],
-['Ich starte eine geregelte Prüfung auf veraltete Inhalte.',1,'speed process','Der Fachbereich gründet vorsichtshalber einen Arbeitskreis.'],
-['Ich mache den Bestand über einen Suchindex zugänglich.',5,'sprawl copy','Jetzt ist das Chaos immerhin durchsuchbar. Ein Fortschritt. Technisch.'],
-['Ich lasse ein freigegebenes KI-System kategorisieren und die Ergebnisse prüfen.',3,'ai innovation','Die KI hält 16.000 Dateien für möglicherweise wichtig.']]},
-{title:'Ein KI-Tool könnte zehn Stunden pro Woche sparen. Die IT hat es nicht freigegeben.',joke:'Der Anbieter verspricht Enterprise Security. Die Website hat sogar einen animierten Farbverlauf.',opts:[
-['Ich teste zunächst mit synthetischen Daten.',1,'ai innovation','Keine echten Kundendaten? Die Sterne hatten mehr Drama erwartet.'],
-['Ich bleibe vorerst bei der freigegebenen KI.',0,'process delay','Fast schon ein Compliance-Horoskop.'],
-['Ich beantrage eine befristete Ausnahme für einen Pilot.',3,'approval innovation','Ein Pilot! Drei Datenschutzfragen materialisieren sich.'],
-['Ich baue intern eine ähnliche Automatisierung.',4,'automation shortcut innovation','Aus Shadow AI wurde womöglich Shadow IT mit besserem Branding.']]},
-{title:'Deine Automatisierung scheitert an Berechtigungen. Morgen ist die große Demo.',joke:'Gestern ging alles. Auf deinem Rechner. Als Global Admin. Aber das sind Details.',opts:[
-['Ich beantrage die benötigten Rechte temporär.',2,'privilege access','Temporär ist gut. Bitte auch ans Ablaufdatum denken.'],
-['Ich bitte einen berechtigten Kollegen um die Ausführung.',4,'social access','Du hast keinen Zugriff, aber kennst jemanden.'],
-['Ich prüfe, ob eine vorhandene technische Identität dafür geeignet und genehmigt ist.',6,'privilege shortcut retainaccess','Der Service Account stammt vermutlich aus der Fax-Ära.'],
-['Ich passe den Workflow an, um weniger Rechte zu benötigen.',0,'automation precision','Least Privilege in der Demo-Woche? Ein seltenes Himmelsereignis.']]},
-{title:'Ein Mitarbeiter lädt 600 Dateien herunter, kurz vor dem Austritt. Gleichzeitig läuft eine Migration.',joke:'Security sagt Insider Threat. Die Projektleitung sagt Business as usual. Er sagt: Nur kurz.',opts:[
-['Ich kläre zuerst mit der Projektleitung den Kontext.',2,'social process','Du fragst nach Kontext. Die Risk Engine ist verwirrt.'],
-['Ich lasse den Vorgang und die vorhandenen Protokolle prüfen.',0,'observe precision','Endlich jemand, der auf Signale statt Sternzeichen schaut.'],
-['Ich lasse nach Abstimmung Zugriffe vorübergehend einschränken.',6,'speed bypass privilege','Incident eingedämmt. Migration eventuell auch.'],
-['Ich beobachte weiter, um einen Fehlalarm zu vermeiden.',5,'delay observe stealth','Der externe Cloud-Speicher bewundert deine Geduld.']]}]
+  {
+    "title": "Dein KI-Agent darf die Demo-Datei nicht lesen. Der CEO sagt: „Gib ihm doch kurz Zugriff auf alles.“ Was machst du?",
+    "joke": "„Nur für die Demo“ ist eine bemerkenswert häufige Zeitangabe in Audit-Logs.",
+    "opts": [
+      [
+        "Ich stelle dem Agenten einen freigegebenen Datenraum mit begrenzten Rechten bereit.",
+        2,
+        "precision access process",
+        "Dein Agent sieht weniger als der Praktikant. Das ist hier ausnahmsweise ein Kompliment."
+      ],
+      [
+        "Ich führe mit meinen eigenen Berechtigungen vor und stelle nach der Demo um.",
+        6,
+        "speed privilege bypass",
+        "Du hast ein Authentifizierungsproblem gelöst. Durch ein potenziell größeres Authentifizierungsproblem."
+      ],
+      [
+        "Ich nutze den bereits dokumentierten Service-Account aus dem Projekt.",
+        5,
+        "automation retainaccess access",
+        "„svc_demo_final2“ ist ein Name, kein Sicherheitskonzept."
+      ],
+      [
+        "Ich verwende einen geprüften Demo-Snapshot und verschiebe den Livezugriff.",
+        1,
+        "delay copy precision",
+        "Nicht ganz live. Aber das einzige Feuer brennt heute auf der PowerPoint-Folie."
+      ]
+    ]
+  },
+  {
+    "title": "Ein KI-Tool fasst 200 Kundendokumente in 20 Sekunden zusammen. Die Datenschutzprüfung kommt allerdings erst Montag.",
+    "joke": "„Hosted in Europe“ steht groß auf der Website. Das Kleingedruckte ist leider auf Geschäftsreise.",
+    "opts": [
+      [
+        "Ich teste die Qualität mit synthetischen Beispielen, bis die Freigabe vorliegt.",
+        2,
+        "innovation ai precision",
+        "Die Demo glänzt. Die echten Kundendaten dürfen derweil in Ruhe weiterexistieren."
+      ],
+      [
+        "Ich entferne Namen und Vertragsnummern und verwende nur kurze Auszüge.",
+        5,
+        "ai sharing shortcut",
+        "Du hast drei Namen entfernt. Die restlichen 47 Identifikationsmerkmale winken freundlich."
+      ],
+      [
+        "Ich lasse zunächst nur Dateinamen und Kategorien verarbeiten, keine Inhalte.",
+        4,
+        "ai sprawl",
+        "Metadaten sind nicht automatisch harmlos. Auch ein Dateiname kann ziemlich geschwätzig sein."
+      ],
+      [
+        "Ich baue eine ähnliche Funktion mit dem bereits freigegebenen Unternehmensdienst.",
+        3,
+        "automation process innovation",
+        "Aus der Zehn-Minuten-Lösung wurden drei Sprints. Immerhin mit Architekturdiagramm."
+      ]
+    ]
+  },
+  {
+    "title": "Ein Kunde braucht eine Datei bis 17 Uhr. Im alten Projekt-Team sitzen noch Gäste vom letzten Rollout.",
+    "joke": "Der Kanal heißt TEMP_NEU_FINAL. Das letzte Rollout endete vor 18 Monaten. Natürlich.",
+    "opts": [
+      [
+        "Ich teile nur die benötigten Inhalte separat, für benannte Empfänger und zeitlich begrenzt.",
+        1,
+        "sharing precision",
+        "Sehr kontrolliert. Das Sternzeichen der alten Gäste ist allerdings weiterhin unbekannt."
+      ],
+      [
+        "Ich prüfe zuerst die Mitglieder, bereinige den Projektraum und teile dann dort.",
+        2,
+        "process sharing delay",
+        "Ein Gast aus 2023 fragt, ob er jetzt endlich aus der Gruppe darf."
+      ],
+      [
+        "Ich zeige die Inhalte im gemeinsamen Call, statt eine Kopie zu verschicken.",
+        3,
+        "shortcut external speed",
+        "Keine Datei versendet. Screenshots wurden leider noch nicht astrologisch verboten."
+      ],
+      [
+        "Ich verwende den bestehenden Kanal, der Kunde ist dort Mitglied und hat eine NDA.",
+        6,
+        "external retainaccess sharing",
+        "Die NDA ist kein magischer Unsichtbarkeitsumhang für sechs weitere Gäste."
+      ]
+    ]
+  },
+  {
+    "title": "Dein KI-Assistent findet Dokumente aus 2013, die angeblich längst gelöscht wurden. Nächste Woche ist Audit.",
+    "joke": "Der Ordner heißt „Alt_Ablage_BitteNichtLöschen“. Sein letzter Owner ist seit 2016 in Rente.",
+    "opts": [
+      [
+        "Ich schränke den Zugriff auf die Altbestände ein und lasse Eigentümer sowie Fristen klären.",
+        2,
+        "archive process retain",
+        "Du hast das Problem sicher aufbewahrt. Jetzt braucht es nur noch einen Verantwortlichen."
+      ],
+      [
+        "Ich priorisiere selten genutzte Dateien für eine fachliche Bewertung und mögliche Löschung.",
+        4,
+        "precision speed",
+        "Niedrige Nutzung ist kein Löschgrund. Aber wenigstens hat jemand angefangen zu sortieren."
+      ],
+      [
+        "Ich verschiebe die Daten in ein separates Archiv und dokumentiere den Bestand.",
+        5,
+        "archive retain sprawl",
+        "Das Datenchaos hat ein neues Zuhause. Mit Meerblick und Archivgebühren."
+      ],
+      [
+        "Ich lasse ein freigegebenes KI-System vorsortieren und lasse unklare Fälle prüfen.",
+        3,
+        "ai automation precision",
+        "Die KI klassifiziert 800 Dateien als „historisch interessant“. Der Auditor ist weniger begeistert."
+      ]
+    ]
+  },
+  {
+    "title": "600 Downloads in zwölf Minuten. Der Mitarbeiter verlässt Freitag das Unternehmen. Gleichzeitig läuft eine Datenmigration.",
+    "joke": "Das Dashboard ist rot. Die Projektleitung sagt „alles grün“. Teams schlägt einen „kurzen Sync“ vor.",
+    "opts": [
+      [
+        "Ich prüfe die Ereigniskette zusammen mit dem Migrationsteam und dem Security-Team.",
+        2,
+        "observe precision process",
+        "Kontext statt Kristallkugel. Die Sterne finden dich anstrengend vernünftig."
+      ],
+      [
+        "Ich lasse verdächtige Transfers vorübergehend begrenzen und prüfe parallel den Kontext.",
+        3,
+        "speed privilege process",
+        "Das Risiko sinkt. Die Migration ruft an. Sie möchte ihren Durchsatz zurück."
+      ],
+      [
+        "Ich frage den Mitarbeiter direkt nach dem Hintergrund, bevor wir eskalieren.",
+        5,
+        "social access",
+        "Die Antwort lautet „nur kurz“. Forensiker hassen diesen Trick."
+      ],
+      [
+        "Ich sammle erst weitere Signale, um einen teuren Fehlalarm zu vermeiden.",
+        6,
+        "delay observe stealth",
+        "Du vermeidest einen Fehlalarm. Eventuell auch die rechtzeitige Reaktion."
+      ]
+    ]
+  }
+]
 .map(q=>({...q,opts:q.opts.map(o=>({text:o[0],risk:o[1],tags:o[2].split(' '),reveal:o[3]}))}));
 const app=document.getElementById('app'), state={stage:'start',sign:null,q:0,answers:[null,null,null,null,null]};
 let timer;
@@ -55,7 +181,7 @@ if(state.stage==='scan'){app.innerHTML='<section class="panel center"><div class
 if(state.stage==='result'){const r=calc();app.innerHTML='<section class="result"><div class="result-hero"><div class="kicker">✦ OFFIZIELLES INOFFIZIELLES ZODIAC-ZERTIFIKAT ✦</div><div class="largeglyph">'+r.s.glyph+'</div><div class="kicker">'+r.s.name.toUpperCase()+'</div><h1>'+r.s.title+'</h1><div class="score">'+r.score+'<span>/ 100</span></div><h2>'+r.band+'</h2><p class="lead">'+esc(r.s.weak)+'</p></div><div class="details"><article><h3>✦ DEINE SUPERPOWER</h3><p>'+esc(r.s.power)+'</p></article><article><h3>⚠ DEINE KOSMISCHE SCHWÄCHE</h3><p>'+esc(r.s.weak)+'</p></article><article><h3>✺ DEINE ANTWORT WURDE BEMERKT</h3><p>'+esc(r.notable.reveal)+'</p></article><article><h3>✶ DEINE SECURITY-PROPHEZEIUNG</h3><p>'+esc(r.s.prophecy)+'</p></article></div><div class="breakdown"><h3>DER COSMIC SECURITY ALGORITHM™</h3>'+[['Sternzeichen-Risiko',r.s.base,40],['Deine Entscheidungen',r.decisions,40],['Kosmische Wechselwirkung',r.cosmic,20]].map(x=>'<div class="metric"><span>'+x[0]+'</span><strong>'+x[1]+' / '+x[2]+'</strong></div>'+progress(x[1],x[2])).join('')+'<p class="muted small">Security Score = 100 − Risikopunkte. Die astrologische Verzerrung ist Absicht.</p></div><div class="actions result-actions">'+button('ERGEBNISKARTE ALS PNG ↓','png')+button('ERGEBNIS TEILEN ↗','share',true)+button('↻ Nochmal spielen','reset',true)+'</div><p class="muted small center">Satire zur DDC Night Session. Sternzeichen sagen nichts über reale Insider-Risiken aus. Keine Ergebnisse werden gespeichert.</p></section>';}
 app.querySelectorAll('[data-do]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.do)));
 app.querySelectorAll('[data-sign]').forEach(b=>b.addEventListener('click',()=>{state.sign=b.dataset.sign;render();}));
-app.querySelectorAll('input[name="answer"]').forEach(i=>i.addEventListener('change',()=>{state.answers[state.q]=Number(i.value);render();}));}
+app.querySelectorAll('input[name="answer"]').forEach(i=>i.addEventListener('change',()=>{state.answers[state.q]=Number(i.value);app.querySelectorAll('.option').forEach(el=>el.classList.toggle('selected',el.querySelector('input').checked));const next=app.querySelector('[data-do="next"]');if(next)next.disabled=false;const counter=app.querySelector('.answer-count');if(counter)counter.textContent=state.answers.filter(x=>x!==null).length+' von 5 beantwortet';}));}
 function action(a){if(a==='start')state.stage='sign';if(a==='home')state.stage='start';if(a==='quiz'&&state.sign){state.stage='quiz';state.q=0;}if(a==='back'){if(state.q===0)state.stage='sign';else state.q--;}if(a==='next'){if(state.answers[state.q]===null)return;if(state.q<4)state.q++;else state.stage='scan';}if(a==='reset'){state.stage='start';state.sign=null;state.q=0;state.answers=[null,null,null,null,null];history.replaceState(null,'',location.pathname);}if(a==='png'){png();return;}if(a==='share'){share();return;}render();scrollTo({top:0,behavior:'smooth'});}
 function shareLink(){return location.origin+location.pathname+'#result='+state.sign+'.'+state.answers.join('');}
 function restore(){const m=location.hash.match(/^#result=([a-z]+)\.([0-3]{5})$/);if(m&&signs.some(s=>s.id===m[1])){state.sign=m[1];state.answers=m[2].split('').map(Number);state.stage='result';}}
