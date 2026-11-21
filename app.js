@@ -15,29 +15,29 @@ const signs=[
 ].map(x=>({id:x[0],glyph:x[1],name:x[2],title:x[3],base:x[4],aff:x[5].split(' '),power:x[6],weak:x[7],prophecy:x[8]}));
 const questions=[
   {
-    "title": "Dein KI-Agent meldet in der Generalprobe: „Zugriff verweigert.“ Der CEO sitzt schon in Reihe eins. Was rettest du?",
-    "joke": "Der Agent wurde als autonom verkauft. Seine erste autonome Entscheidung war: Nein.",
+    "title": "Dein KI-Agent bekommt beim CEO-Demo-Versuch nur „403“. Was jetzt?",
+    "joke": "Autonomer Agent. Erste autonome Entscheidung: „Nö“.",
     "opts": [
       [
-        "Ich schiebe einen sauberen Testdatensatz unter. Sieht live aus, solange niemand nach der Rechnungsnummer fragt.",
+        "Testdaten rein. Sieht fast echt aus.",
         4,
         "copy precision shortcut",
         "Du nennst es Sandbox. Der CEO nennt es Magie. Der Auditor fragt, was genau die Folie beweist."
       ],
       [
-        "Ich bitte einen Kollegen mit regulärem Zugriff, den kritischen Teil selbst vorzuführen. Pair Programming, aber mit Herzrasen.",
+        "Kollegen mit Zugriff vor die Kamera schieben.",
         5,
         "social access sharing",
         "Du hast Least Privilege durch Least Alleinsein ersetzt. Immerhin ist der Kollege jetzt Teil des Demo-Teams."
       ],
       [
-        "Ich organisiere befristeten, begrenzten Pilotzugriff über den vorgesehenen Weg. Der Ablauf-Timer ist heute der zuverlässigste Mitarbeiter.",
+        "Befristeten Zugriff organisieren. Wecker stellen.",
         4,
         "privilege approval process",
         "Dein Horoskop sieht eine Genehmigung. Die Sterne sehen auch, dass um 17 Uhr wieder alles kaputtgeht."
       ],
       [
-        "Ich mache aus der Fehlermeldung die Pointe der Demo: „Sehen Sie? Unsere Grenzen funktionieren sogar unter Druck.“",
+        "403 als Security-Feature verkaufen.",
         4,
         "innovation speed observe",
         "Es ist nicht kaputt, es ist ein Security-Feature. Entwickler nennen das ein erfolgreiches Rebranding."
@@ -45,29 +45,29 @@ const questions=[
     ]
   },
   {
-    "title": "Ein neues KI-Tool erledigt in 20 Sekunden, wofür dein Team zwei Tage braucht. Nur der Datenschutz hat noch nicht geantwortet.",
-    "joke": "Der Anbieter wirbt mit „EU-ready“. Was genau bereit ist, steht hinter einem Kontaktformular.",
+    "title": "Ein KI-Tool spart zwei Tage Arbeit. Datenschutz antwortet erst Montag.",
+    "joke": "Der Anbieter verspricht „EU-ready“. Der Datenschutz ist gerade „Out of Office“.",
     "opts": [
       [
-        "Ich teste mit synthetischen Daten. Der Testkunde heißt Max Mustermann und hat verdächtig perfekte Stammdaten.",
+        "Mit Fantasiekunden testen. Grüße von Max Mustermann.",
         4,
         "ai innovation precision",
         "Du hast eine Sensation entdeckt: KI funktioniert hervorragend mit Menschen, die nicht existieren."
       ],
       [
-        "Ich plane einen kleinen Pilot mit IT und Datenschutz. Offiziell ein Experiment, inoffiziell mein Versuch, dieses Jahr noch fertig zu werden.",
+        "Pilot beantragen. Q3 wäre noch frei.",
         5,
         "approval process innovation",
         "Du sagst „Pilot“. Drei Gremien sagen „interessant“. Dein Kalender sagt gar nichts mehr."
       ],
       [
-        "Ich baue die zwei wichtigsten Funktionen mit vorhandenen Unternehmensdiensten nach. Freitag habe ich plötzlich ein eigenes Produkt.",
+        "Selbst nachbauen. Drei Sprints sind doch nichts.",
         5,
         "automation shortcut ai",
         "Herzlichen Glückwunsch: Du wolltest kein Shadow AI und hast versehentlich ein internes Startup gegründet."
       ],
       [
-        "Ich prüfe erst Datenflüsse, Metadaten und Anbieterzusagen. Mein Team nennt mich ab jetzt „AGB mit Puls“.",
+        "AGB lesen. Irgendwer muss es ja tun.",
         4,
         "observe delay precision",
         "Du hast die Datenschutzhinweise gelesen. Sogar bis zum Ende. Die Sterne empfehlen dringend Urlaub."
@@ -75,29 +75,29 @@ const questions=[
     ]
   },
   {
-    "title": "Der Kunde soll ins Projekt-Team. Darin sitzen noch drei Externe, zwei Bots und jemand namens „Test Test“.",
-    "joke": "Der Kanal heißt TEMP_FINAL_NEU. Das Projekt ist älter als das letzte LTS-Release.",
+    "title": "Der Kunde soll ins Projekt-Team. Dort wohnen noch Externe von 2022.",
+    "joke": "Im Team sitzt auch „Test Test“. Seit drei Jahren.",
     "opts": [
       [
-        "Ich räume den alten Teilnehmerkreis auf und lade den Kunden danach ein. Ein Gast von 2022 schickt mir einen Abschiedsgruß.",
+        "Alte Gäste rauswerfen. Networking war gestern.",
         5,
         "retainaccess process external",
         "Du hast endlich ein Access Review gemacht. Die Sterne bitten um einen Gedenkkranz für Test Test."
       ],
       [
-        "Ich baue einen frischen Kundenraum mit den nötigen Unterlagen. Morgen existieren drei Räume namens „Projekt Neu“.",
+        "Neues Team bauen. Eins mehr fällt nicht auf.",
         5,
         "sprawl copy automation",
         "Dein Risiko ist nicht die Freigabe. Dein Risiko ist die vierte Teams-Gruppe, die jemand nächste Woche gründet."
       ],
       [
-        "Ich teile die konkreten Dateien separat an benannte Empfänger. Der Kunde fragt sofort: „Und wo ist eigentlich die Excel dahinter?“",
+        "Einzellink schicken. Die Excel kommt später.",
         4,
         "sharing precision external",
         "Minimalprinzip bestanden. Jetzt beginnt der zweite Teil der Prüfung: Erwartungen managen."
       ],
       [
-        "Ich gehe die Inhalte mit dem Kunden im Call durch. Die Datei bleibt liegen, dafür lautet die wichtigste Frage 37 Minuten lang: „Sieht man meinen Bildschirm?“",
+        "Im Call zeigen. Screenshots macht ja niemand.",
         4,
         "social delay shortcut",
         "Keine Kopie, dafür 14 Screensharing-Minuten verloren. Dein Security-Team applaudiert höflich."
@@ -105,29 +105,29 @@ const questions=[
     ]
   },
   {
-    "title": "Dein Agent findet einen Ordner aus 2013, den angeblich niemand mehr hat. Der Auditor kommt Dienstag.",
-    "joke": "Owner: unbekannt. Aufbewahrungsfrist: „für alle Fälle“. Letzte Änderung: Windows 8 war neu.",
+    "title": "Dein Agent findet vergessene Daten von 2013. Dienstag ist Audit.",
+    "joke": "Owner: unbekannt. Aufbewahrungsfrist: „Vielleicht irgendwann“.",
     "opts": [
       [
-        "Ich lasse die Inhalte erst einmal gesondert prüfen und begrenze die Nutzung. Nicht sexy, aber das Audit liebt langweilige Entscheidungen.",
+        "Archiv isolieren. Problem elegant vertagen.",
         5,
         "archive process precision",
         "Du hast das Datenproblem nicht gelöst. Du hast ihm einen Wartebereich mit Hausordnung gegeben."
       ],
       [
-        "Ich finde einen Fachbereich, der Verantwortung übernimmt. Der erste Ansprechpartner schickt mir die Abwesenheitsnotiz seines Vorgängers.",
+        "Fachbereich suchen. Vielleicht lebt der Owner noch.",
         4,
         "social approval delay",
         "Dein Sternzeichen sieht ein Verantwortlichkeitsdiagramm mit mehr Pfeilen als Mitarbeitern."
       ],
       [
-        "Ich lasse einen freigegebenen Klassifizierer vorsortieren und prüfe die Zweifelsfälle. Plötzlich sind 72 % der Dokumente „Sonstiges“.",
+        "KI vorsortieren lassen. „Sonstiges“ boomt.",
         5,
         "ai automation sprawl",
         "Du hast aus unstrukturierten Daten strukturierte Unklarheit gemacht. Technisch ein Meilenstein."
       ],
       [
-        "Ich baue eine Bestandsliste für die nächsten Entscheidungen. Sie heißt FINAL_BESTAND_v8 und liegt natürlich in SharePoint.",
+        "Bestandsliste anlegen. FINAL_v8 versteht sich.",
         4,
         "retain copy precision",
         "Ein neues Dokument, um alte Dokumente loszuwerden. Die Sterne lieben diese Ironie."
@@ -135,29 +135,29 @@ const questions=[
     ]
   },
   {
-    "title": "600 Downloads in zwölf Minuten. Der Mitarbeiter geht am Freitag. Gleichzeitig migriert die IT ein halbes Rechenzentrum.",
-    "joke": "Security sieht einen Insider. Operations sieht einen Job. Der Betroffene hat gerade „Bin kurz Kaffee holen“ geschrieben.",
+    "title": "600 Downloads, baldiger Austritt. Oder nur eine laufende Datenmigration?",
+    "joke": "Security sieht Rot. Die Projektleitung sieht Grün. Schönes Ampelsystem.",
     "opts": [
       [
-        "Ich gleiche Ereignisse, Zielorte und Migrationstickets ab. Die spannendste Erkenntnis lautet erstmal: „Kommt drauf an.“",
+        "Logs vergleichen. „Kommt drauf an“ melden.",
         4,
         "observe precision process",
         "Du hast Kontext gefunden. Leider passt er nicht in die rote Ampel der Management-Folie."
       ],
       [
-        "Ich lasse verdächtige Transferwege gezielt eingrenzen, während der Fall geprüft wird. Die Migration schreibt mir um 02:13 Uhr.",
+        "Transfers begrenzen. Die Migration überlebt das.",
         5,
         "speed bypass privilege",
         "Du hast Datenabfluss begrenzt und gleichzeitig eine neue WhatsApp-Gruppe namens „Warum steht alles?“ ausgelöst."
       ],
       [
-        "Ich hole Security und Migration in einen gemeinsamen Call. Nach 20 Minuten diskutiert man, wem eigentlich die Tickets gehören.",
+        "War Room starten. 17 Leute, 18 Meinungen.",
         5,
         "social approval delay",
         "Die gute Nachricht: Alle reden miteinander. Die schlechte: Inzwischen haben sich drei Unterarbeitskreise gebildet."
       ],
       [
-        "Ich sichere zunächst die Hinweise und veranlasse eine abgestimmte, diskrete Prüfung. Das Wort „diskret“ steht sicherheitshalber in der Einladung an 17 Leute.",
+        "Diskret prüfen. Meeting-Titel: „INSIDER-ALARM!“",
         4,
         "stealth observe process",
         "Du handelst vorsichtig. Der Meeting-Titel „VERTRAULICHER INSIDER-FALL“ ist nur ein kleines Detail."
