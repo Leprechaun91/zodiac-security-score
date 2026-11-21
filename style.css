@@ -54,3 +54,49 @@ h1,h2,h3,p,.brand{overflow-wrap:break-word}
 /* Subtle build label at the end of the page. No overlay on mobile navigation. */
 .site-version{margin-left:auto;align-self:flex-end;font-size:10px;line-height:1.2;letter-spacing:.07em;font-variant-numeric:tabular-nums;color:#858194;opacity:.7;white-space:nowrap;user-select:text}
 @media(max-width:650px){.footer .site-version{width:100%;text-align:right;margin-top:0}}
+
+/* v0.5.0 | Sherlock branding + responsive, score-reactive result artwork */
+.sherlock-brand{width:32px;height:43px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 3px 6px #0008)}
+.hero-illustration{position:relative;isolation:isolate;width:min(320px,76vw);height:260px;margin:15px auto 27px;display:grid;place-items:center}
+.hero-illustration .sun{position:absolute;z-index:-1;width:225px;height:225px;margin:0;opacity:.65}
+.hero-sherlock{height:250px;width:auto;max-width:70%;object-fit:contain;filter:drop-shadow(0 19px 25px #0009) drop-shadow(0 0 24px #f2c67440);transition:transform .35s ease;animation:detective-float 7s ease-in-out infinite}
+@keyframes detective-float{50%{transform:translateY(-7px)}}
+.result-topline{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;align-items:center;margin-top:20px}
+.result-portrait-wrap{min-width:0}
+.risk-portrait{aspect-ratio:1 / 1;width:100%;background-image:url('assets/risk-moods.svg');background-repeat:no-repeat;background-size:200% 200%;background-color:#151b30;border:2px solid #d7b376;border-radius:20px;box-shadow:0 22px 55px #04091799,inset 0 0 24px #ffffff0a;overflow:hidden}
+.risk-portrait.mood-0{background-position:left top;border-color:#63d5c8;box-shadow:0 0 48px #24aab533}
+.risk-portrait.mood-1{background-position:right top;border-color:#ac8fda;box-shadow:0 0 48px #9b6bce33}
+.risk-portrait.mood-2{background-position:left bottom;border-color:#fba676;box-shadow:0 0 48px #ed8b4638}
+.risk-portrait.mood-3{background-position:right bottom;border-color:#ff6685;box-shadow:0 0 52px #ff426a35}
+.portrait-tag{margin:11px 0 0;text-align:center;font-size:10px;line-height:1.5;color:#c9b1c9;font-weight:800;letter-spacing:.10em}
+.result-headline{min-width:0;text-align:left}
+.result-headline .largeglyph{font-size:52px;line-height:1.15}
+.result-headline h1{font-size:clamp(30px,4.4vw,50px);margin:6px 0 9px;overflow-wrap:anywhere}
+.result-headline .score{font-size:clamp(70px,8.7vw,110px);line-height:1.1}
+.result-headline h2{font-size:clamp(13px,1.7vw,19px);letter-spacing:.035em}
+.result-hero .lead{margin:32px auto 8px}
+.result-tone-0 .score{color:#91ebd9}
+.result-tone-1 .score{color:#d0b1ff}
+.result-tone-2 .score{color:#ffb67b}
+.result-tone-3 .score{color:#ff7595}
+.result-tone-0 .result-hero h2{color:#91ebd9}
+.result-tone-1 .result-hero h2{color:#d0b1ff}
+.result-tone-2 .result-hero h2{color:#ffb67b}
+.result-tone-3 .result-hero h2{color:#ff7595}
+@media(max-width:650px){
+ .sherlock-brand{width:28px;height:38px}
+ .hero-illustration{height:200px;margin:6px auto 17px}
+ .hero-illustration .sun{width:170px;height:170px}
+ .hero-sherlock{height:190px}
+ .result-topline{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:12px;align-items:center;margin-top:18px}
+ .result-headline .largeglyph{font-size:33px}
+ .result-headline h1{font-size:clamp(19px,5.4vw,28px);line-height:1.16}
+ .result-headline .score{font-size:clamp(50px,13vw,72px)}
+ .result-headline .score span{font-size:15px}
+ .result-headline h2{font-size:12px;line-height:1.3}
+ .portrait-tag{font-size:8px;letter-spacing:.02em}
+ .risk-portrait{border-radius:13px}
+ .result-hero .lead{margin-top:24px}
+}
+@media(max-width:360px){.result-topline{gap:9px}.result-headline h1{font-size:19px}}
+@media(prefers-reduced-motion:reduce){.hero-sherlock{animation:none!important;transition:none!important}}
