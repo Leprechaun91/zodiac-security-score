@@ -15,152 +15,152 @@ const signs=[
 ].map(x=>({id:x[0],glyph:x[1],name:x[2],title:x[3],base:x[4],aff:x[5].split(' '),power:x[6],weak:x[7],prophecy:x[8]}));
 const questions=[
   {
-    "title": "Dein KI-Agent darf die Demo-Datei nicht lesen. Der CEO sagt: „Gib ihm doch kurz Zugriff auf alles.“ Was machst du?",
-    "joke": "„Nur für die Demo“ ist eine bemerkenswert häufige Zeitangabe in Audit-Logs.",
+    "title": "Dein KI-Agent meldet in der Generalprobe: „Zugriff verweigert.“ Der CEO sitzt schon in Reihe eins. Was rettest du?",
+    "joke": "Der Agent wurde als autonom verkauft. Seine erste autonome Entscheidung war: Nein.",
     "opts": [
       [
-        "Ich stelle dem Agenten einen freigegebenen Datenraum mit begrenzten Rechten bereit.",
-        2,
-        "precision access process",
-        "Dein Agent sieht weniger als der Praktikant. Das ist hier ausnahmsweise ein Kompliment."
-      ],
-      [
-        "Ich führe mit meinen eigenen Berechtigungen vor und stelle nach der Demo um.",
-        6,
-        "speed privilege bypass",
-        "Du hast ein Authentifizierungsproblem gelöst. Durch ein potenziell größeres Authentifizierungsproblem."
-      ],
-      [
-        "Ich nutze den bereits dokumentierten Service-Account aus dem Projekt.",
-        5,
-        "automation retainaccess access",
-        "„svc_demo_final2“ ist ein Name, kein Sicherheitskonzept."
-      ],
-      [
-        "Ich verwende einen geprüften Demo-Snapshot und verschiebe den Livezugriff.",
-        1,
-        "delay copy precision",
-        "Nicht ganz live. Aber das einzige Feuer brennt heute auf der PowerPoint-Folie."
-      ]
-    ]
-  },
-  {
-    "title": "Ein KI-Tool fasst 200 Kundendokumente in 20 Sekunden zusammen. Die Datenschutzprüfung kommt allerdings erst Montag.",
-    "joke": "„Hosted in Europe“ steht groß auf der Website. Das Kleingedruckte ist leider auf Geschäftsreise.",
-    "opts": [
-      [
-        "Ich teste die Qualität mit synthetischen Beispielen, bis die Freigabe vorliegt.",
-        2,
-        "innovation ai precision",
-        "Die Demo glänzt. Die echten Kundendaten dürfen derweil in Ruhe weiterexistieren."
-      ],
-      [
-        "Ich entferne Namen und Vertragsnummern und verwende nur kurze Auszüge.",
-        5,
-        "ai sharing shortcut",
-        "Du hast drei Namen entfernt. Die restlichen 47 Identifikationsmerkmale winken freundlich."
-      ],
-      [
-        "Ich lasse zunächst nur Dateinamen und Kategorien verarbeiten, keine Inhalte.",
+        "Ich schiebe einen sauberen Testdatensatz unter. Sieht live aus, solange niemand nach der Rechnungsnummer fragt.",
         4,
-        "ai sprawl",
-        "Metadaten sind nicht automatisch harmlos. Auch ein Dateiname kann ziemlich geschwätzig sein."
+        "copy precision shortcut",
+        "Du nennst es Sandbox. Der CEO nennt es Magie. Der Auditor fragt, was genau die Folie beweist."
       ],
       [
-        "Ich baue eine ähnliche Funktion mit dem bereits freigegebenen Unternehmensdienst.",
-        3,
-        "automation process innovation",
-        "Aus der Zehn-Minuten-Lösung wurden drei Sprints. Immerhin mit Architekturdiagramm."
-      ]
-    ]
-  },
-  {
-    "title": "Ein Kunde braucht eine Datei bis 17 Uhr. Im alten Projekt-Team sitzen noch Gäste vom letzten Rollout.",
-    "joke": "Der Kanal heißt TEMP_NEU_FINAL. Das letzte Rollout endete vor 18 Monaten. Natürlich.",
-    "opts": [
-      [
-        "Ich teile nur die benötigten Inhalte separat, für benannte Empfänger und zeitlich begrenzt.",
-        1,
-        "sharing precision",
-        "Sehr kontrolliert. Das Sternzeichen der alten Gäste ist allerdings weiterhin unbekannt."
-      ],
-      [
-        "Ich prüfe zuerst die Mitglieder, bereinige den Projektraum und teile dann dort.",
-        2,
-        "process sharing delay",
-        "Ein Gast aus 2023 fragt, ob er jetzt endlich aus der Gruppe darf."
-      ],
-      [
-        "Ich zeige die Inhalte im gemeinsamen Call, statt eine Kopie zu verschicken.",
-        3,
-        "shortcut external speed",
-        "Keine Datei versendet. Screenshots wurden leider noch nicht astrologisch verboten."
-      ],
-      [
-        "Ich verwende den bestehenden Kanal, der Kunde ist dort Mitglied und hat eine NDA.",
-        6,
-        "external retainaccess sharing",
-        "Die NDA ist kein magischer Unsichtbarkeitsumhang für sechs weitere Gäste."
-      ]
-    ]
-  },
-  {
-    "title": "Dein KI-Assistent findet Dokumente aus 2013, die angeblich längst gelöscht wurden. Nächste Woche ist Audit.",
-    "joke": "Der Ordner heißt „Alt_Ablage_BitteNichtLöschen“. Sein letzter Owner ist seit 2016 in Rente.",
-    "opts": [
-      [
-        "Ich schränke den Zugriff auf die Altbestände ein und lasse Eigentümer sowie Fristen klären.",
-        2,
-        "archive process retain",
-        "Du hast das Problem sicher aufbewahrt. Jetzt braucht es nur noch einen Verantwortlichen."
-      ],
-      [
-        "Ich priorisiere selten genutzte Dateien für eine fachliche Bewertung und mögliche Löschung.",
-        4,
-        "precision speed",
-        "Niedrige Nutzung ist kein Löschgrund. Aber wenigstens hat jemand angefangen zu sortieren."
-      ],
-      [
-        "Ich verschiebe die Daten in ein separates Archiv und dokumentiere den Bestand.",
+        "Ich bitte einen Kollegen mit regulärem Zugriff, den kritischen Teil selbst vorzuführen. Pair Programming, aber mit Herzrasen.",
         5,
-        "archive retain sprawl",
-        "Das Datenchaos hat ein neues Zuhause. Mit Meerblick und Archivgebühren."
+        "social access sharing",
+        "Du hast Least Privilege durch Least Alleinsein ersetzt. Immerhin ist der Kollege jetzt Teil des Demo-Teams."
       ],
       [
-        "Ich lasse ein freigegebenes KI-System vorsortieren und lasse unklare Fälle prüfen.",
-        3,
-        "ai automation precision",
-        "Die KI klassifiziert 800 Dateien als „historisch interessant“. Der Auditor ist weniger begeistert."
+        "Ich organisiere befristeten, begrenzten Pilotzugriff über den vorgesehenen Weg. Der Ablauf-Timer ist heute der zuverlässigste Mitarbeiter.",
+        4,
+        "privilege approval process",
+        "Dein Horoskop sieht eine Genehmigung. Die Sterne sehen auch, dass um 17 Uhr wieder alles kaputtgeht."
+      ],
+      [
+        "Ich mache aus der Fehlermeldung die Pointe der Demo: „Sehen Sie? Unsere Grenzen funktionieren sogar unter Druck.“",
+        4,
+        "innovation speed observe",
+        "Es ist nicht kaputt, es ist ein Security-Feature. Entwickler nennen das ein erfolgreiches Rebranding."
       ]
     ]
   },
   {
-    "title": "600 Downloads in zwölf Minuten. Der Mitarbeiter verlässt Freitag das Unternehmen. Gleichzeitig läuft eine Datenmigration.",
-    "joke": "Das Dashboard ist rot. Die Projektleitung sagt „alles grün“. Teams schlägt einen „kurzen Sync“ vor.",
+    "title": "Ein neues KI-Tool erledigt in 20 Sekunden, wofür dein Team zwei Tage braucht. Nur der Datenschutz hat noch nicht geantwortet.",
+    "joke": "Der Anbieter wirbt mit „EU-ready“. Was genau bereit ist, steht hinter einem Kontaktformular.",
     "opts": [
       [
-        "Ich prüfe die Ereigniskette zusammen mit dem Migrationsteam und dem Security-Team.",
-        2,
+        "Ich teste mit synthetischen Daten. Der Testkunde heißt Max Mustermann und hat verdächtig perfekte Stammdaten.",
+        4,
+        "ai innovation precision",
+        "Du hast eine Sensation entdeckt: KI funktioniert hervorragend mit Menschen, die nicht existieren."
+      ],
+      [
+        "Ich plane einen kleinen Pilot mit IT und Datenschutz. Offiziell ein Experiment, inoffiziell mein Versuch, dieses Jahr noch fertig zu werden.",
+        5,
+        "approval process innovation",
+        "Du sagst „Pilot“. Drei Gremien sagen „interessant“. Dein Kalender sagt gar nichts mehr."
+      ],
+      [
+        "Ich baue die zwei wichtigsten Funktionen mit vorhandenen Unternehmensdiensten nach. Freitag habe ich plötzlich ein eigenes Produkt.",
+        5,
+        "automation shortcut ai",
+        "Herzlichen Glückwunsch: Du wolltest kein Shadow AI und hast versehentlich ein internes Startup gegründet."
+      ],
+      [
+        "Ich prüfe erst Datenflüsse, Metadaten und Anbieterzusagen. Mein Team nennt mich ab jetzt „AGB mit Puls“.",
+        4,
+        "observe delay precision",
+        "Du hast die Datenschutzhinweise gelesen. Sogar bis zum Ende. Die Sterne empfehlen dringend Urlaub."
+      ]
+    ]
+  },
+  {
+    "title": "Der Kunde soll ins Projekt-Team. Darin sitzen noch drei Externe, zwei Bots und jemand namens „Test Test“.",
+    "joke": "Der Kanal heißt TEMP_FINAL_NEU. Das Projekt ist älter als das letzte LTS-Release.",
+    "opts": [
+      [
+        "Ich räume den alten Teilnehmerkreis auf und lade den Kunden danach ein. Ein Gast von 2022 schickt mir einen Abschiedsgruß.",
+        5,
+        "retainaccess process external",
+        "Du hast endlich ein Access Review gemacht. Die Sterne bitten um einen Gedenkkranz für Test Test."
+      ],
+      [
+        "Ich baue einen frischen Kundenraum mit den nötigen Unterlagen. Morgen existieren drei Räume namens „Projekt Neu“.",
+        5,
+        "sprawl copy automation",
+        "Dein Risiko ist nicht die Freigabe. Dein Risiko ist die vierte Teams-Gruppe, die jemand nächste Woche gründet."
+      ],
+      [
+        "Ich teile die konkreten Dateien separat an benannte Empfänger. Der Kunde fragt sofort: „Und wo ist eigentlich die Excel dahinter?“",
+        4,
+        "sharing precision external",
+        "Minimalprinzip bestanden. Jetzt beginnt der zweite Teil der Prüfung: Erwartungen managen."
+      ],
+      [
+        "Ich gehe die Inhalte mit dem Kunden im Call durch. Die Datei bleibt liegen, dafür lautet die wichtigste Frage 37 Minuten lang: „Sieht man meinen Bildschirm?“",
+        4,
+        "social delay shortcut",
+        "Keine Kopie, dafür 14 Screensharing-Minuten verloren. Dein Security-Team applaudiert höflich."
+      ]
+    ]
+  },
+  {
+    "title": "Dein Agent findet einen Ordner aus 2013, den angeblich niemand mehr hat. Der Auditor kommt Dienstag.",
+    "joke": "Owner: unbekannt. Aufbewahrungsfrist: „für alle Fälle“. Letzte Änderung: Windows 8 war neu.",
+    "opts": [
+      [
+        "Ich lasse die Inhalte erst einmal gesondert prüfen und begrenze die Nutzung. Nicht sexy, aber das Audit liebt langweilige Entscheidungen.",
+        5,
+        "archive process precision",
+        "Du hast das Datenproblem nicht gelöst. Du hast ihm einen Wartebereich mit Hausordnung gegeben."
+      ],
+      [
+        "Ich finde einen Fachbereich, der Verantwortung übernimmt. Der erste Ansprechpartner schickt mir die Abwesenheitsnotiz seines Vorgängers.",
+        4,
+        "social approval delay",
+        "Dein Sternzeichen sieht ein Verantwortlichkeitsdiagramm mit mehr Pfeilen als Mitarbeitern."
+      ],
+      [
+        "Ich lasse einen freigegebenen Klassifizierer vorsortieren und prüfe die Zweifelsfälle. Plötzlich sind 72 % der Dokumente „Sonstiges“.",
+        5,
+        "ai automation sprawl",
+        "Du hast aus unstrukturierten Daten strukturierte Unklarheit gemacht. Technisch ein Meilenstein."
+      ],
+      [
+        "Ich baue eine Bestandsliste für die nächsten Entscheidungen. Sie heißt FINAL_BESTAND_v8 und liegt natürlich in SharePoint.",
+        4,
+        "retain copy precision",
+        "Ein neues Dokument, um alte Dokumente loszuwerden. Die Sterne lieben diese Ironie."
+      ]
+    ]
+  },
+  {
+    "title": "600 Downloads in zwölf Minuten. Der Mitarbeiter geht am Freitag. Gleichzeitig migriert die IT ein halbes Rechenzentrum.",
+    "joke": "Security sieht einen Insider. Operations sieht einen Job. Der Betroffene hat gerade „Bin kurz Kaffee holen“ geschrieben.",
+    "opts": [
+      [
+        "Ich gleiche Ereignisse, Zielorte und Migrationstickets ab. Die spannendste Erkenntnis lautet erstmal: „Kommt drauf an.“",
+        4,
         "observe precision process",
-        "Kontext statt Kristallkugel. Die Sterne finden dich anstrengend vernünftig."
+        "Du hast Kontext gefunden. Leider passt er nicht in die rote Ampel der Management-Folie."
       ],
       [
-        "Ich lasse verdächtige Transfers vorübergehend begrenzen und prüfe parallel den Kontext.",
-        3,
-        "speed privilege process",
-        "Das Risiko sinkt. Die Migration ruft an. Sie möchte ihren Durchsatz zurück."
-      ],
-      [
-        "Ich frage den Mitarbeiter direkt nach dem Hintergrund, bevor wir eskalieren.",
+        "Ich lasse verdächtige Transferwege gezielt eingrenzen, während der Fall geprüft wird. Die Migration schreibt mir um 02:13 Uhr.",
         5,
-        "social access",
-        "Die Antwort lautet „nur kurz“. Forensiker hassen diesen Trick."
+        "speed bypass privilege",
+        "Du hast Datenabfluss begrenzt und gleichzeitig eine neue WhatsApp-Gruppe namens „Warum steht alles?“ ausgelöst."
       ],
       [
-        "Ich sammle erst weitere Signale, um einen teuren Fehlalarm zu vermeiden.",
-        6,
-        "delay observe stealth",
-        "Du vermeidest einen Fehlalarm. Eventuell auch die rechtzeitige Reaktion."
+        "Ich hole Security und Migration in einen gemeinsamen Call. Nach 20 Minuten diskutiert man, wem eigentlich die Tickets gehören.",
+        5,
+        "social approval delay",
+        "Die gute Nachricht: Alle reden miteinander. Die schlechte: Inzwischen haben sich drei Unterarbeitskreise gebildet."
+      ],
+      [
+        "Ich sichere zunächst die Hinweise und veranlasse eine abgestimmte, diskrete Prüfung. Das Wort „diskret“ steht sicherheitshalber in der Einladung an 17 Leute.",
+        4,
+        "stealth observe process",
+        "Du handelst vorsichtig. Der Meeting-Titel „VERTRAULICHER INSIDER-FALL“ ist nur ein kleines Detail."
       ]
     ]
   }
