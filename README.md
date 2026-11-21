@@ -53,3 +53,20 @@ GitHub Pages ist statisch und kann Besucherantworten nicht zentral sammeln. Für
 - Das Bildatlas `assets/zodiac-atlas.webp` (4 Spalten, 3 Reihen) ist eine einzige WebP-Datei mit zwölf Bildern. Es wird benötigt, damit die neue cineastische Darstellung angezeigt wird.
 - Beim Fehlen des Atlas greift die Seite automatisch auf die bisherigen SVG-Sternzeichen zurück.
 - Einmaliges Hochladen der WebP-Datei über GitHub im Ordner `assets` nötig; der GitHub-Textconnector kann keine lokale Bilddatei direkt übertragen.
+
+
+## v0.8.0 – 48 echte Zodiac-Varianten
+Die App verwendet vier gleich große Bildatlanten mit jeweils 12 Sternzeichen (3 Spalten × 4 Reihen, 384 px pro Motiv):
+
+- `assets/zodiac-safe.webp` – souverän und kontrolliert
+- `assets/zodiac-cautious.webp` – skeptisch und aufmerksam
+- `assets/zodiac-mischievous.webp` – verschmitzt und unkonventionell
+- `assets/zodiac-chaos.webp` – kosmisches Security-Chaos
+
+**Upload:** Die vier Dateien aus dem ZIP direkt in den Ordner `assets/` des Repositories hochladen. Es müssen keine zusätzlichen HTML-, CSS- oder JavaScript-Dateien manuell hochgeladen werden, weil der Code bereits in GitHub angepasst ist.
+
+Score-Zuordnung: ≥ 60 sicher, 45–59 vorsichtig, 30–44 verschmitzt, unter 30 chaotisch. Der Score ist satirisch und nicht wissenschaftlich.
+
+Die Bilder werden pro Risikostufe bei Bedarf geladen. Die herunterladbare PNG-Karte nutzt dasselbe Zeichen und dieselbe Variante. Bei fehlenden Bilddateien dient die bisherige SVG-Illustration als Fallback.
+
+Die ZIP enthält außerdem alle 48 Portraits als einzelne WebP-Dateien für andere Nutzungsformen. Nur die vier Atlanten sind für die Website erforderlich.
