@@ -438,3 +438,17 @@ h1,h2,h3,p,.brand{overflow-wrap:break-word}
  .night-invite p{font-size:13px}
 }
 @media(prefers-reduced-motion:reduce){.result-expand .expand-chevron{transition:none}}
+
+/* iPhone/Android: on-page generated card preview and user-initiated saving */
+.card-export-overlay{position:fixed;inset:0;z-index:9999;background:#070916ef;display:flex;align-items:center;justify-content:center;padding:10px;backdrop-filter:blur(8px)}
+.card-export-panel{width:min(100%,525px);max-height:calc(100dvh - 20px);display:flex;flex-direction:column;overflow:hidden;border-radius:17px;border:1px solid #ddbd807c;background:linear-gradient(155deg,#211a33,#0f1727);box-shadow:0 25px 85px #000c}
+.card-export-top{padding:13px 17px;display:flex;align-items:center;justify-content:space-between;gap:10px;color:#e5c995;font-size:12px;letter-spacing:.1em;border-bottom:1px solid #cfad7b42}
+.card-export-close{border:1px solid #7d699a;background:#2c2640;color:#f9e8d9;border-radius:50%;font-size:24px;width:34px;height:34px;cursor:pointer}
+.card-export-content{padding:12px;overflow-y:auto;text-align:center}
+.card-export-loading{color:#e7d0a5;margin:20px 0}
+.card-export-image{display:block;max-width:100%;max-height:min(59dvh,610px);height:auto;width:auto;object-fit:contain;margin:auto;border:1px solid #d7b67a70;-webkit-touch-callout:default;-webkit-user-select:auto;user-select:auto}
+.card-export-image[hidden],.card-export-actions[hidden],.card-export-share[hidden],.card-export-help[hidden],.card-export-loading[hidden]{display:none!important}
+.card-export-actions{display:flex;gap:10px;flex-wrap:wrap;padding:11px 14px 0}
+.card-export-actions .btn{flex:1 1 180px;min-height:48px}
+.card-export-help{font-size:12px;text-align:center;color:#b9afca;margin:12px 14px 15px}
+@media(max-width:650px){.card-export-overlay{padding:7px}.card-export-panel{max-height:calc(100dvh - 14px)}.card-export-content{padding:9px}.card-export-image{max-height:58dvh}.card-export-actions{padding:9px 10px 0}.card-export-actions .btn{flex-basis:120px;font-size:12px}.card-export-help{font-size:11px}}
