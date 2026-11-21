@@ -38,3 +38,10 @@ GitHub Pages ist statisch und kann Besucherantworten nicht zentral sammeln. Für
 - Vier scoreabhängige Sherlock-Illustrationen mit zunehmend verschmitzter Stimmung, vom sicherheitsbewussten Detektiv bis zum kosmischen Chaos.
 - Das Ergebnis und die PNG-Karte wählen die grafische Stimmung anhand des Scores; die Berechnung bleibt satirisch.
 - Auf GitHub Pages besonders kompakte, eingebettete Bilddateien für mobiles Laden.
+
+## v0.6.0 – Zodiac-Illustrationen statt Sherlock-Ergebnisporträts
+- Sherlock dient ausschließlich als dezente persönliche Marke im Header und als kleines Signet auf der exportierten Karte.
+- 12 eigenständige, lokal generierte SVG-Sternzeichenmotive werden auf der Ergebnisseite und in der PNG-Karte verwendet.
+- 4 risikobasierte Farbstimmungen von souverän bis verschmitzt/chaotisch.
+- Großflächige mobile Zodiac-Karte und neues Zodiac-Rad im Startbildschirm.
+- Keine externen Bildrequests; die Illustration entsteht im Browser aus SVG.
