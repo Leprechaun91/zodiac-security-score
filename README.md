@@ -18,7 +18,7 @@ Eine statische, mobile-freundliche Spaß-Anwendung für GitHub Pages. Deutsch, o
 Die Quiz-Berechnung erfolgt vollständig im Browser. Es werden **keine Antworten an einen Server gesendet**. Das Teilen des Ergebnislinks kodiert Sternzeichen und fünf gewählte Antworten im URL-Fragment. Das bedeutet, Empfänger des Links können diese Antworten rekonstruieren. Keine Namen oder Konten werden abgefragt. GitHub oder andere Plattformanbieter können übliche technische Zugriffslogs führen.
 
 ## Score
-Illustrativer, ausdrücklich **nicht valider** Security Score = `100 - (Sternzeichenbasis 0…40 + Entscheidungen 0…40 + Sternzeichen/Antwort-Wechselwirkung 0…20)`.
+Illustrativer, ausdrücklich **nicht valider** Security Score = `clamp(75 − Sternzeichen-Basisrisiko + Entscheidungen + Cosmic Twist, 0, 100)`. Die bestehenden Basisrisiken (14–40) bleiben erhalten; die fünf Antworten erhalten jeweils −4, −2, +2 oder +4 Punkte (einige Fragen haben zwei sichere Optionen).
 Die Basis und Profile sind an die 12 satirischen Rollen aus `The_Insider_Risk_Horoscope(5).pptx` angelehnt. Der Score ist keine echte Insider-Risk-Bewertung und darf dafür nicht verwendet werden.
 
 ## Night-Session-Auswertung (noch nicht implementiert)
@@ -70,3 +70,12 @@ Score-Zuordnung: ≥ 60 sicher, 45–59 vorsichtig, 30–44 verschmitzt, unter 3
 Die Bilder werden pro Risikostufe bei Bedarf geladen. Die herunterladbare PNG-Karte nutzt dasselbe Zeichen und dieselbe Variante. Bei fehlenden Bilddateien dient die bisherige SVG-Illustration als Fallback.
 
 Die ZIP enthält außerdem alle 48 Portraits als einzelne WebP-Dateien für andere Nutzungsformen. Nur die vier Atlanten sind für die Website erforderlich.
+
+## v0.9.0 – Cosmic Security Algorithm 2.0
+- Sternzeichen behalten ihr individuelles Basisrisiko und erhalten sechs charakteristische Verhaltenstags für relevante Wechselwirkungen.
+- Entscheidungen wirken positiv oder negativ auf den Security Score (maximal −20 bis +20), unabhängig vom Sternzeichen.
+- Pro Antwort wird der Tag-Abgleich mit den Eigenheiten des Sternzeichens bewertet: keine Übereinstimmung = 0, eine = ±2, mindestens zwei = ±3, je nach Vorzeichen der Antwort.
+- Ab drei positiven bzw. drei negativen Übereinstimmungen kommt ein zusätzlicher Muster-Effekt von +4 bzw. −4 hinzu. Der gesamte Cosmic Twist bleibt auf ±16 begrenzt.
+- Ergebnisansicht erläutert den Startwert, das Sternzeichen, die Entscheidungen und den Cosmic Twist. Portraitfarbe, PNG-Karte und Ergebnislink verwenden automatisch den neuen Score.
+- 12.288 Kombinationen (12 Sternzeichen × 4⁵ Antworten) automatisiert durchgerechnet. Alle zwölf Zeichen erreichen mindestens drei Ergebnisstufen und zeigen wirksame Musterverstärkung; alle vier Risikostufen sind insgesamt erreichbar.
+- Keine Speicherung, kein Tracking und keine Änderung der Quiz-URL. Die geplante Live-Statistik ist weiterhin separat umzusetzen.
