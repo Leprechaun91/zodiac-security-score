@@ -1,6 +1,6 @@
 # Zodiac Security Score™ – DDC Night Session Edition
 
-Eine statische, mobile-freundliche Spaß-Anwendung für GitHub Pages. Deutsch, ohne Fremdbibliotheken und ohne Backend.
+Eine mobiloptimierte Spaß-Anwendung auf GitHub Pages mit Supabase für die serverseitig geprüfte Live-Statistik. Deutsch, ohne zusätzliche Frontend-Bibliotheken.
 
 ## Inhalt
 - `index.html`: Startseite
@@ -15,14 +15,14 @@ Eine statische, mobile-freundliche Spaß-Anwendung für GitHub Pages. Deutsch, o
 4. Die Website sollte dann auf `https://<username>.github.io/zodiac-security-score/` liegen. GitHub Pages kann etwas Zeit benötigen, bis die Bereitstellung abgeschlossen ist.
 
 ## Privat & datensparsam
-Die Quiz-Berechnung erfolgt vollständig im Browser. Es werden **keine Antworten an einen Server gesendet**. Das Teilen des Ergebnislinks kodiert Sternzeichen und fünf gewählte Antworten im URL-Fragment. Das bedeutet, Empfänger des Links können diese Antworten rekonstruieren. Keine Namen oder Konten werden abgefragt. GitHub oder andere Plattformanbieter können übliche technische Zugriffslogs führen.
+Der persönliche Score wird lokal berechnet. Bei der regulären Quiz-Auswertung werden das Sternzeichen, fünf Antwortcodes und eine zufällige Abstimm-ID zur serverseitigen Prüfung an Supabase übertragen. Dies ist Voraussetzung für die neue Ergebniskarte. Pro Browser zählt nur eine Stimme; beim Teilen eines bestehenden Ergebnislinks wird keine weitere Stimme ausgelöst. Geteilte URLs enthalten weiterhin die Antwortcodes. Im Quiz werden keine Namen oder E-Mail-Adressen abgefragt. Provider können übliche technische Logs führen. Die zufällige Abstimm-ID macht die Daten pseudonym, nicht garantiert anonym.
 
 ## Score
 Illustrativer, ausdrücklich **nicht valider** Security Score = `clamp(75 − Sternzeichen-Basisrisiko + Entscheidungen + Cosmic Twist, 0, 100)`. Die bestehenden Basisrisiken (14–40) bleiben erhalten; die fünf Antworten erhalten jeweils −4, −2, +2 oder +4 Punkte (einige Fragen haben zwei sichere Optionen).
 Die Basis und Profile sind an die 12 satirischen Rollen aus `The_Insider_Risk_Horoscope(5).pptx` angelehnt. Der Score ist keine echte Insider-Risk-Bewertung und darf dafür nicht verwendet werden.
 
-## Night-Session-Auswertung (noch nicht implementiert)
-GitHub Pages ist statisch und kann Besucherantworten nicht zentral sammeln. Für eine echte Konferenzstatistik wäre ein separates, abgesichertes Backend mit Opt-in, Datenschutzinformation, Validierung, Ratenbegrenzung und geschütztem Dashboard nötig. Die UI zeigt deshalb bewusst **keine erfundenen Live-Statistiken**.
+## Night-Session-Auswertung
+Die echten aggregierten Werte werden über Supabase erfasst. Das Moderatoren-Board `live.html` nutzt eine Anmeldung und eine serverseitige Rollenliste. Im Quiz werden normale Abschlüsse automatisch erfasst; abgebrochene Quizläufe, bereits gezählte Browser und geteilte Ergebnislinks erzeugen keine zusätzlichen Stimmen. Vor der öffentlichen Nutzung die Datenschutzhinweise aktualisieren, die Rechtsgrundlage prüfen und Testdaten entfernen. Das System verhindert einfache Mehrfachzählungen, aber keinen absichtlichen Missbrauch durch mehrere Browser oder automatisierte Requests.
 
 ## Testen
 `index.html` in einem Browser öffnen. Keine Installation erforderlich. Für die Freigabe über `navigator.share` oder Clipboard ist eine HTTPS-Seite empfohlen; der Download als PNG läuft lokal.
