@@ -1,6 +1,7 @@
-// Public, browser-safe Supabase settings. Leave empty until the database is ready.
-// NEVER paste a Supabase secret key or service_role key into this file.
+// Zodiac Security Score · DDC 2026 public browser configuration.
+// These two values are SUPABASE PROJECT URL and PUBLISHABLE key ONLY.
+// Do not enter any service_role, sb_secret, database password, or login credentials.
 window.ZODIAC_STATS_CONFIG={
-  projectUrl:"",
-  publishableKey:""
+  projectUrl:"https://lxrglhhacvjottapusai.supabase.co",
+  publishableKey:"sb_publishable_KjKI0URrfQV1oLzlRPOFNQ_Fa1tUnNC"
 };
