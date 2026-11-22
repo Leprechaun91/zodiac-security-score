@@ -117,3 +117,15 @@ Wenn sich positive und negative Zodiac-Wechselwirkungen ungefähr ausgleichen, n
 - Alle zwölf Sternzeichen und vier Bildstimmungen verwenden den bestehenden WebP-Atlas; falls das Bild nicht lädt, erscheint das SVG-Zodiac-Motiv.
 - Unten bleibt KUSENBERG.NET sichtbar; iPhone-Vorschau, Speichern und Teilen bleiben erhalten.
 - Die Quiz-Berechnung wird nicht verändert.
+
+## v1.4.0 – Live-Statistik als fester Quiz-Bestandteil
+
+- Jedes regulär abgeschlossene Quiz versucht, vor der Anzeige der Ergebniskarte einen Eintrag an Supabase zu senden. Ohne erfolgreiche Verarbeitung wird **kein neues Ergebnis** angezeigt.
+- Der freiwillige Mitmach-Button entfällt. Vor dem Start, bei der Sternzeichenwahl und vor der letzten Auswertung wird erklärt, dass Sternzeichen, fünf Antwortcodes und eine zufällige Abstimm-ID übertragen werden.
+- Der Server rechnet den Score erneut aus. Doppelzählungen aus demselben Browser werden wie bisher vermieden; daher zählt eine zweite Quizrunde aus diesem Browser nicht noch einmal.
+- Bei Netzwerkfehlern bleibt das Quiz auf der Auswertungsseite und bietet **Erneut versuchen** oder **Quiz abbrechen** an.
+- Geteilte Ergebnislinks werden weiterhin ohne Statistikübermittlung angezeigt, damit Empfänger nicht fälschlich als neue Quizteilnehmer zählen.
+- Die Logik zur Berechnung der Scores, die fünf Fragen, die Bilder und die Share-PNG-Karten bleiben unverändert.
+- `/live.html` zeigt gezählte, einmalige Browser-Abschlüsse statt einer optionalen Teilnahmequote.
+- Auf der Webseite ist ein kurzer Datenschutzhinweis verlinkt. Die bestehende Datenschutzerklärung unter `https://kusenberg.net/datenschutzerklaerung` sollte speziell für diese Verarbeitung und Supabase ergänzt und die passende Rechtsgrundlage geprüft werden. Bei einer verpflichtenden Übermittlung kann die Verarbeitung nicht einfach als freiwillige Einwilligung bezeichnet werden.
+- Datenlöschung nach der Veranstaltung weiterhin **manuell** im SQL Editor: `TRUNCATE TABLE zodiac_private.votes;`
