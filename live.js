@@ -74,6 +74,13 @@ $('loginForm').addEventListener('submit',async e=>{
  }catch(e){$('loginError').textContent='Anmeldung fehlgeschlagen: '+(e.message||e);}
  finally{button.disabled=false;button.textContent='Live-Dashboard öffnen ↗';}
 });
+$('snapshot').addEventListener('click',()=>{
+ if(!last){$('boardError').textContent='Noch kein Statistikstand verfügbar.';return;}
+ const blob=new Blob([JSON.stringify({savedAt:new Date().toISOString(),statistics:last},null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='zodiac-live-snapshot-'+new Date().toISOString().slice(0,19).replace(/:/g,'-')+'.json';
+ a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);
+});
 $('logout').addEventListener('click',()=>{if(timer)clearInterval(timer);timer=null;ZodiacStats.logout();setStatus(false);$('board').classList.add('hidden');$('login').classList.remove('hidden');});
 $('fullScreen').addEventListener('click',()=>{if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.();});
 if(!window.ZodiacStats?.enabled){$('login').classList.add('hidden');$('setup').classList.remove('hidden');}
