@@ -452,3 +452,17 @@ h1,h2,h3,p,.brand{overflow-wrap:break-word}
 .card-export-actions .btn{flex:1 1 180px;min-height:48px}
 .card-export-help{font-size:12px;text-align:center;color:#b9afca;margin:12px 14px 15px}
 @media(max-width:650px){.card-export-overlay{padding:7px}.card-export-panel{max-height:calc(100dvh - 14px)}.card-export-content{padding:9px}.card-export-image{max-height:58dvh}.card-export-actions{padding:9px 10px 0}.card-export-actions .btn{flex-basis:120px;font-size:12px}.card-export-help{font-size:11px}}
+
+
+/* v1.3.0 · DDC opt-in conference voting, never required for quiz */
+.zodiac-vote-box{margin:24px 0;padding:clamp(20px,3vw,30px);border-radius:17px;border:1px solid #deb17c9e;background:radial-gradient(ellipse at 93% 0%,#60325366,transparent 65%),linear-gradient(120deg,#241d3a,#131a2e);box-shadow:0 15px 45px #03091370}
+.zodiac-vote-kicker{font-size:10px;font-weight:850;letter-spacing:.14em;color:#e9ba80}
+.zodiac-vote-box h3{font:500 clamp(24px,3vw,32px)/1.17 Georgia,serif;color:#f8dfb1;margin:12px 0}
+.zodiac-vote-box p{font-size:14px;line-height:1.65;color:#e0d5e3;margin:9px 0 18px}
+.zodiac-vote-box .btn{min-height:53px;max-width:420px;width:100%;font-size:12px}
+.zodiac-vote-box .btn:disabled{opacity:.55;cursor:wait}
+.zodiac-vote-box small{display:block;color:#bcb1c6;margin-top:13px;font-size:11px;line-height:1.6}
+.zodiac-vote-box .zodiac-vote-error{color:#ffb8b8;font-size:12px;margin:12px 0}
+.zodiac-vote-done{border-color:#76d7bd8c;background:linear-gradient(130deg,#14312d,#1d2035)}
+.zodiac-vote-done .zodiac-vote-kicker{color:#9ce1c6}
+@media(max-width:650px){.zodiac-vote-box{padding:20px 16px;margin:18px 0}.zodiac-vote-box h3{font-size:24px}.zodiac-vote-box p{font-size:13px}}
