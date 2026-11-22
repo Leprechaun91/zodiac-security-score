@@ -466,3 +466,17 @@ h1,h2,h3,p,.brand{overflow-wrap:break-word}
 .zodiac-vote-done{border-color:#76d7bd8c;background:linear-gradient(130deg,#14312d,#1d2035)}
 .zodiac-vote-done .zodiac-vote-kicker{color:#9ce1c6}
 @media(max-width:650px){.zodiac-vote-box{padding:20px 16px;margin:18px 0}.zodiac-vote-box h3{font-size:24px}.zodiac-vote-box p{font-size:13px}}
+
+
+/* v1.4.0 · automatic, transparent DDC results collection */
+.hero-v2-data-note{max-width:570px;margin:18px 0 0;padding:13px 15px;color:#c8c0d0;background:#1d1d3159;border:1px solid #a68b7d48;border-radius:12px;font-size:11px;line-height:1.55}
+.hero-v2-data-note strong{color:#ebc996;font-weight:800}
+.stats-disclosure-mini{border:1px solid #a58d7771;background:#211d3359;color:#e4d2c1;border-radius:11px;margin:17px 0 5px;padding:12px 15px;line-height:1.55;font-size:12px}
+.stats-submit-status{color:#e3c697;max-width:540px;margin:17px auto;font-size:15px;line-height:1.6}
+.stats-recovery{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px;margin-top:22px}
+.stats-recovery .btn{min-height:45px;font-size:12px}
+.stats-recovery [hidden]{display:none!important}
+.stats-result-status{margin:15px 0 21px;background:linear-gradient(110deg,#19342eaa,#21233a);border:1px solid #87d0ac77;border-radius:13px;padding:16px 20px;color:#e3e4e7;font-size:13px;line-height:1.55}
+.stats-result-status span{display:block;color:#a5e2c8;font-size:10px;font-weight:800;letter-spacing:.12em;margin-bottom:5px}
+@media(max-width:760px){.hero-v2-data-note{margin:18px auto 0;font-size:10px;text-align:left}}
+@media(max-width:650px){.stats-recovery{flex-direction:column}.stats-recovery .btn{width:100%;max-width:350px}.stats-submit-status{font-size:14px}.stats-result-status{padding:13px 15px;font-size:12px}}
