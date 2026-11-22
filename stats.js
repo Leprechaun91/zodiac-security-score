@@ -1,4 +1,4 @@
-/* Zodiac Security Score: opt-in anonymous conference statistics */
+/* Zodiac Security Score: counted-by-default quiz results, no visitor account */
 (function(){
 'use strict';
 const cfg=window.ZODIAC_STATS_CONFIG||{};
@@ -78,6 +78,6 @@ function logout(){accessToken='';refreshToken='';expiresAt=0;}
 window.ZodiacStats={enabled,submit,participated,receipt,login,getStats,logout};
 if(enabled){
  const footer=document.querySelector('.footer span:nth-child(2)');
- if(footer)footer.textContent='Quiz lokal · Live-Statistik nur nach aktiver Zustimmung';
+ if(footer)footer.textContent='Quiz ohne Anmeldung · Sternzeichen und Antwortcodes werden am Ende für die Live-Statistik übertragen';
 }
 })();
