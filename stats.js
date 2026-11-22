@@ -24,7 +24,22 @@ async function request(path,body,token){
  try{
   const res=await fetch(base+path,{method:'POST',headers,body:JSON.stringify(body),signal:control.signal,cache:'no-store'});
   const data=await res.json().catch(()=>({}));
-  if(!res.ok)throw new Error(data.message||data.error_description||'Statistikdienst nicht erreichbar ('+res.status+')');
+  if(!res.ok){
+   const code=String(data.code||data.error_code||'').toLowerCase();
+   const message=String(data.message||data.msg||data.error_description||data.error||'').trim();
+   const localized={
+    email_not_confirmed:'Die E-Mail-Adresse des Moderationskontos ist nicht bestätigt. Prüfe Supabase → Authentication → Users.',
+    invalid_credentials:'Ungültige Anmeldedaten. Prüfe die Benutzer-E-Mail und das Supabase-Auth-Passwort (nicht das Datenbankpasswort).',
+    user_not_found:'Der Moderator-Benutzer wurde in Supabase Auth nicht gefunden.',
+    email_provider_disabled:'E-Mail-Anmeldung ist in Supabase Auth nicht aktiviert.',
+    over_request_rate_limit:'Zu viele Anmeldeversuche. Bitte später erneut versuchen.'
+   };
+   const friendly=localized[code]||
+    (/email not confirmed/i.test(message)?localized.email_not_confirmed:
+    /invalid login credentials/i.test(message)?localized.invalid_credentials:
+    message||'Statistikdienst nicht erreichbar');
+   throw new Error(friendly+' (HTTP '+res.status+(code?', '+code:'')+')');
+  }
   return data;
  }finally{clearTimeout(timer);}
 }
