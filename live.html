@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#090c18">
+<title>Zodiac Risk Engine™ · DDC Live Board</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="live.css?v=1">
+<script src="stats-config.js?v=1" defer></script>
+<script src="stats.js?v=1" defer></script>
+<script src="live.js?v=1" defer></script></head><body>
+<div class="stars" aria-hidden="true"></div>
+<header class="header"><div class="identity"><span class="symbol">✦</span><div><small>DDC 2026 · NIGHT SESSION</small><strong>ZODIAC <em>RISK ENGINE</em>™</strong></div></div>
+<div class="status"><span id="liveDot" class="dot"></span><span id="statusText">GESCHÜTZTES LIVE BOARD</span></div>
+<button type="button" class="fullscreen" id="fullScreen">⛶ Vollbild</button>
+</header>
+<main class="wrapper">
+<section id="setup" class="setup hidden"><h1>Die Sterne sind noch offline.</h1><p>Die Statistikanbindung wird eingerichtet. Diese Ansicht bleibt bis zur Verbindung mit Supabase im Standby.</p><a href="index.html">Zur Quiz-App</a></section>
+<section id="login" class="login">
+<div class="login-crest">♑ ✦ ♎</div><span class="eyebrow">NIGHT SESSION CONTROL ROOM</span><h1>Die kosmische<br><em>Wahrheit wartet.</em></h1>
+<p>Nur die Moderation sieht die aggregierten Live-Ergebnisse. Besucher benötigen kein Konto.</p>
+<form id="loginForm"><label>E-Mail der Moderation<input id="email" type="email" autocomplete="username" required placeholder="moderation@example.com"></label>
+<label>Passwort<input id="password" type="password" autocomplete="current-password" required></label><button class="btn" type="submit">Live-Dashboard öffnen ↗</button>
+<div id="loginError" class="error" role="alert"></div></form>
+</section>
+<section id="board" class="board hidden">
+<div class="hero-row"><div><span class="eyebrow">INSIDER RISK HOROSCOPE · LIVE REPORT</span><h1>Die Sterne <em>haben abgestimmt.</em></h1><p>Es zählt nur, wer sein Quiz-Ergebnis freiwillig eingereicht hat.</p></div><div class="last-sync"><span class="dot"></span> LIVE · AKTUALISIERUNG ALLE 10 SEKUNDEN<br><small id="timestamp">Noch keine Daten</small></div></div>
+<div class="metrics">
+<div class="metric"><span>FREIWILLIGE TEILNAHMEN</span><strong id="metricTotal">0</strong><small>eindeutige Browser-Abstimmungen</small></div>
+<div class="metric"><span>Ø SECURITY SCORE</span><strong id="metricSecurity">—</strong><small>100 = besser geschützt</small></div>
+<div class="metric"><span>KRITISCHES CHAOS</span><strong id="metricChaos">0</strong><small>Security Score unter 30</small></div>
+<div class="metric highlight"><span>RISIKO-MONARCH DES ABENDS</span><strong id="metricLeader">—</strong><small id="leaderCaption">Noch keine Teilnehmer</small></div>
+</div>
+<div class="columns">
+<section class="panel rank"><div class="panel-head"><div><span class="eyebrow">DER KOSMISCHE INDEX</span><h2>Zodiac Risk Leaderboard</h2></div><div class="tiny">HÖHERES RISIKO ↑</div></div>
+<div id="signList" class="sign-list"><p class="empty">Warte auf die erste freiwillige Teilnahme …</p></div>
+<p class="legend">Der Risikoindex ist <strong>100 − Ø Security Score</strong>. Er ist eine satirische Statistik und nicht identisch mit dem persönlichen Security Score. Kleine Stichproben sind nicht repräsentativ.</p>
+</section>
+<section class="panel aside"><div class="panel-head"><div><span class="eyebrow">DIE VIER KOSMISCHEN ZUSTÄNDE</span><h2>Was die Sterne anrichten</h2></div></div><div id="tiers" class="tiers"></div>
+<div class="panel-head question-head"><div><span class="eyebrow">ENTSCHEIDUNGEN IN ECHTZEIT</span><h2>Was hättest du getan?</h2></div></div>
+<div class="question-selector" id="questionTabs"></div><h3 id="questionTitle" class="question-title"></h3><div id="questionChoices" class="question-choices"></div>
+</section>
+</div>
+<div class="board-footer"><span>100 % SATIRE · 0 % ASTROLOGISCHE BEWEISKRAFT</span><strong>KUSENBERG.NET</strong><button id="logout" type="button">Abmelden</button></div>
+<div id="boardError" class="error" role="status"></div>
+</section>
+</main>
+</body></html>
