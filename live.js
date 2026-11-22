@@ -29,7 +29,7 @@ function paint(data){
  '<div class="sign-main"><strong>'+sign[0]+' '+esc(sign[1])+'</strong><small>'+count+' '+(count===1?'Stimme':'Stimmen')+' · Ø Security '+Number(x.averageSecurity).toFixed(1).replace('.',',')+'</small>'+
  '<div class="sign-bar"><b style="width:'+risk+'%"></b></div></div>'+
  '<div class="sign-score">'+risk.toFixed(1).replace('.',',')+'<small>RISK INDEX</small></div></div>';
- }).join(''):'<p class="empty">Noch keine freiwilligen Ergebnisse. Der kosmische Kontrollraum ist bereit.</p>';
+ }).join(''):'<p class="empty">Noch keine gezählten Quiz-Abschlüsse. Der kosmische Kontrollraum ist bereit.</p>';
  const moods=['Souverän','Skeptisch','Verschmitzt','Chaos'];
  const tiers=Array.isArray(data.tiers)?data.tiers:[];
  $('tiers').innerHTML=moods.map((name,i)=>{
