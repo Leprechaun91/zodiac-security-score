@@ -44,13 +44,13 @@ window.ZODIAC_STATS_CONFIG = {
 4. Klicke **Commit changes**. GitHub Pages aktualisiert sich danach automatisch.
 5. **Niemals** einen Secret Key, `sb_secret_...`, `service_role`-Key oder ein Datenbankpasswort in Browser-Code, GitHub oder Chat kopieren.
 
-## 4. Testlauf
+## 4. Testlauf – automatische Abgabe
 
 1. Öffne die Quiz-URL im privaten Browserfenster und spiele fünf Fragen.
-2. Unter der Ergebniskarte erscheint `JA, MEIN ERGEBNIS MITZÄHLEN`. Vor dem Klick werden keine Antwortcodes übertragen.
-3. Klicke einmalig auf den Button und prüfe die Erfolgsmeldung samt Teilnehmerzahl.
+2. Vor dem Quiz steht der Hinweis auf die automatische, einmalige Ergebnisübermittlung. Beim Abschluss der fünften Frage sendet das Quiz das Ergebnis automatisch an Supabase; erst nach Bestätigung erscheint die Ergebniskarte.
+3. Prüfe, dass die Ergebniskarte mit dem Hinweis „Für die Night Session erfasst“ erscheint.
 4. Öffne `/live.html`, logge dich mit dem Moderationskonto ein und prüfe, ob eine Teilnahme im Live-Dashboard erscheint.
-5. Versuche einen zweiten Klick oder wiederhole das Quiz im gleichen Browser: Eine bereits übermittelte Abstimmung darf nicht doppelt gezählt werden.
+5. Wiederhole das Quiz im gleichen Browser: Das Ergebnis erscheint erneut, der Live-Zähler darf aber nicht nochmals steigen.
 6. Teste mindestens ein iPhone/Android-Gerät. Ohne WLAN kannst du die JSON-Zusammenfassung des Boards als Backup sichern.
 
 ## 5. Vor dem Event: Testdaten löschen
@@ -66,7 +66,7 @@ Achtung: Bereits für Tests verwendete Browser speichern die zufällige Abstimm-
 ## 6. Im Vortrag
 
 - Zeige direkt zu Beginn den gewohnten Quiz-QR-Code, die Quiz-URL bleibt gleich.
-- Das Quiz bleibt vollständig nutzbar, wenn niemand freiwillig Statistik übermittelt.
+- Das reguläre Quiz zeigt eine neue Ergebniskarte erst nach erfolgreicher Statistikübermittlung. Bei einem Netzwerkausfall gibt es Wiederholen und Abbrechen; geteilte Ergebnislinks bleiben reine Ansichten ohne neuen Statistik-Eintrag.
 - Das Live-Board `/live.html` öffnest du als Moderator in einem separaten Tab, am besten VOR der Bildschirmprojektion anmelden.
 - Das Board aktualisiert sich ca. alle 10 Sekunden, zeigt ausschließlich aggregierte Statistiken und funktioniert auf 16:9-Projektoren.
 - **Security Score** (höher = besser) und **Zodiac Risk Index** (100 minus durchschnittlicher Security Score; höher = riskanter) sind bewusst getrennt.
@@ -75,7 +75,7 @@ Achtung: Bereits für Tests verwendete Browser speichern die zufällige Abstimm-
 
 ## Datenschutz und Grenzen
 
-- **Freiwillige aktive Einwilligung:** Erst durch Klick nach dem Quiz werden 12er-Sternzeichen-ID, fünf Antwortindizes (0–3) und ein zufälliger Browser-Abstimm-Token über HTTPS übertragen.
+- **Transparente Teilnahmebedingung:** Nach Abschluss werden Sternzeichen-ID, fünf Antwortindizes (0–3) und ein zufälliger Browser-Abstimm-Token über HTTPS gesendet. Die Übermittlung ist Teil der Quiz-Auswertung, nicht mehr ein optionaler Klick nach dem Ergebnis.
 - Keine Namen, Firmen, E-Mail-Adressen oder per App gespeicherte IP-Adressen in `votes`.
 - Technische Infrastruktur-/Zugriffslogs des Cloud-Anbieters können technische Kennungen/IPs verarbeiten. Das Quiz sollte auf eine aktuelle Datenschutzerklärung verlinken; Datenschutzpflichten bestehen auch ohne Namen.
 - Die zufällige ID schützt gegen versehentliches doppeltes Abstimmen in einem Browser. Sie verhindert **keinen absichtlichen Missbrauch** durch Skripte, mehrere Browser oder das Löschen von Site-Daten. Die Zahlen bleiben ein spielerisches Publikumssignal, keine belastbare Umfrage.
@@ -87,7 +87,12 @@ Achtung: Bereits für Tests verwendete Browser speichern die zufällige Abstimm-
 
 - `supabase/setup.sql` – Datenbank mit privaten Rohdaten, serverseitiger Auswertung und Moderations-Zugriff.
 - `stats-config.js` – **nur** Project URL + Publishable Key.
-- `stats.js` – freiwilliger Statistik-Client und Moderations-Login.
+- `stats.js` – Statistik-Client mit einmaliger Browser-ID und Moderations-Login.
 - `live.html`, `live.css`, `live.js` – geschütztes Live-Board.
-- `app.js` und `style.css` – Quiz mit Einwilligungs-Button, nur bei konfiguriertem Backend sichtbar.
+- `app.js` und `style.css` – Quiz mit Transparenz-Hinweis, automatischer Übermittlung, Retry und Fehleranzeige.
 
+
+## v1.4.0 – Neue Pflichtlogik
+Nach der fünften Frage wird der Score automatisch in der Datenbank erfasst. Die Ergebniskarte folgt erst nach erfolgreicher Serverantwort. Pro Browser bleibt genau eine bereits übermittelte Stimme gültig. Besuch über einen bereits geteilten Ergebnislink zählt nicht als neue Quizteilnahme. Vor dem Kongress ggf. bisherige Teststimmen in Supabase leeren und Testbrowser-Site-Daten zurücksetzen.
+
+**Rechtlicher Hinweis:** „Pflicht“ ersetzt keine datenschutzrechtliche Rechtsgrundlage. Die Hinweise auf `https://kusenberg.net/datenschutzerklaerung` müssen diese konkrete Supabase-Verarbeitung, Rechtsgrundlage, verantwortliche Stelle, technischen Zugriffsdaten und Löschfrist angemessen abdecken. Ohne geklärte Rechtsgrundlage ist ein verpflichtendes Modell nicht automatisch DSGVO-konform. Die Browser-Abstimm-ID macht den Datensatz pseudonym, nicht zwangsläufig anonym.
