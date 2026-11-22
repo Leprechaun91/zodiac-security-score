@@ -308,6 +308,49 @@ function personalVerdict(result){
  return {title:mode===0?'Deine kosmische Anklage':mode===1?'Dein überraschender Freispruch':'Kosmisches Schweigen',body:line,footnote:emphasis};
 }
 
+
+function statsInvite(){
+ if(!window.ZodiacStats?.enabled)return '';
+ const previous=window.ZodiacStats.receipt();
+ if(window.ZodiacStats.participated()){
+  return '<section class="zodiac-vote-box zodiac-vote-done" id="zodiacVote">'+
+   '<span class="zodiac-vote-kicker">✦ DEIN BEITRAG ZUR NIGHT SESSION</span>'+
+   '<h3>Du bist Teil des kosmischen Experiments.</h3>'+
+   '<p>Dein Ergebnis wurde bereits einmalig für das Live-Board eingereicht. Insgesamt haben bislang '+
+   Number(previous?.participants||0)+' Personen freiwillig teilgenommen.</p>'+
+   '<small>Der Zähler wird beim Einreichen ermittelt; die aktuellen Ergebnisse zeigt die Moderation live.</small></section>';
+ }
+ return '<section class="zodiac-vote-box" id="zodiacVote">'+
+  '<span class="zodiac-vote-kicker">✦ DU ENTSCHEIDEST</span>'+
+  '<h3>Dein Horoskop auf der großen Leinwand?</h3>'+
+  '<p>Trage dein Ergebnis freiwillig zum anonymisierten Live-Board der DDC Night Session bei. Dafür senden wir dein Sternzeichen, die fünf Antwortcodes und eine zufällige Abstimm-ID. Keine Namen, E-Mails oder Unternehmensangaben.</p>'+
+  button('JA, MEIN ERGEBNIS MITZÄHLEN','submit-stats')+
+  '<small>Nur wenn du klickst, werden diese Quizdaten übertragen. Die Abstimm-ID bleibt in deinem Browser, damit er nicht mehrfach zählt. Der Statistikdienst kann technisch Zugriffslogs führen. Die Teilnahme ist freiwillig und das Quiz funktioniert auch ohne sie.</small>'+
+  '</section>';
+}
+async function submitStats(){
+ if(!window.ZodiacStats?.enabled)return;
+ const panel=app.querySelector('#zodiacVote'),button=panel?.querySelector('[data-do="submit-stats"]');
+ if(!panel||!button)return;
+ button.disabled=true;button.textContent='Kosmische Stimme wird eingetragen …';
+ try{
+  const result=await window.ZodiacStats.submit(calc(),[...state.answers]);
+  if(!panel.isConnected)return;
+  const n=Number(result.participants)||0;
+  panel.classList.add('zodiac-vote-done');
+  panel.innerHTML='<span class="zodiac-vote-kicker">✦ ABSTIMMUNG ERFASST</span>'+
+   '<h3>'+ (result.already?'Du hast bereits teilgenommen.':'Die Sterne haben deine Stimme gezählt.') +'</h3>'+
+   '<p>'+n+' freiwillige '+(n===1?'Teilnahme':'Teilnahmen')+' im Live-Board. Danke für deinen Beitrag zur Night Session!</p>'+
+   '<small>Dein persönliches Ergebnis wird weiterhin lokal berechnet. Keine weiteren Quizdaten werden automatisch gesendet.</small>';
+ }catch(e){
+  if(!panel.isConnected)return;
+  button.disabled=false;button.textContent='NOCH EINMAL VERSUCHEN';
+  let msg=panel.querySelector('.zodiac-vote-error');
+  if(!msg){msg=document.createElement('p');msg.className='zodiac-vote-error';panel.append(msg);}
+  msg.textContent='Übertragung fehlgeschlagen: '+(e.message||e);
+ }
+}
+
 function render(){clearTimeout(timer);
 app.classList.toggle('app-home',state.stage==='start');
 if(state.stage==='start'){
@@ -369,6 +412,7 @@ if(state.stage==='result'){
  '<div class="result-verdict"><div class="result-verdict-eyebrow">✦ PERSÖNLICHE STERNENAKTE</div><h3>'+esc(v.title)+'</h3><p>'+esc(v.body)+'</p><small>'+esc(v.footnote)+'</small></div>'+
  '<div class="result-share-primary">'+button('MEINE ZODIAC-KARTE TEILEN ↗','share')+button('PNG SPEICHERN ↓','png',true)+'</div>'+
  '<p class="result-share-hint">Dein Sternzeichen, dein Score und deine persönliche Diagnose. Kein Login nötig.</p>'+
+ statsInvite()+
  '<details class="result-expand"><summary><span>✧ Superpower, Schwäche und Prophezeiung</span><span class="expand-chevron" aria-hidden="true">⌄</span></summary>'+
  '<div class="details"><article><h3>✦ DEINE SUPERPOWER</h3><p>'+esc(r.s.power)+'</p></article>'+
  '<article><h3>⚠ DEINE KOSMISCHE SCHWÄCHE</h3><p>'+esc(r.s.weak)+'</p></article>'+
@@ -385,7 +429,7 @@ setupZodiacArtwork();
 app.querySelectorAll('[data-do]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.do)));
 app.querySelectorAll('[data-sign]').forEach(b=>b.addEventListener('click',()=>{state.sign=b.dataset.sign;render();}));
 app.querySelectorAll('input[name="answer"]').forEach(i=>i.addEventListener('change',()=>{state.answers[state.q]=Number(i.value);app.querySelectorAll('.option').forEach(el=>el.classList.toggle('selected',el.querySelector('input').checked));const next=app.querySelector('[data-do="next"]');if(next)next.disabled=false;const counter=app.querySelector('.answer-count');if(counter)counter.textContent=state.answers.filter(x=>x!==null).length+' von 5 beantwortet';}));}
-function action(a){if(a==='start')state.stage='sign';if(a==='home')state.stage='start';if(a==='quiz'&&state.sign){state.stage='quiz';state.q=0;}if(a==='back'){if(state.q===0)state.stage='sign';else state.q--;}if(a==='next'){if(state.answers[state.q]===null)return;if(state.q<4)state.q++;else state.stage='scan';}if(a==='reset'){state.stage='start';state.sign=null;state.q=0;state.answers=[null,null,null,null,null];history.replaceState(null,'',location.pathname);}if(a==='png'){png().catch(cardExportFailure);return;}if(a==='share'){share().catch(cardExportFailure);return;}if(a==='copy-link'){copyLink();return;}render();scrollTo({top:0,behavior:'smooth'});}
+function action(a){if(a==='start')state.stage='sign';if(a==='home')state.stage='start';if(a==='quiz'&&state.sign){state.stage='quiz';state.q=0;}if(a==='back'){if(state.q===0)state.stage='sign';else state.q--;}if(a==='next'){if(state.answers[state.q]===null)return;if(state.q<4)state.q++;else state.stage='scan';}if(a==='reset'){state.stage='start';state.sign=null;state.q=0;state.answers=[null,null,null,null,null];history.replaceState(null,'',location.pathname);}if(a==='png'){png().catch(cardExportFailure);return;}if(a==='share'){share().catch(cardExportFailure);return;}if(a==='copy-link'){copyLink();return;}if(a==='submit-stats'){submitStats();return;}render();scrollTo({top:0,behavior:'smooth'});}
 function shareLink(){return location.origin+location.pathname+'#result='+state.sign+'.'+state.answers.join('');}
 function restore(){const m=location.hash.match(/^#result=([a-z]+)\.([0-3]{5})$/);if(m&&signs.some(s=>s.id===m[1])){state.sign=m[1];state.answers=m[2].split('').map(Number);state.stage='result';}}
 function notice(t){let n=document.createElement('div');n.className='toast';n.textContent=t;document.body.append(n);setTimeout(()=>n.remove(),3500);}
