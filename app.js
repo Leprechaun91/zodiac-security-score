@@ -15,62 +15,62 @@ const signs=[
 ].map(x=>({id:x[0],glyph:x[1],name:x[2],title:x[3],base:x[4],aff:x[5].split(' '),power:x[6],weak:x[7],prophecy:x[8]}));
 const questions=[
   {
-    "title": "Dein KI-Agent scheitert 20 Minuten vor der CEO-Demo an „403“. Wie rettest du die Präsentation?",
-    "joke": "Die Folien sind fertig. Nur der Agent hält sich an die Berechtigungen.",
+    "title": "Du sollst einen Prototypen vibe-coden. Der Firmen-Agent ist freigegeben, ein anderes Modell liefert oft besseren Code. Womit startest du?",
+    "joke": "Zwei Modelle, eine Deadline. Dein innerer Entwickler hat bereits ein Lieblingsmodell.",
     "opts": [
       [
-        "Use Case mit synthetischen Daten nachstellen.",
+        "Beide mit einem synthetischen Mini-Projekt vergleichen.",
         2,
         "copy precision shortcut",
-        "Die Demo läuft. Jetzt erklärt jemand dem CEO bitte noch den Unterschied zwischen Simulation und Realität."
+        "Du testest erst einmal auf sicherem Terrain. Die Modelle haben trotzdem beide „production-ready“ gesagt."
       ],
       [
-        "Mit einem berechtigten Kollegen live vorführen.",
+        "Mit dem Team den leistungsstärkeren Agenten nutzen.",
         -4,
         "social access sharing",
-        "Der Agent hat keine Berechtigung. Dein Kollege schon. Least Privilege wird heute zur Teamdisziplin."
+        "Gemeinsam ist man mutiger. Jetzt gilt es herauszufinden, welcher Anbieter bei diesem Pairing noch alles mitliest."
       ],
       [
-        "Temporären Demo-Zugriff offiziell freigeben lassen.",
+        "Mit dem Firmen-Agenten starten und Review einplanen.",
         4,
         "privilege approval process",
-        "Die Freigabe ist da. Das einzige wirklich autonome System heute war der Genehmigungsworkflow."
+        "Du nimmst das bekannte Werkzeug. Beim ersten Review fragt jemand, warum dein Prompt länger ist als der Code."
       ],
       [
-        "Den 403 offen zeigen und den Ablauf erklären.",
+        "Den Favoriten in einem isolierten Prototyp testen.",
         -2,
         "innovation speed observe",
-        "Die Security funktioniert demonstrierbar. Die CEO-Demo wird zum spontanen Compliance-Workshop."
+        "Die Sandbox ist sauber, das Ergebnis beeindruckend. Jetzt fehlt nur noch der Weg in die echte Umgebung."
       ]
     ]
   },
   {
-    "title": "Ein Coding-Agent liefert 6.000 Zeilen Vibe Coding. Tests grün, Release am Freitag. Wie gehst du weiter vor?",
-    "joke": "Der Pull Request sagt „Looks good“. Sein Autor heißt „Prompt vom Dienstag“.",
+    "title": "Ein Kollege liefert dir 6.000 Zeilen KI-generierten Code. Tests grün, Release am Freitag. Wie prüfst du den Pull Request?",
+    "joke": "Früher hieß es „Läuft bei mir“. Heute sagt das sogar der Agent.",
     "opts": [
       [
-        "Mit KI gezielt zusätzliche Grenzfalltests erzeugen.",
+        "KI zusätzliche Grenzfall- und Security-Tests bauen lassen.",
         4,
         "ai innovation precision",
-        "Der Agent prüft den Agenten. Die Qualität steigt, das Vier-Augen-Prinzip wird zur Spiegelgalerie."
+        "Der Agent untersucht den Agenten. Gute Idee, solange beide nicht denselben blinden Fleck teilen."
       ],
       [
-        "Mit Feature Flag als begrenzten Pilot ausrollen.",
+        "Kritische Module gemeinsam im Team reviewen.",
         2,
         "approval process innovation",
-        "Ein kontrollierter Pilot. Security und Delivery haben einen vorübergehenden Waffenstillstand."
+        "Ein Review mit menschlichem Kontext. Leider hat niemand für 6.000 Zeilen sechs Stunden eingeplant."
       ],
       [
-        "Den Coding-Agenten iterativ refactoren lassen.",
+        "Den Coding-Agenten refactoren und erneut testen lassen.",
         -4,
         "automation shortcut ai",
-        "Die KI hat die KI überarbeitet. Der Pull Request sieht besser aus, der Verantwortliche bleibt unauffindbar."
+        "Die zweite KI-Runde sieht eleganter aus. Die eigentliche Frage ist, ob jemand den Unterschied erklären kann."
       ],
       [
-        "Kritische Codepfade zuerst selbst reviewen.",
+        "Einen kritischen Datenpfad selbst nachvollziehen.",
         2,
         "observe delay precision",
-        "Du liest 6.000 Zeilen, um zehn wirklich wichtige zu finden. Die Sterne schicken Kaffee."
+        "Du findest die eine Stelle, an der alles hängt. Der Rest des PR wartet höflich auf Vertrauen."
       ]
     ]
   },
