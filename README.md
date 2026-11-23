@@ -129,3 +129,10 @@ Wenn sich positive und negative Zodiac-Wechselwirkungen ungefähr ausgleichen, n
 - `/live.html` zeigt gezählte, einmalige Browser-Abschlüsse statt einer optionalen Teilnahmequote.
 - Auf der Webseite ist ein kurzer Datenschutzhinweis verlinkt. Die bestehende Datenschutzerklärung unter `https://kusenberg.net/datenschutzerklaerung` sollte speziell für diese Verarbeitung und Supabase ergänzt und die passende Rechtsgrundlage geprüft werden. Bei einer verpflichtenden Übermittlung kann die Verarbeitung nicht einfach als freiwillige Einwilligung bezeichnet werden.
 - Datenlöschung nach der Veranstaltung weiterhin **manuell** im SQL Editor: `TRUNCATE TABLE zodiac_private.votes;`
+
+## v1.4.2 – Developer AI Dilemmata für die DDC
+- Frage 1: Vibe Coding unter Zeitdruck mit genehmigtem Firmen-Agenten vs. leistungsstärkerem Modell. Vier vertretbare Vorgehensweisen, ohne plakative Musterlösung.
+- Frage 2: Review von 6.000 Zeilen KI-generiertem Pull Request. Optionen: KI-Grenzfalltests, gemeinsames Modul-Review, Agenten-Refactoring oder Datenpfad-Analyse.
+- Die anderen drei Fragen behalten ihre zuletzt überarbeiteten Inhalte.
+- Zu jeder Antwort wurden Pointe und Auswertungs-Chart synchronisiert.
+- **SQL-Bewertungen und Cosmic-Tags bleiben exakt gleich**. Kein Supabase-SQL-Update erforderlich. Die alten Antwortcodes werden durch die neuen Antworttexte interpretiert; vor der Konferenz müssen deshalb die alten Teststimmen gelöscht werden.
