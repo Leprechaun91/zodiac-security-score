@@ -15,152 +15,152 @@ const signs=[
 ].map(x=>({id:x[0],glyph:x[1],name:x[2],title:x[3],base:x[4],aff:x[5].split(' '),power:x[6],weak:x[7],prophecy:x[8]}));
 const questions=[
   {
-    "title": "Dein KI-Agent bekommt beim CEO-Demo-Versuch nur „403“. Was jetzt?",
-    "joke": "Autonomer Agent. Erste autonome Entscheidung: „Nö“.",
+    "title": "Dein KI-Agent scheitert 20 Minuten vor der CEO-Demo an „403“. Wie rettest du die Präsentation?",
+    "joke": "Die Folien sind fertig. Nur der Agent hält sich an die Berechtigungen.",
     "opts": [
       [
-        "Testdaten rein. Sieht fast echt aus.",
+        "Use Case mit synthetischen Daten nachstellen.",
         2,
         "copy precision shortcut",
-        "Du nennst es Sandbox. Der CEO nennt es Magie. Der Auditor fragt, was genau die Folie beweist."
+        "Die Demo läuft. Jetzt erklärt jemand dem CEO bitte noch den Unterschied zwischen Simulation und Realität."
       ],
       [
-        "Kollegen mit Zugriff vor die Kamera schieben.",
+        "Mit einem berechtigten Kollegen live vorführen.",
         -4,
         "social access sharing",
-        "Du hast Least Privilege durch Least Alleinsein ersetzt. Immerhin ist der Kollege jetzt Teil des Demo-Teams."
+        "Der Agent hat keine Berechtigung. Dein Kollege schon. Least Privilege wird heute zur Teamdisziplin."
       ],
       [
-        "Befristeten Zugriff organisieren. Wecker stellen.",
+        "Temporären Demo-Zugriff offiziell freigeben lassen.",
         4,
         "privilege approval process",
-        "Dein Horoskop sieht eine Genehmigung. Die Sterne sehen auch, dass um 17 Uhr wieder alles kaputtgeht."
+        "Die Freigabe ist da. Das einzige wirklich autonome System heute war der Genehmigungsworkflow."
       ],
       [
-        "403 als Security-Feature verkaufen.",
+        "Den 403 offen zeigen und den Ablauf erklären.",
         -2,
         "innovation speed observe",
-        "Es ist nicht kaputt, es ist ein Security-Feature. Entwickler nennen das ein erfolgreiches Rebranding."
+        "Die Security funktioniert demonstrierbar. Die CEO-Demo wird zum spontanen Compliance-Workshop."
       ]
     ]
   },
   {
-    "title": "Ein KI-Tool spart zwei Tage Arbeit. Datenschutz antwortet erst Montag.",
-    "joke": "Der Anbieter verspricht „EU-ready“. Der Datenschutz ist gerade „Out of Office“.",
+    "title": "Ein Coding-Agent liefert 6.000 Zeilen Vibe Coding. Tests grün, Release am Freitag. Wie gehst du weiter vor?",
+    "joke": "Der Pull Request sagt „Looks good“. Sein Autor heißt „Prompt vom Dienstag“.",
     "opts": [
       [
-        "Mit Fantasiekunden testen. Grüße von Max Mustermann.",
+        "Mit KI gezielt zusätzliche Grenzfalltests erzeugen.",
         4,
         "ai innovation precision",
-        "Du hast eine Sensation entdeckt: KI funktioniert hervorragend mit Menschen, die nicht existieren."
+        "Der Agent prüft den Agenten. Die Qualität steigt, das Vier-Augen-Prinzip wird zur Spiegelgalerie."
       ],
       [
-        "Pilot beantragen. Q3 wäre noch frei.",
+        "Mit Feature Flag als begrenzten Pilot ausrollen.",
         2,
         "approval process innovation",
-        "Du sagst „Pilot“. Drei Gremien sagen „interessant“. Dein Kalender sagt gar nichts mehr."
+        "Ein kontrollierter Pilot. Security und Delivery haben einen vorübergehenden Waffenstillstand."
       ],
       [
-        "Selbst nachbauen. Drei Sprints sind doch nichts.",
+        "Den Coding-Agenten iterativ refactoren lassen.",
         -4,
         "automation shortcut ai",
-        "Herzlichen Glückwunsch: Du wolltest kein Shadow AI und hast versehentlich ein internes Startup gegründet."
+        "Die KI hat die KI überarbeitet. Der Pull Request sieht besser aus, der Verantwortliche bleibt unauffindbar."
       ],
       [
-        "AGB lesen. Irgendwer muss es ja tun.",
+        "Kritische Codepfade zuerst selbst reviewen.",
         2,
         "observe delay precision",
-        "Du hast die Datenschutzhinweise gelesen. Sogar bis zum Ende. Die Sterne empfehlen dringend Urlaub."
+        "Du liest 6.000 Zeilen, um zehn wirklich wichtige zu finden. Die Sterne schicken Kaffee."
       ]
     ]
   },
   {
-    "title": "Der Kunde soll ins Projekt-Team. Dort wohnen noch Externe von 2022.",
-    "joke": "Im Team sitzt auch „Test Test“. Seit drei Jahren.",
+    "title": "Ein Kunde braucht Zugriff auf euer Projekt-Team. Dort sind noch Gäste aus 2022. Wie gehst du vor?",
+    "joke": "Das Team hat inzwischen mehr Alumni als deine letzte Konferenz.",
     "opts": [
       [
-        "Alte Gäste rauswerfen. Networking war gestern.",
+        "Bestehende Gastzugriffe prüfen, dann einladen.",
         4,
         "retainaccess process external",
-        "Du hast endlich ein Access Review gemacht. Die Sterne bitten um einen Gedenkkranz für Test Test."
+        "Ein gepflegter Gastzugriff? Selbst die Entra-Berichte sind kurz sprachlos."
       ],
       [
-        "Neues Team bauen. Eins mehr fällt nicht auf.",
+        "Eigenes Team mit klaren Mitgliedern aufsetzen.",
         -2,
         "sprawl copy automation",
-        "Dein Risiko ist nicht die Freigabe. Dein Risiko ist die vierte Teams-Gruppe, die jemand nächste Woche gründet."
+        "Ein sauberer Neuanfang. Das nächste Teams-Wildwuchsprojekt hat bereits einen Namen."
       ],
       [
-        "Einzellink schicken. Die Excel kommt später.",
+        "Benötigte Dokumente gezielt per Link freigeben.",
         4,
         "sharing precision external",
-        "Minimalprinzip bestanden. Jetzt beginnt der zweite Teil der Prüfung: Erwartungen managen."
+        "Der Kunde sieht nur das Nötige. Jetzt fragt die Projektleitung, warum der Link nicht zum ganzen Team führt."
       ],
       [
-        "Im Call zeigen. Screenshots macht ja niemand.",
+        "Wichtige Inhalte im gemeinsamen Call durchgehen.",
         -4,
         "social delay shortcut",
-        "Keine Kopie, dafür 14 Screensharing-Minuten verloren. Dein Security-Team applaudiert höflich."
+        "Die Daten bleiben erst einmal im Meeting. Jetzt bleibt nur die Frage, wer die Aufzeichnung besitzt."
       ]
     ]
   },
   {
-    "title": "Dein Agent findet vergessene Daten von 2013. Dienstag ist Audit.",
-    "joke": "Owner: unbekannt. Aufbewahrungsfrist: „Vielleicht irgendwann“.",
+    "title": "Dein KI-Agent entdeckt ein unbekanntes Datenarchiv von 2013. Dienstag ist Audit. Was ist dein erster Schritt?",
+    "joke": "Owner unbekannt. Löschfrist: „Wird geklärt“, seit ungefähr drei Organisationsformen.",
     "opts": [
       [
-        "Archiv isolieren. Problem elegant vertagen.",
+        "Bestand abgrenzen und vorläufig dokumentieren.",
         2,
         "archive process precision",
-        "Du hast das Datenproblem nicht gelöst. Du hast ihm einen Wartebereich mit Hausordnung gegeben."
+        "Du hast dem Chaos einen Zaun gebaut. Dahinter wohnt es weiterhin recht komfortabel."
       ],
       [
-        "Fachbereich suchen. Vielleicht lebt der Owner noch.",
+        "Fachbereich und Verantwortliche dazu holen.",
         4,
         "social approval delay",
-        "Dein Sternzeichen sieht ein Verantwortlichkeitsdiagramm mit mehr Pfeilen als Mitarbeitern."
+        "Die Zuständigkeiten sind geklärt. Drei Kalenderwochen später gibt es sogar einen Termin."
       ],
       [
-        "KI vorsortieren lassen. „Sonstiges“ boomt.",
+        "KI den Bestand vorstrukturieren lassen.",
         -4,
         "ai automation sprawl",
-        "Du hast aus unstrukturierten Daten strukturierte Unklarheit gemacht. Technisch ein Meilenstein."
+        "Dein Agent hat 2013 verstanden. Seine Kategorien sind plausibel, nur der Fachbereich findet sich nicht wieder."
       ],
       [
-        "Bestandsliste anlegen. FINAL_v8 versteht sich.",
+        "Inventar anlegen und Entscheidungen bündeln.",
         -2,
         "retain copy precision",
-        "Ein neues Dokument, um alte Dokumente loszuwerden. Die Sterne lieben diese Ironie."
+        "Noch ein Artefakt für ein altes Archiv. Das Audit liebt Dokumentation, bis jemand fragt, wer sie pflegt."
       ]
     ]
   },
   {
-    "title": "Ein Mitarbeiter lädt in zwölf Minuten 600 Dateien herunter. Am Freitag verlässt er das Unternehmen. Gleichzeitig läuft eine große Datenmigration. Insider-Risiko oder ganz normaler Projektstress? Was tust du?",
-    "joke": "Security vermutet Datenklau. Die IT spricht von einer Migration. Der Mitarbeiter ist gerade Kaffee holen. Drei Wahrheiten, null Gewissheit.",
+    "title": "Ein Mitarbeiter lädt kurz vor seinem Austritt 600 Dateien herunter. Parallel läuft eine Datenmigration. Wie gehst du mit dem Verdacht um?",
+    "joke": "Das SOC sieht Exfiltration. Die IT sieht Projektarbeit. Beide schicken Screenshots.",
     "opts": [
       [
-        "Logs vergleichen. „Kommt drauf an“ melden.",
+        "Downloads mit Migrationsplan und Logs abgleichen.",
         4,
         "observe precision process",
-        "Du hast Kontext gefunden. Leider passt er nicht in die rote Ampel der Management-Folie."
+        "Du lieferst Kontext statt Sirenen. Die Ampel auf der Managementfolie bleibt jetzt leider gelb."
       ],
       [
-        "Transfers begrenzen. Die Migration überlebt das.",
+        "Exportrechte vorerst auf den Projektbedarf begrenzen.",
         -2,
         "speed bypass privilege",
-        "Du hast Datenabfluss begrenzt und gleichzeitig eine neue WhatsApp-Gruppe namens „Warum steht alles?“ ausgelöst."
+        "Datenabfluss begrenzt. Der Migrationsleiter fragt, warum seine Jobs plötzlich schlafen."
       ],
       [
-        "War Room starten. 17 Leute, 18 Meinungen.",
+        "IT, HR und Projektleitung gemeinsam einordnen lassen.",
         2,
         "social approval delay",
-        "Die gute Nachricht: Alle reden miteinander. Die schlechte: Inzwischen haben sich drei Unterarbeitskreise gebildet."
+        "Drei Teams, vier Deutungen, ein Meeting mit dem Titel „Quick Sync“."
       ],
       [
-        "Diskret prüfen. Meeting-Titel: „INSIDER-ALARM!“",
+        "Zuerst vertraulich einzelne Beteiligte befragen.",
         -4,
         "stealth observe process",
-        "Du handelst vorsichtig. Der Meeting-Titel „VERTRAULICHER INSIDER-FALL“ ist nur ein kleines Detail."
+        "Du bleibst diskret. Leider weiß jetzt jede Abteilung, dass jemand „nur ganz kurz“ nachgefragt hat."
       ]
     ]
   }
